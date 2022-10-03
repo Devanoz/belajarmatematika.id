@@ -1,4 +1,13 @@
 export default {
+  target: 'server',
+
+  ssr: true,
+
+  loading: {
+    color: 'white',
+    height: '5px'
+  },
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'belajar-matematika-ui',
@@ -38,13 +47,16 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    // https://dev.auth.nuxtjs.org/
+
+    '@nuxtjs/auth-next'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: '/'
+    baseURL: 'http://localhost:8000'
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
