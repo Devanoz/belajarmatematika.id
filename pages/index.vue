@@ -6,11 +6,10 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import PilihPeran from './PilihPeran/PilihPeran.vue'
 
 export default Vue.extend({
   name: 'IndexPage',
-  components: { PilihPeran }
+  components: { }
 })
 </script>
 

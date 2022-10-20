@@ -1,11 +1,13 @@
 <template>
   <div class="wrapper">
-    <h3>Pilih Peran</h3>
-    <div class="guru">
-      <img src="~/assets/img/pilihPeran/peranGuru.png" alt="">
+    <h2>Pilih Peran</h2>
+    <div class="guru flex-col gap-y-1">
+      <img src="~/assets/img/pemilihan/peran/peranGuru.png" alt="">
+      <p>Guru</p>
     </div>
-    <div class="siswa">
-      <img src="~/assets/img/pilihPeran/peranSiswa.png" alt="">
+    <div class="siswa flex-col gap-y-1">
+      <img src="~/assets/img/pemilihan/peran/peranSiswa.png" alt="">
+      <p>Siswa</p>
     </div>
   </div>
 </template>
@@ -16,9 +18,10 @@ export default {
 }
 </script>
 
-<style>
-    .h3{
-        font-size: 2.5em;
+<style scoped>
+    h2{
+        font-size: 1.5em;
+        color:#56739D;
     }
 
     .guru {
