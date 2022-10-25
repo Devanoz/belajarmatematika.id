@@ -6,20 +6,24 @@
     <span class="text-lg font-light text-slate-400">Masuk ke akun untuk melanjutkan</span>
 
     <form method="post" class="mt-10 h-full flex flex-col gap-y-5">
-      <TextInput label="Nama Lengkap" placeholder="Nama Lengkap" type="text" />
-
       <TextInput label="Alamat Email" placeholder="Alamat Email" type="email" />
       <TextInput label="Password" placeholder="Password" type="password" />
-      <!-- <TextInput label="Konfirmasi Password" placeholder="Konfirmasi Password" type="{{onShow? 'password' | "text"}}" /> -->
+
+      <div class="flex justify-between">
+        <CheckBox label="Ingat Saya" />
+        <NuxtLink to="/auth/forget" class="underline text-lg text-cyan-700">
+          Lupa Kata Sandi?
+        </NuxtLink>
+      </div>
 
       <div class="mt-auto mb-16">
         <button type="submit" class="bg-cs-blue-500 w-full py-3 text-center text-white rounded-2xl shadow-md">
-          Daftar
+          Masuk
         </button>
 
-        <span class="text-center w-full inline-block mt-8">Sudah mempunyai akun?
+        <span class="text-center w-full inline-block mt-8">Belum Punya Akun?
           <NuxtLink to="/auth/forget" class="underline text-lg text-cyan-700">
-            Masuk
+            Daftar
           </NuxtLink>
         </span>
       </div>
@@ -30,14 +34,10 @@
 <script lang="ts">
 import Vue from 'vue'
 import TextInput from '~/components/form/TextInput.vue'
+import CheckBox from '~/components/form/CheckBox.vue'
 
 export default Vue.extend({
   name: 'RegisterPage',
-  components: { TextInput },
-  methods: {
-    showPass: () => {
-
-    }
-  }
+  components: { TextInput, CheckBox }
 })
 </script>
