@@ -1,0 +1,86 @@
+<template>
+  <div class="wrapper">
+    <div class="title text-center my-3">
+      <h1>Papan Peringkat</h1>
+    </div>
+    <hr class="bg-gray-300 h-0.5" />
+    <div
+      class="progress-section h-64 flex justify-center items-center"
+    >
+      <div
+        class="progress-wrapper  h-2/3 w-1/2 flex flex-col justify-start items-center gap-1"
+      >
+        <p class="progress-percentage text-center">100%</p>
+        <div
+          class="circular-progress bg-blue-400 rounded-full w-28 h-28 flex flex-col justify-center items-center"
+        >
+          <div class="progress-value bg-white w-24 h-24 rounded-full"></div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="leaderboard-section bg-white h-screen my-10 mx-auto rounded-2xl"
+    >
+      <div
+        class="detail-peringkat w-72 h-32 mx-auto relative -top-14 rounded-2xl grid grid-cols-3 grid-rows-2 justify-items-center items-center py-4"
+      >
+        <div class="poin  h-auto w-16 flex flex-col text-center  items-center gap-1">
+            <div class="poin-ikon w-5  h-5"></div>
+            <p>Poin</p>
+        </div>
+        <div class="lencana  h-auto w-16 flex flex-col text-center items-center gap-1">
+            <div class="lencana-ikon w-3  h-5"></div>
+            <p>Lencana</p>
+        </div>
+        <div class="peringkat  h-auto w-16 flex flex-col text-center items-center gap-1">
+            <div class="peringkat-ikon w-6  h-5"></div>
+            <p>Peringkat</p>
+        </div>
+        <div class="poin-pts  h-3 w-16 text-center">34pts</div>
+        <div class="lencana-img  h-3 w-16"><img class="mx-auto h-9 w-9" src="~/assets/img/peringkat/lencana/juara1.svg"></div>
+        <div class="no-peringkat  h-3 w-16 text-center">#1</div>
+      </div>
+      <div
+        class="leaderboard-list h-full mx-auto -mt-10 rounded-2xl overflow-y-scroll"
+      ></div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {}
+</script>
+
+<style>
+.leaderboard-list {
+  width: 90%;
+  background: #d5dff1;
+}
+.leaderboard-section {
+  width: 90%;
+  box-shadow: 0px 0px 10px #c0daff;
+}
+.detail-peringkat {
+  background: #5781bd;
+}
+.detail-peringkat p {
+  font-size: 13px;
+}
+.detail-peringkat .lencana,.peringkat,.poin,.poin-pts,.no-peringkat {
+    color: #CBD0D6;
+
+}
+.poin-ikon {
+    background: url("~/assets/img/peringkat/poin.svg");
+}
+.lencana-ikon {
+    background: url("~/assets/img/peringkat/lencana.svg");
+}
+.peringkat-ikon {
+    background: url("~/assets/img/peringkat/peringkat.svg");
+}
+.progress-percentage {
+    color: #84B2F3;
+;
+}
+</style>
