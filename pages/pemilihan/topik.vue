@@ -1,21 +1,27 @@
 <template>
-  <div class="wrapper bg-slate-600 h-screen flex flex-col justify-center items-center">
-    <h2>Pilih Topik</h2>
-    <div class="">
-
+  <div
+    class="relative h-screen flex flex-col justify-center items-center"
+  >
+    <div class="sticky top-5 pb-3  w-fit mx-auto">
+      <h2 class="text-2xl">Pilih Topik</h2>
     </div>
-    <div class="">
-
-    </div>
+    <topikList />
   </div>
 </template>
 
 <script lang="ts">
-export default {
+import topikList from '~/components/pemilihan/topik/topikList.vue'
 
+export default {
+  name: 'HalamanTopik',
+  components: {
+    topikList
+  }
 }
 </script>
 
 <style>
-
+h2 {
+  color: #56739d;
+}
 </style>
