@@ -8,6 +8,7 @@
 
 export default {
   name: 'Home',
+  layout: 'app',
   data () {
     return {
       clicked: false,

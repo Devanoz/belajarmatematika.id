@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col h-full pt-10">
+  <div class="flex flex-col h-full pt-10 px-6">
     <h1 class="text-5xl text-cyan-700">
       Selamat Datang <br>Kembali!
     </h1>

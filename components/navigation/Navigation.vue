@@ -3,9 +3,11 @@
     <div
       class="h-full flex justify-between items-center w-full"
     >
-      <div class="materi" @click="doClick">
-        <img class="h-6 w-auto" src="~/assets/img/navbar/basic/materi.svg" :style="{backgroundColor : getColor()}">
-      </div>
+      <NuxtLink to="/">
+        <div class="materi" @click="doClick">
+          <img class="h-6 w-auto" src="~/assets/img/navbar/basic/materi.svg" :style="{backgroundColor : getColor()}">
+        </div>
+      </NuxtLink>
       <div class="video">
         <img class="h-6 w-auto" src="~/assets/img/navbar/basic/video.svg">
       </div>
