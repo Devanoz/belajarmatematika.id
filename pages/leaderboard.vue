@@ -19,7 +19,7 @@
       </div>
     </div>
     <div
-      class="leaderboard-section bg-white h-screen my-10 mx-auto rounded-2xl"
+      class="leaderboard-section bg-white h-[31.60rem] my-10 mx-auto rounded-2xl"
     >
       <div
         class="detail-peringkat w-72 h-32 mx-auto relative -top-14 rounded-2xl grid grid-cols-3 grid-rows-2 justify-items-center items-center py-4"
@@ -41,17 +41,32 @@
         <div class="no-peringkat  h-3 w-16 text-center">#1</div>
       </div>
       <div
-        class="leaderboard-list h-full mx-auto -mt-10 rounded-2xl overflow-y-scroll"
-      ></div>
+        class="leaderboard-list h-[24.875rem] mx-auto -mt-10 rounded-2xl overflow-y-scroll py-5"
+      >
+      <leaderboard/>
+      <leaderboard/>
+      <leaderboard/>
+      <leaderboard/>
+      <leaderboard/>
+      <leaderboard/>
+    </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {}
+import leaderboard from '~/components/leaderboard/leaderboard.vue'
+
+export default {
+  name: 'Leaderboard',
+  components: {
+    leaderboard
+  }
+
+}
 </script>
 
-<style>
+<style scoped>
 .leaderboard-list {
   width: 90%;
   background: #d5dff1;
@@ -64,7 +79,7 @@ export default {}
   background: #5781bd;
 }
 .detail-peringkat p {
-  font-size: 13px;
+  font-size: 0.813rem;
 }
 .detail-peringkat .lencana,.peringkat,.poin,.poin-pts,.no-peringkat {
     color: #CBD0D6;

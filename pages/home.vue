@@ -40,7 +40,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .navbar {
   height: 6rem;
   background-color: #ffffff;
