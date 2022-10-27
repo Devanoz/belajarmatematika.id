@@ -3,7 +3,7 @@
     <div
       class="h-full flex justify-between items-center w-full"
     >
-      <NuxtLink to="/">
+      <NuxtLink to="/home">
         <div class="materi" @click="doClick">
           <img class="h-6 w-auto" src="~/assets/img/navbar/basic/materi.svg" :style="{backgroundColor : getColor()}">
         </div>
@@ -14,9 +14,12 @@
       <div class="tantangan">
         <img class="h-6 w-auto" src="~/assets/img/navbar/basic/tantangan.svg">
       </div>
-      <div class="pering">
-        <img class="h-6 w-auto" src="~/assets/img/navbar/basic/peringkat.svg">
-      </div>
+
+      <NuxtLink to="/leaderboard">
+        <div class="pering">
+          <img class="h-6 w-auto" src="~/assets/img/navbar/basic/peringkat.svg">
+        </div>
+      </NuxtLink>
     </div>
   </div>
 </template>
