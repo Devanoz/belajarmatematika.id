@@ -233,7 +233,7 @@
                                 </button>
                             </div>
 
-                            <div class="flex h-full flex-col overflow-y-scroll bg-sky-100 pt-6 shadow-xl">
+                            <div class="flex h-full flex-col overflow-y-scroll bg-sky-100 pt-4 shadow-xl">
                                 <div class="px-4 grid grid-cols-4 sm:px-6">
                                     <div class="back-button col-span-1 justify-self-start place-self-center"
                                         @click="toggleSlide">
@@ -244,7 +244,7 @@
                                         </svg>
                                     </div>
 
-                                    <h2 class="text-lg text-center col-start-2 col-span-2 text-cyan-800 font-semibold"
+                                    <h2 class="text-lg text-center col-start-2 col-span-2 place-self-center text-cyan-800 font-semibold"
                                         id="slide-over-title">Materi</h2>
                                     <div class="img-decor">
                                         <img src="@/assets/img/materi/giraffe.svg" alt="">
