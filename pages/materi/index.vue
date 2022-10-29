@@ -61,7 +61,7 @@
 
             <!-- dropdown kelas -->
 
-            <div class="relative inline-block text-left col-span-3 z-20">
+            <div class="relative inline-block text-left col-span-4 mr-2 z-20">
                 <div>
                     <button @click="onDropdownClassClicked" type="button"
                         class="inline-flex w-full justify-center rounded-2xl border border-gray-300 bg-sky-100 px-4 py-1 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 focus:ring-offset-sky-100"
@@ -101,7 +101,7 @@
                 </div>
             </div>
 
-            <div class="col-span-1"></div>
+            <!-- <div class="col-span-1"></div> -->
 
             <!-- dropdown materi -->
             <div class="relative inline-block text-left shadow-2xl col-span-4 z-20 row-end-11">
