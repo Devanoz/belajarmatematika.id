@@ -3,7 +3,7 @@
         <div class="grid grid-cols-3 gap-3 place-content-between">
             <div class="flex">
                 <span class="text-2xl text-cyan-700 font-light col-start-1 col-span-2 self-center">Halo, </span>
-                <span class="text-2xl text-cyan-700 self-center"> {{ nama }}</span>
+                <span class="text-2xl text-cyan-700 self-center ml-1"> {{ nama }}</span>
 
             </div>
             <img class="rounded-full justify-end col-end-4 place-self-end"
