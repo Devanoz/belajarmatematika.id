@@ -199,28 +199,9 @@
             <div class="fixed inset-0 overflow-hidden">
                 <div class="absolute inset-0 overflow-hidden">
                     <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full ">
-                        <!--
-         Slide-over panel, show/hide based on slide-over state.
-
-         Entering: "transform transition ease-in-out duration-500 sm:duration-700"
-           From: "translate-x-full"
-           To: "translate-x-0"
-         Leaving: "transform transition ease-in-out duration-500 sm:duration-700"
-           From: "translate-x-0"
-           To: "translate-x-full"
-       -->
+                       
                         <div class="pointer-events-auto relative w-screen max-w-md transform transition ease-in-out duration-500 sm:duration-700 translate-x-full"
                             :class="{ 'translate-x-0': slideOver }">
-                            <!--
-           Close button, show/hide based on slide-over state.
-
-           Entering: "ease-in-out duration-500"
-             From: "opacity-0"
-             To: "opacity-100"
-           Leaving: "ease-in-out duration-500"
-             From: "opacity-100"
-             To: "opacity-0"
-         -->
                             <div class="absolute top-0 left-0 -ml-8 flex pt-4 pr-2 sm:-ml-10 sm:pr-4">
                                 <button @click="toggleSlide" type="button"
                                     class="rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white">
