@@ -4,22 +4,26 @@
       class="h-full flex justify-between items-center w-full"
     >
       <NuxtLink to="/home">
-        <div class="flex flex-col items-center gap-y-1" @click="doClick">
+        <div class="flex flex-col items-center gap-y-1">
           <img class="h-6 w-auto" src="~/assets/img/navbar/basic/materi.svg">
           <span class="text-slate-400">Materi</span>
         </div>
       </NuxtLink>
-      <div class="flex flex-col items-center gap-y-1" @click="doClick">
-        <img class="h-6 w-auto" src="~/assets/img/navbar/basic/video.svg">
-        <span class="text-slate-400">Video</span>
-      </div>
-      <div class="flex flex-col items-center gap-y-1" @click="doClick">
+
+      <NuxtLink to="/video">
+        <div class="flex flex-col items-center gap-y-1">
+          <img class="h-6 w-auto" src="~/assets/img/navbar/basic/video.svg">
+          <span class="text-slate-400">Video</span>
+        </div>
+      </NuxtLink>
+
+      <div class="flex flex-col items-center gap-y-1">
         <img class="h-6 w-auto" src="~/assets/img/navbar/basic/tantangan.svg">
         <span class="text-slate-400">Tantangan</span>
       </div>
 
       <NuxtLink to="/leaderboard">
-        <div class="flex flex-col items-center gap-y-1" @click="doClick">
+        <div class="flex flex-col items-center gap-y-1">
           <img class="h-6 w-auto" src="~/assets/img/navbar/basic/peringkat.svg">
           <span class="text-slate-400">Peringkat</span>
         </div>
@@ -32,8 +36,7 @@
 export default {
   data () {
     return {
-      clicked: false,
-      val: '~/assets/img/navbar/basic/peringkat.svg'
+      clicked: false
     }
   },
   methods: {

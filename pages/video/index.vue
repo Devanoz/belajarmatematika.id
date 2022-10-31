@@ -1,0 +1,70 @@
+<template>
+  <div class="">
+    <div class="border-b-2 bg-white border-slate-200 py-5 sticky top-0 w-full">
+      <div class="flex justify-center items-center">
+        <h1 class="text-2xl font-bold">
+          Video Pembelajaran
+        </h1>
+      </div>
+    </div>
+
+    <div class="p-8">
+      <h2 class="text-xl text-cs-blue-500 font-bold">
+        Tontonan Terakhir
+      </h2>
+
+      <div class="mt-4">
+        <iframe
+          height="315"
+          class="w-full"
+          src="https://www.youtube.com/embed/cXv_vKX6Y-0"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        />
+      </div>
+
+      <div class="grid grid-flow-row grid-cols-1 gap-8 mt-8 items-center justify-items-center place-items-center">
+        <div v-for="i in [1,2,3,4,5]" :key="i" class="w-full h-36 flex justify-start p-4 items-center gap-x-2 bg-slate-200 rounded-md shadow-lg">
+          <div class="h-28 w-28 rounded-md overflow-hidden">
+            <img class="object-cover object-center" src="https://api.lorem.space/image/house?w=150&h=150" alt="random house">
+          </div>
+
+          <div class="h-full flex flex-col">
+            <NuxtLink to="/video/detail">
+              <span class="text-lg font-semibold">
+                kotak {{ i }}
+              </span>
+            </NuxtLink>
+            <span class="text-lg">
+              {{ i }} Feb 2022
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script language="ts">
+
+export default {
+  name: 'Video',
+  layout: 'app',
+  data () {
+    return {
+      clicked: false,
+      val: '~/assets/img/navbar/basic/peringkat.svg'
+    }
+  },
+  methods: {
+    doClick () {
+      this.clicked = !this.clicked
+    },
+    getColor () {
+      return (this.clicked) ? 'red' : ''
+    }
+  }
+}
+</script>
