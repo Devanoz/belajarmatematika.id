@@ -5,7 +5,7 @@
 @font-face {
   font-family: "Nunito";
   font-style: light;
-  font-weight: 400;
+  font-weight: 300;
   font-display: swap;
   src: url("~assets/fonts/Nunito-Light.ttf") format("truetype");
 }
@@ -21,7 +21,7 @@
 @font-face {
   font-family: "Nunito";
   font-style: medium;
-  font-weight: 400;
+  font-weight: 500;
   font-display: swap;
   src: url("~assets/fonts/Nunito-Medium.ttf") format("truetype");
 }
@@ -29,7 +29,7 @@
 @font-face {
   font-family: "Nunito";
   font-style: semibold;
-  font-weight: 400;
+  font-weight: 600;
   font-display: swap;
   src: url("~assets/fonts/Nunito-SemiBold.ttf") format("truetype");
 }
@@ -37,7 +37,7 @@
 @font-face {
   font-family: "Nunito";
   font-style: bold;
-  font-weight: 400;
+  font-weight: 700;
   font-display: swap;
   src: url("~assets/fonts/Nunito-Bold.ttf") format("truetype");
 }
