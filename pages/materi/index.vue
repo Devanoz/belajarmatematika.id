@@ -253,6 +253,7 @@
 </template>
 <script>
 export default {
+    layout:"app",
     data() {
         return {
             nama: "ihsan",

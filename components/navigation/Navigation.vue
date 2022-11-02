@@ -3,7 +3,7 @@
     <div
       class="h-full flex justify-between items-center w-full"
     >
-      <NuxtLink to="/home">
+      <NuxtLink to="/materi">
         <div class="flex flex-col items-center gap-y-1">
           <img class="h-6 w-auto" src="~/assets/img/navbar/basic/materi.svg">
           <span class="text-slate-400">Materi</span>

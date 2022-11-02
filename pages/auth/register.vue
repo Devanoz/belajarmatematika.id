@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col h-full pt-10 px-6">
-    <h1 class="text-5xl text-cyan-700">
+    <h1 class="text-3xl font-semibold text-cyan-700">
       Selamat Datang <br>Kembali!
     </h1>
     <span class="text-lg font-light text-slate-400">Masuk ke akun untuk melanjutkan</span>
