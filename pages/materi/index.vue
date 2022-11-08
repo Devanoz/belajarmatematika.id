@@ -109,7 +109,7 @@
                     <button @click="onDropdownMateriClicked" type="button"
                         class="inline-flex w-full justify-center rounded-2xl border border-gray-300 bg-sky-100 px-4 py-1 text-sm font-medium text-gray-700 shadow-2xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 focus:ring-offset-sky-100"
                         id="menu-button" aria-expanded="true" aria-haspopup="true">
-                        Materi
+                        Topik
                         <!-- Heroicon name: mini/chevron-down -->
                         <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                             fill="currentColor" aria-hidden="true">
