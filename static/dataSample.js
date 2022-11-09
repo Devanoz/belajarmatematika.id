@@ -5,17 +5,19 @@ export const dataSamples = [
     topik: [
       {
         id: 1,
-        nama: 'pecahan',
+        nama: 'Pecahan',
         materi: [
           {
             id: 1,
             nama: 'Pecahan',
-            videoUrl: 'https://www.youtube.com/watch?v=MpCmJ66FT7Y'
+            videoUrl: 'https://www.youtube.com/embed/MpCmJ66FT7Y',
+            date: '8 Feb, 2022'
           },
           {
             id: 2,
             nama: 'Pecahan Senilai',
-            videoUrl: 'https://www.youtube.com/watch?v=1nSLAXRpyqY'
+            videoUrl: 'https://www.youtube.com/embed/1nSLAXRpyqY',
+            date: '10 Feb, 2022'
           }
         ]
       },
@@ -26,7 +28,8 @@ export const dataSamples = [
           {
             id: 1,
             nama: 'Faktor Persekutuan Terbesar',
-            videoUrl: 'https://www.youtube.com/watch?v=lbVa97_mA88'
+            videoUrl: 'https://www.youtube.com/embed/lbVa97_mA88',
+            date: '15 Feb, 2022'
           }
         ]
       },
@@ -37,7 +40,8 @@ export const dataSamples = [
           {
             id: 1,
             nama: 'Kelipatan Persekutuan Terkecil',
-            videoUrl: 'https://www.youtube.com/watch?v=GXgz52Ebdlc'
+            videoUrl: 'https://www.youtube.com/embed/GXgz52Ebdlc',
+            date: '20 Feb, 2022'
           }
         ]
       }
