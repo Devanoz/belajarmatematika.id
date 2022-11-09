@@ -8,7 +8,7 @@
       </div>
     </div>
 
-    <div class="p-8">
+    <div class="p-4">
       <h2 class="text-xl text-cs-blue-500 font-bold">
         Tontonan Terakhir
       </h2>
@@ -16,8 +16,8 @@
       <div class="mt-4">
         <iframe
           height="315"
-          class="w-full"
-          src="https://www.youtube.com/embed/cXv_vKX6Y-0"
+          class="w-full rounded-lg drop-shadow-lg"
+          src="https://www.youtube.com/embed/fZz0OW8USZw"
           title="YouTube video player"
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
