@@ -16,7 +16,7 @@
         {{ name }}
       </p>
       <p class="poin text-[#828282]">
-        {{ point }}
+        {{ point }} pts
       </p>
     </div>
   </div>
@@ -43,8 +43,6 @@ export default {
       type: String,
       default: ''
     }
-  },
-  data () {
   }
 }
 </script>
