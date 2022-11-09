@@ -1,29 +1,35 @@
 <template>
   <div :style="image" class="flex flex-col h-full pt-10 px-6">
     <h1 class="text-3xl font-semibold text-cyan-700">
-      Selamat Datang <br>Kembali!
+      Daftar Akun
     </h1>
-    <span class="text-lg font-light text-slate-400">Masuk ke akun untuk melanjutkan</span>
+    <span class="text-lg font-light text-slate-400">Buat akun baru untuk bergabung</span>
 
     <form method="post" class="mt-10 h-full flex flex-col gap-y-5">
-      <TextInput label="Alamat Email" placeholder="Alamat Email" type="email" />
-      <TextInput label="Password" placeholder="Password" type="password" />
+      <TextInput label="Nama Lengkap" placeholder="nama lengkap" type="email" />
+      <TextInput label="Alamat Email" placeholder="alamat email" type="email" />
+      <TextInput label="Password" placeholder="password" type="password" />
+      <TextInput label="Konfirmasi Password" placeholder="konfirmasi password" type="password" />
 
-      <div class="flex justify-between">
+      <!-- <div class="flex justify-between">
         <CheckBox label="Ingat Saya" />
         <NuxtLink to="/auth/forget" class="underline text-lg text-cyan-700">
           Lupa Kata Sandi?
         </NuxtLink>
-      </div>
+      </div> -->
 
       <div class="mt-auto mb-16">
-        <button type="submit" class="bg-cs-blue-500 w-full py-3 text-center text-white rounded-2xl shadow-md">
-          Masuk
+        <NuxtLink to="/" >
+          <button type="submit" class="bg-cs-blue-500 w-full py-3 text-center text-white rounded-2xl shadow-md">
+          Daftar
         </button>
+          </NuxtLink>
 
-        <span class="text-center w-full inline-block mt-8">Belum Punya Akun?
-          <NuxtLink to="/auth/forget" class="underline text-lg text-cyan-700">
-            Daftar
+       
+
+        <span class="text-center w-full inline-block mt-8">Sudah punya Akun?
+          <NuxtLink to="/" class="underline text-lg text-cyan-700">
+            Masuk
           </NuxtLink>
         </span>
       </div>
@@ -43,7 +49,7 @@ export default Vue.extend({
   data() {
     return {
       url: require('~/assets/img/general/bg.jpeg'),
-      image: ` backgroundImage: url(${require('~/assets/img/general/bg.jpeg')}); backgroundSize: cover; opacity: 0.7 `
+      image: ` backgroundImage: url(${require('~/assets/img/general/bg.jpeg')}); backgroundSize: cover; opacity: 0.9 `
     }
   },
 

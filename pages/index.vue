@@ -25,7 +25,7 @@
         </nuxt-link>
 
         <span class="text-center w-full inline-block mt-8">Belum Punya Akun?
-          <NuxtLink to="/auth/forget" class="underline text-lg text-cyan-700">
+          <NuxtLink to="/auth/register" class="underline text-lg text-cyan-700">
             Daftar
           </NuxtLink>
         </span>
@@ -46,7 +46,7 @@ export default Vue.extend({
   data() {
     return {
       url: require('~/assets/img/general/bg.jpeg'),
-      image: ` backgroundImage: url(${require('~/assets/img/general/bg.jpeg')}); backgroundSize: cover; opacity: 0.7 `
+      image: ` backgroundImage: url(${require('~/assets/img/general/bg.jpeg')}); backgroundSize: cover; opacity: 1 `
     }
   },
 
