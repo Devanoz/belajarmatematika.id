@@ -2,13 +2,13 @@
   <div
     class="overflow-y-auto h-full w-fit flex flex-col gap-5 my-5 p-5"
   >
-    <topik v-for="topik in topikList" :key="topik.id" :name="topik.name" />
+    <topik v-for="val in topikList" :key="val.id" :name="val.nama" />
   </div>
 </template>
 
 <script>
 import topik from './topik.vue'
-import { topiks } from '~/static/topiks.js'
+import { dataSamples } from '~/static/dataSample.js'
 
 export default {
   name: 'TopikList',
@@ -17,7 +17,7 @@ export default {
   },
   data () {
     return {
-      topikList: topiks
+      topikList: dataSamples[1].topik
     }
   }
 }

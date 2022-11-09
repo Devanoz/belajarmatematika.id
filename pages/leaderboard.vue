@@ -16,7 +16,9 @@
         <div
           class="circular-progress bg-blue-400 rounded-full w-28 h-28 flex flex-col justify-center items-center"
         >
-          <div class="progress-value bg-white w-24 h-24 rounded-full" />
+          <div class="progress-value bg-white w-24 h-24 rounded-full flex justify-center items-center">
+            <img src="~/assets/img/peringkat/rocket.svg">
+          </div>
         </div>
       </div>
     </div>
@@ -51,12 +53,14 @@
       <div
         class="leaderboard-list h-[24.875rem] mx-auto -mt-10 rounded-2xl overflow-y-scroll py-5"
       >
-        <leaderboard />
-        <leaderboard />
-        <leaderboard />
-        <leaderboard />
-        <leaderboard />
-        <leaderboard />
+        <leaderboard
+          v-for="person in personList"
+          :key="person.id"
+          :no="person.id"
+          :name="person.nama"
+          :point="person.points"
+          :image="person.url"
+        />
       </div>
     </div>
   </div>
@@ -64,13 +68,19 @@
 
 <script>
 import leaderboard from '~/components/leaderboard/leaderboard.vue'
+import { person } from '~/static/person.js'
 
 export default {
   name: 'Leaderboard',
   components: {
     leaderboard
   },
-  layout: 'app'
+  layout: 'app',
+  data () {
+    return {
+      personList: person
+    }
+  }
 
 }
 </script>

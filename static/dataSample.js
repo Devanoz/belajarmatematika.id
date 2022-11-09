@@ -5,7 +5,7 @@ export const dataSamples = [
     topik: [
       {
         id: 1,
-        nama: 'Pecahan',
+        nama: 'pecahan',
         materi: [
           {
             id: 1,
@@ -49,7 +49,7 @@ export const dataSamples = [
     topik: [
       {
         id: 1,
-        nama: 'Pecahan',
+        nama: 'pecahan',
         materi: [
           {
             id: 1,
