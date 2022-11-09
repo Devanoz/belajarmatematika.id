@@ -5,11 +5,11 @@ export const dataSamples = [
     topik: [
       {
         id: 1,
-        nama: 'pecahan',
+        nama: 'Pecahan',
         materi: [
           {
             id: 1,
-            nama: 'pecahan',
+            nama: 'Pecahan',
             videoUrl: 'https://www.youtube.com/watch?v=MpCmJ66FT7Y'
           },
           {
@@ -49,7 +49,7 @@ export const dataSamples = [
     topik: [
       {
         id: 1,
-        nama: 'pecahan',
+        nama: 'Pecahan',
         materi: [
           {
             id: 1,
@@ -76,7 +76,7 @@ export const dataSamples = [
       },
       {
         id: 3,
-        nama: 'Pengukuran waktu,sudut,& kecepatan',
+        nama: 'Pengukuran waktu, sudut, & kecepatan',
         materi: [
           {
             id: 1,

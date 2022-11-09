@@ -85,16 +85,16 @@
                     <div class="py-1" role="none">
                         <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
                         <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1"
-                            id="menu-item-0">Kelas 1</a>
+                            id="menu-item-0">Kelas 4</a>
                     </div>
                     <div class="py-1" role="none">
                         <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1"
-                            id="menu-item-2">Kelas 2</a>
+                            id="menu-item-2">Kelas 5</a>
 
                     </div>
                     <div class="py-1" role="none">
                         <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1"
-                            id="menu-item-4">Kelas 3</a>
+                            id="menu-item-4">Kelas 6</a>
 
                     </div>
 
@@ -120,25 +120,16 @@
                     </button>
                 </div>
 
-
+ 
                 <div class="absolute right-0  z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                     :class="{ 'hidden': dropdownMateriClicked == false }" role="menu" aria-orientation="vertical"
                     aria-labelledby="menu-button" tabindex="-1">
-                    <div class="py-1" role="none">
+                    <div v-for="topik in topiks" class="py-1" role="none">
                         <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
                         <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1"
-                            id="menu-item-0">Bangun Datar</a>
+                            id="menu-item-0">{{topik.name}}</a>
                     </div>
-                    <div class="py-1" role="none">
-                        <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1"
-                            id="menu-item-2">Trigonometri</a>
-
-                    </div>
-                    <div class="py-1" role="none">
-                        <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1"
-                            id="menu-item-4">Bilangan Biner</a>
-
-                    </div>
+                
 
                 </div>
             </div>
@@ -147,34 +138,40 @@
         </div>
 
         <!-- title materi -->
-        <h2 class="text-xl mt-4 text-cyan-700">Trigonometri</h2>
-
+        
         <!-- materi vertical -->
-        <div class="flex flex-col" :class="{ 'hidden': isMateriVertical }">
+        <div class="flex flex-col " :class="{ 'hidden': isMateriVertical }">
+            <div v-for="data in dataSample" class="z-10">
+                <div v-for="topik in data.topik">
 
-            <!-- card materi -->
-            <div v-for="index in 5" :key="index + 'index'"
-                class="grid grid-cols-6 drop-shadow-lg border-b-2 mb-2 rounded-xl z-10 bg-white py-3 px-2" @click="toggleSlide">
-                <div class="card-image col-span-1">
-                    <img src="@/assets/img/materi/book.svg" alt="">
+                    <h2 class="text-xl mt-4 text-cyan-700">{{topik.nama}}</h2>
+        
+                    <!-- card materi -->
+                    <div v-for="materi in topik.materi" :key="materi.id + 'index'"
+                        class="grid grid-cols-6 drop-shadow-lg border-b-2 mb-2 rounded-xl z-10 bg-white py-3 px-2" @click="toggleSlide">
+                        <div class="card-image col-span-1">
+                            <img src="@/assets/img/materi/book.svg" alt="">
+                        </div>
+                        <div class="card-content col-span-5 flex flex-col">
+                            <p class="font-light ">{{materi.nama}}</p>
+                            <span class="text-gray-500 text-sm">13.00 PM</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-content col-span-5 flex flex-col">
-                    <p class="font-light ">Materi Satuan</p>
-                    <span class="text-gray-500 text-sm">13.00 PM</span>
-                </div>
+
             </div>
         </div>
 
         <!-- materi horizontal -->
         <div class="grid grid-cols-6 mt-2" :class="{ 'hidden': isMateriFlex }">
-            <div v-for="index in 6" :key="index + 'index2'"
+            <div v-for="index in materis" :key="index.id + 'index2'"
                 class="flex flex-col col-span-2 bg-white mx-1 mt-2 z-10 drop-shadow-xl rounded-xl px-2 py-2" @click="toggleSlide">
                 <div class="image place-self-center">
                     <img src="@/assets/img/materi/book.svg" class=" w-14 h-14" alt="">
 
                 </div>
                 <div class="title place-self-center text-sm font-normal leading-4 mt-2 text-gray-700 text-center">
-                    Luas Volume Balok
+                    {{index.nama}}
                 </div>
             </div>
 
@@ -252,18 +249,34 @@
     </div>
 </template>
 <script>
+import {dataSamples} from "@/static/dataSample";
+import { materi } from "@/static/listMateri";
+import { topiks } from "@/static/topiks";
 export default {
     layout:"app",
     data() {
         return {
+            topiks: topiks,
+            materis: materi,
+            dataSample: dataSamples,
             nama: "ihsan",
             dropdownClassClicked: false,
             dropdownMateriClicked: false,
             isMateriVertical: true,
             isMateriFlex: false,
-            slideOver: false
+            slideOver: false,
+            materi4:[]
         }
     },
+
+    mounted() {
+        this.materi4 = this.dataSample.filter(function(el){
+            return el.kelas == '4'
+        })
+        console.log(this.materi4);
+        console.log("hallao");
+    },
+
 
     methods: {
         toggleSlide() {
