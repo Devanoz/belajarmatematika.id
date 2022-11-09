@@ -25,21 +25,34 @@
         />
       </div>
 
-      <div class="grid grid-flow-row grid-cols-1 gap-8 mt-8 items-center justify-items-center place-items-center">
-        <div v-for="i in [1,2,3,4,5]" :key="i" class="w-full h-36 flex justify-start p-4 items-center gap-x-2 bg-slate-200 rounded-md shadow-lg">
-          <div class="h-28 w-28 rounded-md overflow-hidden">
-            <img class="object-cover object-center" src="https://api.lorem.space/image/house?w=150&h=150" alt="random house">
-          </div>
+      <div class="video-section my-5">
+        <div v-for="topik in videoList" :key="topik.id" class="group my-5">
+          <h2 class="text-xl text-cs-blue-500 font-bold">
+            {{ topik.nama }}
+          </h2>
+          <div v-for="materi in topik.materi" :key="materi.id" class="grid grid-flow-row grid-cols-1 gap-8 mt-8 items-center justify-items-center place-items-center">
+            <div class="w-full h-36 flex justify-start p-4 items-center  bg-slate-200 rounded-md shadow-lg">
+              <div class="h-28 w-28 rounded-md overflow-hidden">
+                <iframe
+                  class="object-cover object-center"
+                  :src="materi.videoUrl"
+                  alt="random house"
+                  height="315"
+                  title="YouTube video player"
+                />
+              </div>
 
-          <div class="h-full flex flex-col">
-            <NuxtLink to="/video/detail">
-              <span class="text-lg font-semibold">
-                kotak {{ i }}
-              </span>
-            </NuxtLink>
-            <span class="text-lg">
-              {{ i }} Feb 2022
-            </span>
+              <div class="h-full flex flex-col">
+                <NuxtLink to="/video/detail">
+                  <span class="text-lg font-semibold mx-5">
+                    {{ materi.nama }}
+                  </span>
+                </NuxtLink>
+                <span class="text-lg mx-5">
+                  {{ materi.date }}
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -48,6 +61,7 @@
 </template>
 
 <script language="ts">
+import { dataSamples } from '~/static/dataSample'
 
 export default {
   name: 'Video',
@@ -55,7 +69,8 @@ export default {
   data () {
     return {
       clicked: false,
-      val: '~/assets/img/navbar/basic/peringkat.svg'
+      val: '~/assets/img/navbar/basic/peringkat.svg',
+      videoList: dataSamples[0].topik
     }
   },
   methods: {
