@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col h-full pt-10 px-6">
+  <div :style="image" class="flex flex-col h-full pt-10 px-6">
     <h1 class="text-3xl font-semibold text-cyan-700">
       Selamat Datang <br>Kembali!
     </h1>
@@ -38,6 +38,15 @@ import CheckBox from '~/components/form/CheckBox.vue'
 
 export default Vue.extend({
   name: 'RegisterPage',
-  components: { TextInput, CheckBox }
+  components: { TextInput, CheckBox },
+
+  data() {
+    return {
+      url: require('~/assets/img/general/bg.jpeg'),
+      image: ` backgroundImage: url(${require('~/assets/img/general/bg.jpeg')}); backgroundSize: cover; opacity: 0.7 `
+    }
+  },
+
+
 })
 </script>

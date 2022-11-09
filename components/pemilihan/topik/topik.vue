@@ -1,9 +1,12 @@
 <template>
-  <div
-    class="topik text-center rounded-2xl flex flex-col justify-center items-center py-8 font-semibold shadow-md"
-  >
-    {{ name }}
-  </div>
+  <nuxt-link to="/materi">
+    <div
+      class="topik text-center rounded-2xl flex flex-col justify-center items-center py-8 font-semibold shadow-md"
+    >
+      {{ name }}
+    </div>
+
+  </nuxt-link>
 </template>
 
 <script lang="ts">

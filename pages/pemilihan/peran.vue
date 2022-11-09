@@ -1,14 +1,18 @@
 <template>
   <div class="wrapper">
     <h2>Pilih Peran</h2>
-    <div class="guru flex-col gap-y-1">
-      <img src="~/assets/img/pemilihan/peran/peranGuru.png" alt="">
-      <p>Guru</p>
-    </div>
-    <div class="siswa flex-col gap-y-1">
-      <img src="~/assets/img/pemilihan/peran/peranSiswa.png" alt="">
-      <p>Siswa</p>
-    </div>
+      <div class="guru flex-col gap-y-1 drop-shadow-2xl">
+        <img src="~/assets/img/pemilihan/peran/peranGuru.png" alt="">
+        <p>Guru</p>
+      </div>
+
+    <nuxt-link to="/pemilihan/kelas">
+
+      <div class="siswa flex-col gap-y-1 drop-shadow-2xl">
+        <img src="~/assets/img/pemilihan/peran/peranSiswa.png" alt="">
+        <p>Siswa</p>
+      </div>
+    </nuxt-link>
   </div>
 </template>
 
