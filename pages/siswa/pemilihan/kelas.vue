@@ -3,21 +3,21 @@
     class="wrapper flex flex-col h-screen justify-center items-center gap-y-4"
   >
     <h2>Pilih Kelas</h2>
-    <nuxt-link to="/pemilihan/topik">
+    <nuxt-link to="/siswa/pemilihan/topik">
       <div class="kelas-4 bg-kelas bg-none">
       <div class="flex flex-row justify-center items-end w-full h-full">
         <p class="text-[#AC2D2D] mb-5">Kelas 4</p>
       </div>
     </div>
     </nuxt-link>
-    <nuxt-link to="/pemilihan/topik">
+    <nuxt-link to="/siswa/pemilihan/topik">
       <div class="kelas-5 bg-kelas bg-none">
       <div class="flex flex-row justify-center items-end w-full h-full">
         <p class="text-[#AD7A2D]  mb-5">Kelas 5</p>
       </div>
     </div>
     </nuxt-link>
-    <nuxt-link to="/pemilihan/topik">
+    <nuxt-link to="/siswa/pemilihan/topik">
       <div class="kelas-6 bg-kelas bg-none">
       <div class="flex flex-row justify-center items-end w-full h-full">
         <p class="text-[#2DAD2D]  mb-5">Kelas 6</p>

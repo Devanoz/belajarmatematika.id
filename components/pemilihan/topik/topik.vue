@@ -1,5 +1,5 @@
 <template>
-  <nuxt-link to="/materi">
+  <nuxt-link to="/siswa/materi">
     <div
       class="topik text-center rounded-2xl flex flex-col justify-center items-center py-8 font-semibold shadow-md"
     >

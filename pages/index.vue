@@ -11,21 +11,21 @@
 
       <div class="flex justify-between">
         <CheckBox label="Ingat Saya" />
-        <NuxtLink to="/auth/forget" class="underline text-lg text-cyan-700">
+        <NuxtLink to="siswa/auth/forget" class="underline text-lg text-cyan-700">
           Lupa Kata Sandi?
         </NuxtLink>
       </div>
 
       <div class="mt-auto mb-16">
        
-        <nuxt-link to="/pemilihan/peran">
+        <nuxt-link to="siswa/pemilihan/peran">
           <button type="submit" class="bg-cs-blue-500 w-full py-3 text-center text-white rounded-2xl shadow-md">
           Masuk
         </button>
         </nuxt-link>
 
         <span class="text-center w-full inline-block mt-8">Belum Punya Akun?
-          <NuxtLink to="/auth/register" class="underline text-lg text-cyan-700">
+          <NuxtLink to="siswa/auth/register" class="underline text-lg text-cyan-700">
             Daftar
           </NuxtLink>
         </span>

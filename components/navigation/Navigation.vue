@@ -51,7 +51,7 @@ export default {
     methods: {
         onMateriClicked() {
             this.$router.push({
-                name: 'materi',
+                name: 'siswa-materi',
             })
 
             this.materiClicked = !this.materiClicked
@@ -62,7 +62,7 @@ export default {
 
         onVideoClicked() {
             this.$router.push({
-                name: 'video',
+                name: 'siswa-video',
             })
             this.materiClicked = false
             this.videoClicked = true
@@ -72,7 +72,7 @@ export default {
 
         onTantanganClicked() {
             this.$router.push({
-                name: 'tantangan',
+                name: 'siswa-tantangan',
             })
             this.materiClicked = false
             this.videoClicked = false
@@ -82,7 +82,7 @@ export default {
 
         onPeringkatClicked() {
             this.$router.push({
-                name: 'leaderboard',
+                name: 'siswa-leaderboard',
             })
             this.materiClicked = false
             this.videoClicked = false

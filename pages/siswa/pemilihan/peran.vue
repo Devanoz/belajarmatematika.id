@@ -6,7 +6,7 @@
         <p>Guru</p>
       </div>
 
-    <nuxt-link to="/pemilihan/kelas">
+    <nuxt-link to="/siswa/pemilihan/kelas">
 
       <div class="siswa flex-col gap-y-1 drop-shadow-2xl">
         <img src="~/assets/img/pemilihan/peran/peranSiswa.png" alt="">
