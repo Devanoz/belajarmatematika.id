@@ -1,11 +1,15 @@
 <template>
   <div class="wrapper">
     <h2>Pilih Peran</h2>
+
+    <nuxt-link to="/guru">
       <div class="guru flex-col gap-y-1 drop-shadow-2xl">
         <img src="~/assets/img/pemilihan/peran/peranGuru.png" alt="">
         <p>Guru</p>
       </div>
 
+    </nuxt-link>
+    
     <nuxt-link to="/siswa/pemilihan/kelas">
 
       <div class="siswa flex-col gap-y-1 drop-shadow-2xl">
