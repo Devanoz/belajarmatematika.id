@@ -18,7 +18,7 @@
         3 poin
       </div>
       <div id="question" class="w-full h-72  py-5">
-          <div id="multiple-choiches"  v-if="!essay">
+          <div v-if="!essay" id="multiple-choiches">
               <div id="choice-a" class="w-[20.438rem] h-[2.875rem] my-3 bg-white rounded-2xl border-solid border-2 border-[#6D9DE0] flex flex-col justify-center items-center">
                 8
               </div>
@@ -32,7 +32,7 @@
                 7
               </div>
           </div>
-          <div id="essay">
+          <div v-else id="essay">
             <input type="text" class="w-[20.438rem] h-[2.875rem] my-3 bg-white rounded-2xl border-solid border-2 border-[#6D9DE0] flex flex-col justify-center items-center px-3" placeholder="Ketik jawaban">
           </div>
       </div>
