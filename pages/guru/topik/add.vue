@@ -55,8 +55,8 @@ export default {
     }
   },
   mounted () {
-    const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2JhY2tlbmQuYmVsYWphcm1hdGVtYXRpa2EuaWQvYXBpL3RlYWNoZXIvbG9naW4iLCJpYXQiOjE2Njg3Mzk5NTMsImV4cCI6MTY2ODc0MzU1MywibmJmIjoxNjY4NzM5OTUzLCJqdGkiOiJqNHpldWV5YTVjZDhQbm1iIiwic3ViIjoiMSIsInBydiI6ImIyN2JlZTIzYmFmNTQyOWY1YjlhMjE2OTZmZGUwM2MyNzcwNDRlYTUifQ.NTY63TvchDZKtTFGjLoPUp2vtBi_kJAhRjpgFO04djY"
-    const baseURL = 'https://backend.belajarmatematika.id';
+    const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL3RlYWNoZXIvbG9naW4iLCJpYXQiOjE2NjkxNzU0MTUsImV4cCI6MTY2OTE3OTAxNSwibmJmIjoxNjY5MTc1NDE1LCJqdGkiOiJ3NUZxY05Lc3M4QWRTbVlQIiwic3ViIjoiMSIsInBydiI6ImIyN2JlZTIzYmFmNTQyOWY1YjlhMjE2OTZmZGUwM2MyNzcwNDRlYTUifQ.XTt4nGfvWClHyjSZ1iEnscp2Rc6bQ9pxYDzbE-NKfHw"
+    const url = "https://backend.belajarmatematika.id/api/teacher/kelas";
 
     const config = {
       headers : {
@@ -65,7 +65,7 @@ export default {
       }
     }
 
-    this.$axios.get(baseURL,null, config)
+    this.$axios.get(url,null, config)
       .then(response => {
         this.kelasList = response.data
       })
