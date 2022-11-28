@@ -50,10 +50,78 @@ export default {
     '@nuxtjs/auth-next'
   ],
 
+
+
+  auth: {
+    strategies: {
+  
+        //strategy "admin"
+        teacher: {
+          scheme: 'local',
+          token: {
+            property: 'token',
+            required: true,
+            type: 'Bearer'
+          },
+          user: {
+            property: 'user',
+            // autoFetch: true
+          },
+          endpoints: {
+            login: {
+              url: '/api/teacher/login',
+              method: 'post',
+              propertyName: 'token'
+            },
+            logout: {
+              url: '/api/teacher/logout',
+              method: 'post'
+            },
+            user: {
+              url: '/api/teacher/user',
+              method: 'get',
+              propertyName: 'user'
+            }
+          },
+        },
+  
+        //strategy "customer"
+        student: {
+          scheme: 'local',
+          token: {
+            property: 'token',
+            required: true,
+            type: 'Bearer'
+          },
+          user: {
+            property: 'user',
+            // autoFetch: true
+          },
+          endpoints: {
+            login: {
+              url: '/api/student/login',
+              method: 'post',
+              propertyName: 'token'
+            },
+            logout: {
+              url: '/api/student/logout',
+              method: 'post'
+            },
+            user: {
+              url: '/api/student/user',
+              method: 'get',
+              propertyName: 'user'
+            }
+          },
+        },
+  
+    },
+  },
+
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: 'http://localhost:8000'
+    baseURL: 'https://backend.belajarmatematika.id'
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

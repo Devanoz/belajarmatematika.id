@@ -147,14 +147,13 @@
                     <h2 class="text-xl mt-4 text-cyan-700">{{topik.nama}}</h2>
         
                     <!-- card materi -->
-                    <div v-for="materi in topik.materi" :key="materi.id + 'index'"
+                    <div v-for="materi in topik.materi" :key="materi.id + 'index' + topik.nama+materi.nama"
                         class="grid grid-cols-6 drop-shadow-lg border-b-2 mb-2 rounded-xl z-10 bg-white py-3 px-2" @click="toggleSlide">
                         <div class="card-image col-span-1">
                             <img src="@/assets/img/materi/book.svg" alt="">
                         </div>
                         <div class="card-content col-span-5 flex flex-col">
                             <p class="font-light ">{{materi.nama}}</p>
-                            <span class="text-gray-500 text-sm">13.00 PM</span>
                         </div>
                     </div>
                 </div>
