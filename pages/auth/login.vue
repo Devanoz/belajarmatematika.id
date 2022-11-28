@@ -17,7 +17,7 @@
       </div>
 
       <div class="mt-auto mb-16">
-        <button type="submit" class="bg-cs-blue-500 w-full py-3 text-center text-white rounded-2xl shadow-md">
+        <button @click="" type="submit" class="bg-cs-blue-500 w-full py-3 text-center text-white rounded-2xl shadow-md">
           Masuk
         </button>
 

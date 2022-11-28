@@ -30,7 +30,7 @@
       </div>
     </div>
 
-    <NuxtLink to="/guru/video/add">
+    <NuxtLink to="/guru/topik/add">
       <div id="floating-button"
            class="bg-[#6D9DE0] w-[3.375rem] h-[3.375rem] z-10 fixed shadow-xl bottom-[6rem] right-[1.5rem] rounded-full flex justify-center items-center"
       >
@@ -43,19 +43,12 @@
 </template>
 
 <script>
-import { dataSamples } from '@/static/dataSample'
-
 export default {
-  name: 'add-video',
-  layout: 'guru',
-  data () {
-    return {
-      dataSample: dataSamples
-    }
-  }
+  name: 'index.vue',
+  layout :'guru'
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>
