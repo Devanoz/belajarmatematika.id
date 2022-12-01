@@ -124,7 +124,21 @@ import Multiselect from 'vue-multiselect'
 import 'vue-multiselect/dist/vue-multiselect.min.css'
 
 export default {
+    middleware:'isTeacher',
     layout: 'guru',
+
+    async asyncData({ store }) {
+        await store.dispatch('teacher/kelas/getClasesData')
+    },
+
+    //computed
+    computed: {
+
+        //categories
+        categories() {
+            return this.$store.state.teacher.kelas.clases
+        },
+    },
     data() {
         return {
             filter: {

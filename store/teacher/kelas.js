@@ -32,7 +32,7 @@ export const mutations = {
 export const actions = {
 
     //get clases data
-    getCategoriesData({ commit, state }, payload) {
+    getClasesData({ commit, state }, payload) {
 
         //search
         let search = payload ? payload : ''
@@ -41,7 +41,7 @@ export const actions = {
         return new Promise((resolve, reject) => {
 
             //fetching Rest API "/api/admin/clases" with method "GET"
-            this.$axios.get(`/api/admin/clases?q=${search}&page=${state.page}`)
+            this.$axios.get(`/api/teacher/kelas?q=${search}&page=${state.page}`)
             
             //success
             .then((response) => {
