@@ -45,7 +45,7 @@
         <div class="relative inline-block text-left col-span-4 mr-2 z-20">
           
 
-            <multiselect v-model="nama" :options="provinces" :searchable="true" placeholder="Select one" selected-label="" select-label="" deselect-label="">
+            <multiselect v-model="filter.kelas" :options="provinces" :searchable="true" placeholder="Select one" selected-label="" select-label="" deselect-label="">
                
             </multiselect>
 
@@ -56,7 +56,7 @@
 
         <!-- dropdown materi -->
         <div class="relative inline-block text-left shadow-2xl col-span-4 z-20 row-end-11">
-            <multiselect v-model="nama" :options="provinces" :searchable="true" placeholder="Select one" selected-label="" select-label="" deselect-label="">
+            <multiselect v-model="filter.materi" :options="provinces" :searchable="true" placeholder="Select one" selected-label="" select-label="" deselect-label="">
                
             </multiselect>
         </div>
@@ -176,12 +176,17 @@ import {
 import Multiselect from 'vue-multiselect'
 import 'vue-multiselect/dist/vue-multiselect.min.css'
 export default {
+    // middleware: 'isStudent',
     components: {
         Multiselect,
     },
     layout: "app",
     data() {
         return {
+            filter: {
+                kelas: '',
+                materi: ''
+            },
             topiks: topiks,
             materis: materi,
             dataSample: dataSamples,

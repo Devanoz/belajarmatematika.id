@@ -5,9 +5,14 @@
     </h1>
     <span class="text-lg font-light text-slate-400">Masuk ke akun untuk melanjutkan</span>
 
-    <form method="post" class="mt-10 h-full flex flex-col gap-y-5">
-      <TextInput label="Alamat Email" placeholder="Alamat Email" type="email" />
-      <TextInput label="Password" placeholder="Password" type="password" />
+    <form @submit.prevent="login" class="mt-10 h-full flex flex-col gap-y-5">
+      <label class="flex flex-col">
+            <input v-model="user.email" class="bg-white px-5 py-3 font-light text-lg rounded-full" type="email" placeholder="Email">
+        </label>
+        <label class="flex flex-col">
+            <input v-model="user.password" class="bg-white px-5 py-3 font-light text-lg rounded-full" type="password" placeholder="Password">
+        </label>
+
 
       <div class="flex justify-between">
         <CheckBox label="Ingat Saya" />
@@ -31,13 +36,48 @@
   </div>
 </template>
 
-<script lang="ts">
+<script >
 import Vue from 'vue'
 import TextInput from '~/components/form/TextInput.vue'
 import CheckBox from '~/components/form/CheckBox.vue'
 
-export default Vue.extend({
+export default {
   name: 'RegisterPage',
-  components: { TextInput, CheckBox }
-})
+  components: { TextInput, CheckBox },
+  data() {
+    return {
+      user:{
+        email: '',
+        password: ''
+      }
+    }
+  },
+
+  methods: {
+    async login() {
+
+await this.$auth.loginWith('teacher', {
+        data: {
+            email: this.user.email,
+            password: this.user.password
+        }
+    })
+
+    .then(() => {
+
+        //redirect
+        this.$router.push({
+            name: 'guru-materi'
+        })
+
+    })
+
+    .catch(error => {
+        //assign validation
+        this.validation = error.response.data
+    })
+}
+  },
+
+}
 </script>
