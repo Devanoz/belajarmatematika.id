@@ -45,7 +45,7 @@
         <div class="relative inline-block text-left col-span-4 mr-2 z-20">
           
 
-            <multiselect v-model="nama" :options="provinces" :searchable="true" placeholder="Select one" selected-label="" select-label="" deselect-label="">
+            <multiselect v-model="filter.kelas" :options="provinces" :searchable="true" placeholder="Select one" selected-label="" select-label="" deselect-label="">
                
             </multiselect>
 
@@ -56,7 +56,7 @@
 
         <!-- dropdown materi -->
         <div class="relative inline-block text-left shadow-2xl col-span-4 z-20 row-end-11">
-            <multiselect v-model="nama" :options="provinces" :searchable="true" placeholder="Select one" selected-label="" select-label="" deselect-label="">
+            <multiselect v-model="filter.materi" :options="provinces" :searchable="true" placeholder="Select one" selected-label="" select-label="" deselect-label="">
                
             </multiselect>
         </div>
@@ -176,12 +176,17 @@ import {
 import Multiselect from 'vue-multiselect'
 import 'vue-multiselect/dist/vue-multiselect.min.css'
 export default {
+    // middleware: 'isStudent',
     components: {
         Multiselect,
     },
     layout: "app",
     data() {
         return {
+            filter: {
+                kelas: '',
+                materi: ''
+            },
             topiks: topiks,
             materis: materi,
             dataSample: dataSamples,
@@ -250,11 +255,11 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .multiselect__tags {
     min-height: 40px;
     display: block;
-    padding: 8px 40px 0 44px;
+    padding: 8px 0px 0 34px !important;
     border-radius: 23px;
     border: 1px solid rgb(192, 192, 192);
     background: #e0f2fd;
@@ -266,13 +271,7 @@ export default {
     background: #e0f2fd;
 }
 
-.e-dropdownbase .e-list-item.e-item-focus,
-.e-dropdownbase .e-list-item.e-active,
-.e-dropdownbase .e-list-item.e-active.e-hover,
-.e-dropdownbase .e-list-item.e-hover {
-    background-color: #ff9808;
-    color: #2319b8;
-}
+
 
 .multiselect__element {
     display: block;

@@ -2,12 +2,12 @@ export default function({ $auth, redirect }) {
 
     //check loggedIn "false"
     if(!$auth.loggedIn) {
-        return redirect('/student/login')
+        return redirect('/')
     }
 
     //check admin role
     if($auth.strategy.name != "student") {
-        return redirect('/student/login')
+        return redirect('/')
     } else {
         return
     }
