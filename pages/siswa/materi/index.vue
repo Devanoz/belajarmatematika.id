@@ -255,11 +255,11 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .multiselect__tags {
     min-height: 40px;
     display: block;
-    padding: 8px 40px 0 44px;
+    padding: 8px 0px 0 34px !important;
     border-radius: 23px;
     border: 1px solid rgb(192, 192, 192);
     background: #e0f2fd;
@@ -271,13 +271,7 @@ export default {
     background: #e0f2fd;
 }
 
-.e-dropdownbase .e-list-item.e-item-focus,
-.e-dropdownbase .e-list-item.e-active,
-.e-dropdownbase .e-list-item.e-active.e-hover,
-.e-dropdownbase .e-list-item.e-hover {
-    background-color: #ff9808;
-    color: #2319b8;
-}
+
 
 .multiselect__element {
     display: block;

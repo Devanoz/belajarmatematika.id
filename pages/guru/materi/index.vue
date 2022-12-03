@@ -27,32 +27,19 @@
         <!-- dropdown kelas -->
 
         <div class="relative inline-block text-left col-span-4 mr-2 z-20">
-            <multiselect v-model="filter.kelas" :options="provinces" :searchable="true" placeholder="Select one" selected-label="" select-label="" deselect-label="">
-               
+            <multiselect v-model="filter.topik" :options="topiks" :searchable="true" placeholder="Topik" selected-label="" select-label="" deselect-label="" track-by="title" label="title">
+
             </multiselect>
         </div>
 
         <!-- <div class="col-span-1"></div> -->
 
         <!-- dropdown materi -->
-        <div class="relative inline-block text-left shadow-2xl col-span-4 z-20 row-end-11">
-            <div>
-                <button @click="onDropdownMateriClicked" type="button" class="inline-flex w-full justify-center rounded-2xl border border-gray-300 bg-sky-100 px-4 py-1 text-sm font-medium text-gray-700 shadow-2xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 focus:ring-offset-sky-100" id="menu-button" aria-expanded="true" aria-haspopup="true">
-                    Topik
-                    <!-- Heroicon name: mini/chevron-down -->
-                    <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
-                    </svg>
-                </button>
-            </div>
+        <div class="relative inline-block text-left col-span-4 z-20 row-end-11">
 
-            <div class="absolute right-0  z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" :class="{ 'hidden': dropdownMateriClicked == false }" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
-                <div v-for="topik in topiks" class="py-1" role="none">
-                    <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
-                    <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">{{topik.name}}</a>
-                </div>
+            <multiselect v-model="filter.kelas" :options="clases" :searchable="true" placeholder="Kelas" selected-label="selected" select-label="" deselect-label="" track-by="title" label="title">
 
-            </div>
+            </multiselect>
         </div>
 
     </div>
@@ -91,20 +78,20 @@
                 {{index.nama}}
             </div>
         </div>
-        <div class="relative">
-        <button class=" px-4 py-4 drop-shadow-xl bg-sky-700 fixed rounded-full bottom-32 z-20 right-4">
-            <nuxt-link to="materi/add">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 22V12M12 12V2M12 12H22M12 12H2" stroke="white" stroke-width="3.875" stroke-linecap="round" />
-                </svg>
-            </nuxt-link>
-
-        </button>
-    </div>
+       
 
     </div>
 
-  
+    <div class="relative">
+            <button class=" px-4 py-4 drop-shadow-xl bg-sky-700 fixed rounded-full bottom-32 z-20 right-4">
+                <nuxt-link to="materi/add">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 22V12M12 12V2M12 12H22M12 12H2" stroke="white" stroke-width="3.875" stroke-linecap="round" />
+                    </svg>
+                </nuxt-link>
+
+            </button>
+        </div>
 
 </div>
 </template>
@@ -124,19 +111,26 @@ import Multiselect from 'vue-multiselect'
 import 'vue-multiselect/dist/vue-multiselect.min.css'
 
 export default {
-    middleware:'isTeacher',
+    middleware: 'isTeacher',
     layout: 'guru',
+    components: {
+        Multiselect
+    },
 
-    async asyncData({ store }) {
+    async asyncData({
+        store
+    }) {
         await store.dispatch('teacher/kelas/getClasesData')
+        await store.dispatch('teacher/topik/getTopiksData')
     },
 
     //computed
     computed: {
-
-        //categories
-        categories() {
-            return this.$store.state.teacher.kelas.clases
+        clases() {
+            return this.$store.state.teacher.kelas.clases.data
+        },
+        topiks() {
+            return this.$store.state.teacher.topik.topiks.data
         },
     },
     data() {
@@ -146,7 +140,6 @@ export default {
                 materi: ''
             },
             kelas: [],
-            topiks: topiks,
             materis: materi,
             dropdownClassClicked: false,
             dropdownMateriClicked: false,
@@ -158,7 +151,7 @@ export default {
     },
     mounted() {
         console.log(window.location.href)
-        
+
         console.log("test")
 
     },
@@ -195,6 +188,35 @@ export default {
 }
 </script>
 
-<style lang="">
-    
+<style scoped>
+.multiselect__tags {
+    min-height: 30px;
+    display: block;
+    padding: 8px 0px 0 34px !important;
+    border-radius: 23px;
+    border: 1px solid rgb(192, 192, 192);
+    background: #e0f2fd;
+    font-size: 14px;
+}
+
+.multiselect__input,
+.multiselect__single {
+    background: #e0f2fd;
+}
+
+.multiselect__element {
+    display: block;
+    background: rgb(189, 231, 238);
+}
+
+.multiselect__option--selected.multiselect__option--highlight {
+    background: #fbb92c;
+    color: #fff;
+}
+
+.multiselect__option--highlight {
+    background: #438cf3;
+    outline: none;
+    color: white;
+}
 </style>
