@@ -6,8 +6,8 @@
     <span class="text-lg font-light text-slate-400">Masuk ke akun untuk melanjutkan</span>
 
     <form method="post" class="mt-10 h-full flex flex-col gap-y-5">
-      <TextInput label="Alamat Email" placeholder="Alamat Email" type="email" />
-      <TextInput label="Password" placeholder="Password" type="password" />
+      <TextInput label="Alamat Email" :placeholder="email" type="email" />
+      <TextInput label="Password" :placeholder="password" type="password" />
 
       <div class="flex justify-between">
         <CheckBox label="Ingat Saya" />
@@ -38,6 +38,13 @@ import CheckBox from '~/components/form/CheckBox.vue'
 
 export default Vue.extend({
   name: 'RegisterPage',
-  components: { TextInput, CheckBox }
+  components: { TextInput, CheckBox },
+  data () {
+    return {
+      user: {
+
+      }
+    }
+  }
 })
 </script>
