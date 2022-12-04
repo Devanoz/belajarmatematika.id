@@ -48,6 +48,7 @@ import { dataSamples } from '@/static/dataSample'
 export default {
   name: 'add-video',
   layout: 'guru',
+
   data () {
     return {
       dataSample: dataSamples

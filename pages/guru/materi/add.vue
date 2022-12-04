@@ -25,7 +25,7 @@
             <div class="topik-section px-4 mt-6">
                 <label class=" font-bold text-gray-500 mb-2">Topik</label><br />
                 <multiselect class="" v-model="materi.topik" :options="topiks" :searchable="true" placeholder="Topik" selected-label="" select-label="" deselect-label="" track-by="title" label="title">
-    
+
                 </multiselect>
             </div>
 
@@ -68,7 +68,6 @@
         </form>
 
     </div>
-
 </div>
 </template>
 
@@ -199,5 +198,5 @@ export default {
     outline: none;
     color: white;
 }
-    
+
 </style>

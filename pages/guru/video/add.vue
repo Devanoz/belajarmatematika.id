@@ -105,6 +105,7 @@
 <script>
 export default {
   name: "AddVideo",
+  middleware: 'guru',
   data() {
     return {
       popupClicked: false,

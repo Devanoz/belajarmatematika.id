@@ -45,7 +45,8 @@
 <script>
 export default {
   name: 'index.vue',
-  layout :'guru'
+  layout :'guru',
+  middleware :"isTeacher"
 }
 </script>
 
