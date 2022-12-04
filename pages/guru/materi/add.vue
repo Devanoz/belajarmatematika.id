@@ -18,13 +18,13 @@
 
         <form @submit.prevent="storeMateri">
             <div class="topik-section mt-6 px-4 h-auto">
-                <label class=" font-bold text-gray-500 mb-2">Judul</label><br />
+                <label class=" font-bold text-gray-500 mb-2">Judul Materi</label><br />
                 <input id="judul" type="text" class="w-full h-11 rounded-2xl border-2 border-gray-400 px-5" v-model="materi.judul" />
             </div>
 
-            <div class="topik-section px-4">
-
-                <multiselect class="mt-6" v-model="materi.topik" :options="topiks" :searchable="true" placeholder="Topik" selected-label="" select-label="" deselect-label="" track-by="title" label="title">
+            <div class="topik-section px-4 mt-6">
+                <label class=" font-bold text-gray-500 mb-2">Topik</label><br />
+                <multiselect class="" v-model="materi.topik" :options="topiks" :searchable="true" placeholder="Topik" selected-label="" select-label="" deselect-label="" track-by="title" label="title">
     
                 </multiselect>
             </div>
