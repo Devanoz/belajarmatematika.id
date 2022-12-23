@@ -18,11 +18,14 @@
                 </div>
             </button>
     
-            <div @click="onTantanganClicked" class="flex flex-col items-center gap-y-1">
-                <img v-if="tantanganClicked" class="h-6 w-auto" src="~/assets/img/navbar/basic/tantangan-color.svg">
-                <img v-else class="h-6 w-auto" src="~/assets/img/navbar/basic/tantangan.svg">
-                <span class="text-slate-400">Tantangan</span>
-            </div>
+            <button @click="onTantanganClicked">
+                <div  class="flex flex-col items-center gap-y-1">
+                    <img v-if="tantanganClicked" class="h-6 w-auto" src="~/assets/img/navbar/basic/tantangan-color.svg">
+                    <img v-else class="h-6 w-auto" src="~/assets/img/navbar/basic/tantangan.svg">
+                    <span class="text-slate-400">Tantangan</span>
+                </div>
+
+            </button>
     
             <button @click="onPeringkatClicked">
                 <div  class="flex flex-col items-center gap-y-1">
@@ -37,39 +40,16 @@
     
     <script>
     export default {
-            data() {
+        data() {
             return {
-                materiClicked: false,
+                materiClicked: true,
                 videoClicked: false,
                 tantanganClicked: false,
                 peringkatClicked: false
             }
         },
         mounted() {
-            console.log("ganti halaman");
-            if(window.location.href.includes('materi')){
-                console.log("materi");
-                this.materiClicked = true
-            }
-            else{
-                console.log("video");
-
-                this.videoClicked = true
-                this.materiClicked = false
-            }
-        },
-        updated() {
-            console.log("ganti halaman");
-
-            if(window.location.href.includes('materi')){
-                console.log("materi");
-                this.materiClicked = true
-            }
-            if(window.location.href.includes('video')){
-
-                this.videoClicked = true
-                this.materiClicked = false
-            }
+          
         },
         methods: {
             onMateriClicked() {
@@ -77,22 +57,25 @@
                     name: 'guru-materi',
                 })
     
-                
+                this.materiClicked = !this.materiClicked
+                this.videoClicked = false
+                this.tantanganClicked = false
+                this.peringkatClicked = false
             },
     
             onVideoClicked() {
                 this.$router.push({
                     name: 'guru-video',
                 })
-                // this.materiClicked = false
-                // this.videoClicked = true
-                // this.tantanganClicked = false
-                // this.peringkatClicked = false
+                this.materiClicked = false
+                this.videoClicked = true
+                this.tantanganClicked = false
+                this.peringkatClicked = false
             },
     
             onTantanganClicked() {
                 this.$router.push({
-                    name: 'siswa-tantangan',
+                    name: 'guru-tantangan',
                 })
                 this.materiClicked = false
                 this.videoClicked = false
@@ -102,7 +85,7 @@
     
             onPeringkatClicked() {
                 this.$router.push({
-                    name: 'siswa-leaderboard',
+                    name: 'guru-leaderboard',
                 })
                 this.materiClicked = false
                 this.videoClicked = false
