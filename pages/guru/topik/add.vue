@@ -55,24 +55,7 @@ export default {
     }
   },
   mounted () {
-    const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL3RlYWNoZXIvbG9naW4iLCJpYXQiOjE2NjkxNzU0MTUsImV4cCI6MTY2OTE3OTAxNSwibmJmIjoxNjY5MTc1NDE1LCJqdGkiOiJ3NUZxY05Lc3M4QWRTbVlQIiwic3ViIjoiMSIsInBydiI6ImIyN2JlZTIzYmFmNTQyOWY1YjlhMjE2OTZmZGUwM2MyNzcwNDRlYTUifQ.XTt4nGfvWClHyjSZ1iEnscp2Rc6bQ9pxYDzbE-NKfHw"
-    const url = "https://backend.belajarmatematika.id/api/teacher/kelas";
 
-    const config = {
-      headers : {
-        "Content-type": "application/json",
-        "Authorization" : `Bearer ${token}`
-      }
-    }
-
-    this.$axios.get(url,null, config)
-      .then(response => {
-        this.kelasList = response.data
-      })
-      .catch(err => {
-        console.log(err)
-      })
-    console.log(this.kelasList)
   }
 
 }
