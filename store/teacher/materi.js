@@ -42,7 +42,7 @@ export const actions = {
 
             //fetching Rest API "/api/admin/materis" with method "GET"
             this.$axios.get(`/api/teacher/materis?q=${search}&page=${state.page}`)
-            
+
             //success
             .then((response) => {
 
