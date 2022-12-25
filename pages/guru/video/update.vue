@@ -140,25 +140,27 @@ export default {
       materi_id:0,
       title: "",
       videoUrl: "",
+      video_materi_id : null,
     };
   },
   created () {
-    const video_id = this.$route.query.video
-    const materi_id = this.$route.query.materi
+    this.video_id = this.$route.query.video
+    this.materi_id = this.$route.query.materi
     this.$store.dispatch("teacher/materi/getMaterisData").then(()=>{
       this.materis = this.$store.state.teacher.materi.materis.data
     })
 
-    this.$axios.get(`api/teacher/materis/${materi_id}`).then((response)=>{
+    this.$axios.get(`api/teacher/materis/${this.materi_id}`).then((response)=>{
       const materi = response.data.data
       this.materi_id = materi.id
       this.materi_placeholder = materi.title
     })
-    this.$axios.get(`api/teacher/videos/${video_id}`).then((response)=>{
+    this.$axios.get(`api/teacher/videos/${this.video_id}`).then((response)=>{
       const video = response.data.data
       this.video = video
       this.title = video.title
       this.videoUrl = video.url
+      this.video_materi_id = video.materi_id
     })
   },
   methods: {
@@ -170,17 +172,19 @@ export default {
       }, 50);
     },
     onTambahkanClick () {
-      const video_id = this.$route.query.video
-      let formData = new FormData()
+      const formData = new FormData()
+      console.log(this.video)
       formData.append('title',this.title)
       formData.append('url',this.videoUrl)
-      formData.append('materi_id',this.materi_id)
+      formData.append('materi_id',this.video.materi_id)
       formData.append('_method','PATCH')
-      this.$axios.post(`/api/teacher/videos/${video_id}`,formData).then(()=>{
-        alert("sukses mengupdate data video")
-      }).catch((err)=>{
-        alert("gagal menambahkan data video" + err.message)
-      })
+      this.$axios.post(`/api/teacher/videos/${this.video.id}`,formData)
+        .then((response)=>{
+          alert("sukses mengupdate data video")
+          console.log(response)
+        }).catch((err)=>{
+          alert("gagal menambahkan data video" + err.message)
+        })
     },
     onInputMateriClicked () {
       this.materi_placeholder = "pilih materi"
