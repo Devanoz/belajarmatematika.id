@@ -170,15 +170,16 @@ export default {
       }, 50);
     },
     onTambahkanClick () {
+      const video_id = this.$route.query.video
       let formData = new FormData()
       formData.append('title',this.title)
       formData.append('url',this.videoUrl)
       formData.append('materi_id',this.materi_id)
-
-      this.$axios.post('/api/teacher/videos',formData).then(()=>{
-        console.log("sukses menambahkan data video")
+      formData.append('_method','PATCH')
+      this.$axios.post(`/api/teacher/videos/${video_id}`,formData).then(()=>{
+        alert("sukses mengupdate data video")
       }).catch((err)=>{
-        console.log("gagal menambahkan data video" + err.message())
+        alert("gagal menambahkan data video" + err.message)
       })
     },
     onInputMateriClicked () {

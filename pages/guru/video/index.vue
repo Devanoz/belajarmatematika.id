@@ -136,8 +136,8 @@ export default {
       this.$router.push({
         path: currentPath+'/update',
         query: {
-          materi:video_id,
-          video:materi_id,
+          materi:materi_id,
+          video:video_id,
         }
       })
     },
