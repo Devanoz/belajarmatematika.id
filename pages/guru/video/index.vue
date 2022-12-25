@@ -110,7 +110,13 @@ export default {
   },
   methods: {
     handleToogleClick(index){
-      this.show[index]=!this.show[index]
+      this.show = this.show.map((item,idx)=>{
+        if(index == idx){
+          return true
+        }else{
+          return false
+        }
+      })
       this.$forceUpdate()
     },
     onRootClicked(event){
