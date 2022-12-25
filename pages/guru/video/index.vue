@@ -10,9 +10,11 @@
       <div class="list-materi">
         <div class="z-10">
           <div>
-            <!-- card materi -->
-            <div v-for="(video,index) in videos" :key="video.id"
-              class="
+            <div v-for="(item,materi_index) in materis" :key="item.id">
+              <h1 class="text-[1em]">{{item.title}}</h1>
+              <!-- card materi -->
+              <div v-for="(video,video_index) in item.videos" :key="video.id"
+                   class="
                 flex
                 card-image
                 drop-shadow-lg
@@ -26,20 +28,20 @@
                 my-3
                 z-30
               "
-            >
-              <img src="@/assets/img/materi/book.svg" alt="" />
-              <div class="mx-3">
-                <div>{{ video.title }}</div>
-                <div>{{ video.created_at }}</div>
-              </div>
-              <button class="absolute right-3 top-3" @click="handleToogleClick(index)">
-                <img id="toogle"  src="@/assets/img/guru/video/tridot.svg" />
-              </button>
-              <transition name="fade">
-                <div
-                  :key="index"
-                  v-if="show[index]"
-                  class="
+              >
+                <img src="@/assets/img/materi/book.svg" alt="" />
+                <div class="mx-3">
+                  <div>{{ video.title }}</div>
+                  <div>{{ video.created_at }}</div>
+                </div>
+                <button class="absolute right-3 top-3" @click="handleToogleClick(materi_index,video_index)">
+                  <img id="toogle"  src="@/assets/img/guru/video/tridot.svg" />
+                </button>
+                <transition name="fade">
+                  <div
+                    :key="video_index"
+                    v-if="show[materi_index][video_index]"
+                    class="
                     bg-white
                     w-20
                     h-14
@@ -53,11 +55,12 @@
                     p-2
                     items-center
                   "
-                >
-                  <button>edit</button>
-                  <button>hapus</button>
-                </div>
-              </transition>
+                  >
+                    <button @click="onEditClicked(video.id,item.id)" >edit</button>
+                    <button @click="onHapusClicked(video.id)" >hapus</button>
+                  </div>
+                </transition>
+              </div>
             </div>
           </div>
         </div>
@@ -95,7 +98,7 @@ export default {
   middleware: "isTeacher",
   data() {
     return {
-      videos: [],
+      materis: [],
       show:[]
     };
   },
@@ -104,16 +107,20 @@ export default {
   },
   created() {
     this.$store.dispatch("teacher/video/getVideosData").then(() => {
-      this.videos = this.$store.state.teacher.video.videos.data;
-      this.show = Array.from({length:this.videos.length},()=>false)
+      this.materis = this.$store.state.teacher.video.videos.data;
+      this.show = Array.from({length:this.materis.length},()=>{
+        return [false]
+      })
+      console.log(this.show)
     })
   },
   methods: {
-    handleToogleClick(index){
-      this.show = this.show.map((item,idx)=>{
-        if(index == idx){
+    handleToogleClick(materi_index,video_index){
+      this.show[materi_index] = Array.from({length:this.materis[materi_index].videos.length},()=>false)
+      this.show[materi_index] = this.show[materi_index].map((show,idx)=>{
+        if(video_index == idx) {
           return true
-        }else{
+        }else {
           return false
         }
       })
@@ -124,6 +131,25 @@ export default {
         this.show = this.show.map(()=>false)
         this.$forceUpdate()
       }
+    },
+    onEditClicked (video_id,materi_id) {
+      let currentPath = this.$router.currentRoute.path
+      this.$router.push({
+        path: currentPath+'/update',
+        query: {
+          materi:video_id,
+          video:materi_id,
+        }
+      })
+    },
+    onHapusClicked (video_id) {
+        const currentPath = this.$router.currentRoute.path
+        this.$axios.delete(`api/teacher/videos/${video_id}`).then((response)=>{
+          console.log("berhasil menghapus data")
+          this.$router.go(currentPath)
+        }).catch((err)=>{
+          console.log("gagal menghapus data")
+        })
     }
   },
 };
