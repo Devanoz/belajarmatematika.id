@@ -11,7 +11,7 @@
         <div class="z-10">
           <div>
             <!-- card materi -->
-            <div v-for="video in videos" :key="video.id" :id="video.id"
+            <div v-for="(video,index) in videos" :key="video.id"
               class="
                 flex
                 card-image
@@ -32,13 +32,13 @@
                 <div>{{ video.title }}</div>
                 <div>{{ video.created_at }}</div>
               </div>
-              <button class="absolute right-3 top-3" @click="show = !show">
-                <img src="@/assets/img/guru/video/tridot.svg" />
+              <button class="absolute right-3 top-3" @click="handleToogleClick(index)">
+                <img  src="@/assets/img/guru/video/tridot.svg" />
               </button>
               <transition name="fade">
                 <div
-                  :id="video.id"
-                  v-if="show"
+                  :key="index"
+                  v-if="show[index]"
                   class="
                     bg-white
                     w-20
@@ -54,8 +54,8 @@
                     items-center
                   "
                 >
-                  <button :id="video.id+'edit'">edit</button>
-                  <button :id="video.id+'hapus' ">hapus</button>
+                  <button>edit</button>
+                  <button>hapus</button>
                 </div>
               </transition>
             </div>
@@ -96,24 +96,23 @@ export default {
   data() {
     return {
       videos: [],
-      show: false,
+      show:[]
     };
+  },
+  computed:{
+
   },
   created() {
     this.$store.dispatch("teacher/video/getVideosData").then(() => {
       this.videos = this.$store.state.teacher.video.videos.data;
-    });
+      this.show = Array.from({length:this.videos.length},()=>false)
+    })
   },
   methods: {
-    changeColor() {
-      console.log("mouseevent");
-    },
-    handleFocus() {
-      console.log("focus");
-    },
-    handleFocusOut() {
-      console.log("focus out");
-    },
+    handleToogleClick(index){
+      this.show[index]=!this.show[index]
+      this.$forceUpdate()
+    }
   },
 };
 </script>
