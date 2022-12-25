@@ -111,7 +111,6 @@ export default {
       this.show = Array.from({length:this.materis.length},()=>{
         return [false]
       })
-      console.log(this.show)
     })
   },
   methods: {
