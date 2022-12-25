@@ -181,10 +181,11 @@ export default {
       this.$axios.post(`/api/teacher/videos/${this.video.id}`,formData)
         .then((response)=>{
           alert("sukses mengupdate data video")
-          console.log(response)
+          this.$router.go(-1)
         }).catch((err)=>{
           alert("gagal menambahkan data video" + err.message)
         })
+
     },
     onInputMateriClicked () {
       this.materi_placeholder = "pilih materi"
