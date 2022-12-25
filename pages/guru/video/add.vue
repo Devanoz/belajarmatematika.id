@@ -161,9 +161,9 @@ export default {
       formData.append('materi_id',this.materi_id)
 
       this.$axios.post('/api/teacher/videos',formData).then(()=>{
-        console.log("sukses menambahkan data video")
+        alert("sukses menambahkan data video")
       }).catch((err)=>{
-        console.log("gagal menambahkan data video")
+        alert("gagal menambahkan data video")
       })
     },
     onInputMateriClicked () {
