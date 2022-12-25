@@ -155,12 +155,57 @@
                             </button>
                         </div>
 
+                        <div v-if="is_question_submitted == true" class="button-tambahkan flex flex-row justify-center">
+                            <button class="bg-green-400 w-3/4 text-white font-bold py-2 mt-7 px-4 rounded-xl">
+                        Selesai
+                            </button>
+                        </div>
+
                     </div>
                     <div v-if="isPilihanGanda == false" class="tab-pane fade" id="tabs-profile" role="tabpanel" aria-labelledby="tabs-profile-tab">
-                        Tab 2 content
+                         <label class=" font-bold text-gray-500 mb-2">Deskripsi Soal</label><br />
+                        <textarea v-model="question.title" id="" cols="42" rows="3" class="w-full text-gray-500 mb-2 border-gray-500 rounded-2xl px-2 py-1 border-2"></textarea>
+                        <label class="mt-4 font-bold text-gray-500">Uploud Gambar Soal (Opsional)</label><br />
+                        <div class="flex items-center justify-center w-full mb-2  px-2" v-if="question.file == ''">
+                            <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-20 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 hover:bg-gray-100 ">
+                                <div class="flex flex-col items-center justify-center pt-5 pb-6">
+
+                                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Klik untuk melampirkan file</span></p>
+                                </div>
+                                <input @change="handleFileChange" id="dropzone-file" type="file" class="hidden" />
+
+                            </label>
+
+                        </div>
+                        <div class="file-preview px-4 mt-6" v-if="question.file !=''">
+                            <span class=" font-semibold text-gray-500 mb-3">
+                                Terlampir
+                            </span>
+                            <div class="grid grid-cols-4">
+                                <img src="~/assets/img/general/pdf.svg" alt="">
+                                <span class=" col-span-2">
+                                    {{question.file.name}}
+                                </span>
+                                <button class="place-self-end self-center" @click="onFileDeleted">
+                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M8.10385 7.01018L12.7491 2.3649C12.8266 2.29274 12.8887 2.20572 12.9318 2.10903C12.9748 2.01234 12.998 1.90797 12.9999 1.80213C13.0017 1.6963 12.9823 1.59117 12.9426 1.49302C12.903 1.39487 12.844 1.30571 12.7691 1.23087C12.6943 1.15602 12.6051 1.09701 12.507 1.05737C12.4088 1.01772 12.3037 0.998255 12.1979 1.00012C12.092 1.00199 11.9877 1.02516 11.891 1.06824C11.7943 1.11132 11.7073 1.17343 11.6351 1.25087L6.98982 5.89615L2.34454 1.25087C2.19512 1.11164 1.99749 1.03584 1.79329 1.03945C1.58908 1.04305 1.39425 1.12577 1.24983 1.27019C1.10542 1.41461 1.02269 1.60944 1.01909 1.81364C1.01549 2.01785 1.09129 2.21548 1.23052 2.3649L5.8758 7.01018L1.23052 11.6555C1.08291 11.8032 1 12.0036 1 12.2125C1 12.4213 1.08291 12.6217 1.23052 12.7695C1.37831 12.9171 1.57865 13 1.78753 13C1.99641 13 2.19675 12.9171 2.34454 12.7695L6.98982 8.1242L11.6351 12.7695C11.7829 12.9171 11.9832 13 12.1921 13C12.401 13 12.6013 12.9171 12.7491 12.7695C12.8967 12.6217 12.9796 12.4213 12.9796 12.2125C12.9796 12.0036 12.8967 11.8032 12.7491 11.6555L8.10385 7.01018Z" fill="#BDBDBD" stroke="#828282" stroke-width="0.4" />
+                                    </svg>
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                        <label class=" font-bold text-gray-500 mb-2">Jawaban Benar</label><br />
+                        <textarea v-model="question.title" id="" cols="42" rows="2" class="w-full text-gray-500 mb-2 border-gray-500 rounded-2xl px-2 py-1 border-2"></textarea>
                     </div>
 
+                    
+
                 </div>
+
+                
             </form>
         </div>
 
@@ -179,6 +224,8 @@ export default {
     },
     data() {
         return {
+
+            is_question_submitted: true,
 
             challenge: {
                 id: "",
@@ -263,7 +310,6 @@ export default {
             formData.append('title', this.question.title);
             formData.append('answer_key', this.question.answerKey ? this.question.answerKey.id : "")
             if(this.question.file !=''){
-f
                 formData.append('image', this.question.file)
             }
             formData.append('challenge_id', this.challenge.id)
@@ -276,6 +322,7 @@ f
             await this.$axios.post('/api/teacher/questions', formData)
                 //success
                 .then((response) => {
+                    this.is_question_submitted = true
                     console.log(response.data);
                     this.challenge.id = response.data.data.challenge_id
                     this.question.title = ""
