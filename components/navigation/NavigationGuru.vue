@@ -85,7 +85,7 @@
 
             onTopikClicked() {
                 this.$router.push({
-                    name: 'guru-leaderboard',
+                    name: 'guru-topik',
                 })
                 this.materiClicked = false
                 this.videoClicked = false
