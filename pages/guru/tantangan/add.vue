@@ -43,6 +43,7 @@
             label="title"
           />
 
+
           <div v-if="validation.materi_id" class=" text-center py-4 px-2 w-full">
             <div class="p-2 bg-yellow-100  items-center text-yellow-700 leading-none rounded-full inline-flex" role="alert">
               <span class="flex rounded-full bg-yellow-600 text-white uppercase px-2 py-1 text-xs font-bold mr-3">Warning</span>
@@ -242,6 +243,9 @@ data-bs-toggle="pill" data-bs-target="#tabs-profile" role="tab" aria-controls="t
                 </NuxtLink>
               </div>
             </div>
+
+
+
 
 
           </div>
