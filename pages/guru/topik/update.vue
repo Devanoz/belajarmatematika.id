@@ -2,7 +2,7 @@
   <div class="h-full divide-y divide-gray-500">
     <div class="title h-16 flex flex-row justify-between items-center">
       <div class="ml-8 text-[1.4em]">X</div>
-      <h1 class="text-[1.4em] font-bold">Tambah Topik</h1>
+      <h1 class="text-[1.4em] font-bold">Edit Topik</h1>
       <div class="button-tambah mr-8 text-[1.4em]">></div>
     </div>
     <div class="input-video">
@@ -15,23 +15,23 @@
           v-model="title"
         />
       </div>
-     <div class="topik-section mt-6 px-10 h-auto">
-       <label for="kelas" class="font-bold mb-2">Kelas</label><br />
-       <select
-         @change="onOptionChange($event)"
-               id="kelas"
-               type="text"
-               v-model="kelas_id"
-               class="w-full h-11 rounded-2xl border-2 border-gray-400 px-10">
-         <option v-for="item in kelass" :key="item.id" :value="item.id">{{item.title}}</option>
-       </select>
-     </div>
+      <div class="topik-section mt-6 px-10 h-auto">
+        <label for="kelas" class="font-bold mb-2">Kelas</label><br />
+        <select
+          @change="onOptionChange($event)"
+          id="kelas"
+          type="text"
+          v-model="kelas_id"
+          class="w-full h-11 rounded-2xl border-2 border-gray-400 px-10">
+          <option v-for="item in kelass" :key="item.id" :value="item.id">{{item.title}}</option>
+        </select>
+      </div>
       <div class="button-tambahkan flex flex-row justify-center">
         <button
           class="bg-orange-400 w-3/4 text-white font-bold py-2 mt-7 px-4 rounded-xl"
           @click="onTambahkanClick"
         >
-          Tambahkan
+          Update
         </button>
       </div>
     </div>
@@ -41,18 +41,26 @@
 
 <script>
 export default {
-  name: 'add',
+  name: 'update',
+  middleware:'isTeacher',
   data () {
     return {
       title: "",
       kelas_id:null,
       kelass: null,
+      topik_id:null,
     }
   },
   created () {
+    this.topik_id = this.$route.query.topik
     this.$axios.get("/api/teacher/kelas").then((response)=>{
       this.kelass = response.data.data.data
-      // this.kelas_id = this.kelass[0].id
+    })
+    this.$axios.get(`/api/teacher/topiks/${this.topik_id}`).then((response)=>{
+      const topik = response.data.data
+      this.topik_id = topik.id
+      this.title = topik.title
+      this.kelas_id = topik.kelas_id
     })
   },
   methods : {
@@ -61,7 +69,8 @@ export default {
         const formData = new FormData()
         formData.append('title',this.title)
         formData.append('kelas_id',this.kelas_id)
-        this.$axios.post('/api/teacher/topiks',formData).then(()=>{
+        formData.append('_method','PATCH')
+        this.$axios.post(`/api/teacher/topiks/${this.topik_id}`,formData).then(()=>{
           console.log('berhasil menambahkan topik')
           this.$router.go(-1)
         }).catch((err)=>{

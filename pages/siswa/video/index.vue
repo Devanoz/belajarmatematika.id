@@ -73,6 +73,9 @@ export default {
       videoList: dataSamples[0].topik
     }
   },
+  created () {
+
+  },
   methods: {
     doClick () {
       this.clicked = !this.clicked
