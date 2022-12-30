@@ -54,12 +54,12 @@
         class="leaderboard-list h-[24.875rem] mx-auto -mt-10 rounded-2xl overflow-y-scroll py-5"
       >
         <leaderboard
-          v-for="person in personList"
-          :key="person.id"
-          :no="person.id"
-          :name="person.nama"
-          :point="person.points"
-          :image="person.url"
+          v-for="student in students"
+          :key="student.student_id"
+          :no="student.student_id"
+          :name="student.student.name"
+          :point="student.score"
+          :image="student.image"
         />
       </div>
     </div>
@@ -76,9 +76,17 @@ export default {
     leaderboard
   },
   layout: 'app',
+  computed: {
+    students () {
+      return this.$store.state.siswa.leaderboard.students
+    }
+  },
+  created () {
+    this.$store.dispatch('siswa/leaderboard/getStudentsData').then(()=>console.log(this.$store.state.siswa.leaderboard.students))
+  },
   data () {
     return {
-      personList: person
+
     }
   }
 
