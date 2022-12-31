@@ -36,7 +36,7 @@ export default {
       default: 'Murid'
     },
     point: {
-      type: Number,
+      type: String,
       default: 0
     },
     image: {

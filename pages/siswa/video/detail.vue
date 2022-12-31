@@ -20,7 +20,7 @@
       <iframe
         height="315"
         class="w-full"
-        src="https://www.youtube.com/embed/MpCmJ66FT7Y"
+        :src="url"
         title="YouTube video player"
         frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -37,24 +37,38 @@
       </div>
     </div>
 
-    <div class="bg-cs-blue-300 p-8 pt-4">
+    <div class="bg-cs-blue-300 p-4 pt-4 flex flex-row gap-4 justify-between">
       <label class="w-full">
         <input class="w-full py-3 px-4 rounded-full" type="text">
       </label>
+      <div id="send-button" class="flex flex-col justify-center">
+        <svg width="35" height="35" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8.91245 9.9998H3.00045L1.02345 2.1348C1.01079 2.0891 1.00308 2.04216 1.00045 1.9948C0.978447 1.2738 1.77245 0.773804 2.46045 1.1038L21.0004 9.9998L2.46045 18.8958C1.78045 19.2228 0.996447 18.7368 1.00045 18.0288C1.00247 17.9655 1.01359 17.9029 1.03345 17.8428L2.50045 12.9998" stroke="#56739D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
     </div>
   </div>
 </template>
 
-<script language="ts">
+<script>
 
 export default {
   name: 'Video',
   layout: 'default',
+  middleware:['isStudent'],
   data () {
     return {
       clicked: false,
+      url:"",
       val: '~/assets/img/navbar/basic/peringkat.svg'
     }
+  },
+  created () {
+    const video_id = this.$route.query.id
+    this.$axios.get(`api/student/videos/${video_id}`).then((response)=>{
+      const video = response.data.data
+      this.url = video.url
+    })
   },
   methods: {
     doClick () {

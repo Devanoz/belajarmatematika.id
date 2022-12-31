@@ -41,7 +41,7 @@
           <p>Peringkat</p>
         </div>
         <div class="poin-pts  h-3 w-16 text-center">
-          34pts
+          {{ student.score }} Pts
         </div>
         <div class="lencana-img  h-3 w-16">
           <img class="mx-auto h-9 w-9" src="~/assets/img/peringkat/lencana/juara1.svg">
@@ -54,12 +54,12 @@
         class="leaderboard-list h-[24.875rem] mx-auto -mt-10 rounded-2xl overflow-y-scroll py-5"
       >
         <leaderboard
-          v-for="person in personList"
-          :key="person.id"
-          :no="person.id"
-          :name="person.nama"
-          :point="person.points"
-          :image="person.url"
+          v-for="student in students"
+          :key="student.student_id"
+          :no="student.student_id"
+          :name="student.student.name"
+          :point="student.score"
+          :image="student.image"
         />
       </div>
     </div>
@@ -76,9 +76,21 @@ export default {
     leaderboard
   },
   layout: 'app',
+  computed: {
+    students () {
+      return this.$store.state.siswa.leaderboard.students
+    },
+    student () {
+      return this.$store.getters['student/getStudent']
+    }
+  },
+  created () {
+    this.$store.dispatch('siswa/leaderboard/getStudentsData')
+    this.$store.dispatch("student/getStudentData")
+  },
   data () {
     return {
-      personList: person
+
     }
   }
 
