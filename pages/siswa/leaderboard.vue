@@ -41,7 +41,7 @@
           <p>Peringkat</p>
         </div>
         <div class="poin-pts  h-3 w-16 text-center">
-          34pts
+          {{ student.score }} Pts
         </div>
         <div class="lencana-img  h-3 w-16">
           <img class="mx-auto h-9 w-9" src="~/assets/img/peringkat/lencana/juara1.svg">
@@ -79,10 +79,14 @@ export default {
   computed: {
     students () {
       return this.$store.state.siswa.leaderboard.students
+    },
+    student () {
+      return this.$store.getters['student/getStudent']
     }
   },
   created () {
-    this.$store.dispatch('siswa/leaderboard/getStudentsData').then(()=>console.log(this.$store.state.siswa.leaderboard.students))
+    this.$store.dispatch('siswa/leaderboard/getStudentsData')
+    this.$store.dispatch("student/getStudentData")
   },
   data () {
     return {
