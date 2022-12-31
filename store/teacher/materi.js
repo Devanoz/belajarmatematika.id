@@ -4,6 +4,8 @@ export const state = () => ({
     //materis
     materis: [],
 
+    materi:{},
+
     //page
     page: 1,
 
@@ -17,6 +19,10 @@ export const mutations = {
 
         //set value state "materis"
         state.materis = payload
+    },
+
+    SET_MATERI_DATA(state, payload){
+      state.materi = payload
     },
 
     //mutation "SET_PAGE"
@@ -56,6 +62,30 @@ export const actions = {
         })
 
     },
+
+  getDetailMateri({ commit }, payload) {
+
+    //set promise
+    return new Promise((resolve, reject) => {
+
+      //get to Rest API "/api/teacher/materis/:id" with method "GET"
+      this.$axios.get(`/api/teacher/materis/${payload}`)
+
+        //success
+        .then(response => {
+
+          //commit to mutation "SET_MATERI_DATA"
+          commit('SET_MATERI_DATA', response.data.data)
+
+          //resolve promise
+          resolve()
+
+        })
+
+    })
+
+  },
+
 
     //store materis
     storeMateri({ dispatch, commit }, payload) {

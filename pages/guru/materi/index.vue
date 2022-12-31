@@ -1,4 +1,4 @@
-<template lang="">
+<template>
 <div class="flex flex-col h-full px-4 py-4">
     <div class="header">
         <h2 class="text-center text-2xl text-green-primary font-semibold">Materi Pembelajaran</h2>
@@ -78,7 +78,7 @@
                 {{index.nama}}
             </div>
         </div>
-       
+
 
     </div>
 

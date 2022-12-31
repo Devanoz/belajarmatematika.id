@@ -38,7 +38,9 @@ export default {
     '@nuxt/typescript-build',
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
-    '@nuxt/postcss8'
+    '@nuxt/postcss8',
+    //https://github.com/avil13/vue-sweetalert2
+    'vue-sweetalert2/nuxt',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -54,7 +56,7 @@ export default {
 
   auth: {
     strategies: {
-  
+
         //strategy "admin"
         teacher: {
           scheme: 'local',
@@ -84,7 +86,7 @@ export default {
             }
           },
         },
-  
+
         //strategy "customer"
         student: {
           scheme: 'local',
@@ -114,7 +116,7 @@ export default {
             }
           },
         },
-  
+
     },
   },
 

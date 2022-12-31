@@ -4,6 +4,8 @@ export const state = () => ({
     //challenges
     challenges: [],
 
+    challenge:{},
+
     //page
     page: 1,
 
@@ -18,6 +20,10 @@ export const mutations = {
         //set value state "challenges"
         state.challenges = payload
     },
+
+  SET_CHALLENGE_DATA(state, payload){
+      state.challenge = payload
+  },
 
     //mutation "SET_PAGE"
     SET_PAGE(state, payload) {
@@ -42,7 +48,7 @@ export const actions = {
 
             //fetching Rest API "/api/admin/challenges" with method "GET"
             this.$axios.get(`/api/teacher/challenges?q=${search}&page=${state.page}`)
-            
+
             //success
             .then((response) => {
 
@@ -68,7 +74,7 @@ export const actions = {
 
             //fetching Rest API "/api/admin/challenges" with method "GET"
             this.$axios.get(`/api/teacher/challengesWithMateri`)
-            
+
             //success
             .then((response) => {
 
@@ -89,13 +95,13 @@ export const actions = {
         //set promise
         return new Promise((resolve, reject) => {
 
-            //store to Rest API "/api/admin/categories" with method "POST"
+            //store to Rest API "/api/admin/challenges" with method "POST"
             this.$axios.post('/api/teacher/challenges', payload)
 
             //success
             .then(() => {
 
-                //dispatch action "getCategoriesData"
+                //dispatch action "getChallengesData"
                 dispatch('getChallengesData')
 
                 //resolve promise
@@ -110,5 +116,84 @@ export const actions = {
 
         })
     },
+
+
+  //get detail challenge
+  getDetailChallenge({ commit }, payload) {
+
+    //set promise
+    return new Promise((resolve, reject) => {
+
+      //get to Rest API "/api/teacher/challenges/:id" with method "GET"
+      this.$axios.get(`/api/teacher/challenges/${payload}`)
+
+        //success
+        .then(response => {
+
+          //commit to mutation "SET_CHALLENGE_DATA"
+          commit('SET_CHALLENGE_DATA', response.data.data)
+
+          //resolve promise
+          resolve()
+
+        })
+
+    })
+
+  },
+
+
+  //update challenge
+  updateChallenge({ dispatch, commit }, { challengeId, payload }) {
+
+    //set promise
+    return new Promise((resolve, reject) => {
+
+      //store to Rest API "/api/teacher/challenges/:id" with method "POST"
+      this.$axios.post(`/api/teacher/challenges/${challengeId}`, payload)
+
+        //success
+        .then(() => {
+
+          //dispatch action "getChallengesData"
+          dispatch('getChallengesData')
+
+          //resolve promise
+          resolve()
+
+        })
+
+        //error
+        .catch(error => {
+          reject(error)
+        })
+
+    })
+  },
+
+
+  //destroy challenge
+  destroyChallenge({ dispatch, commit }, payload) {
+
+    //set promise
+    return new Promise((resolve, reject) => {
+
+      //delete to Rest API "/api/teacher/challenges/:id" with method "DELETE"
+      this.$axios.delete(`/api/teacher/challenges/${payload}`)
+
+        //success
+        .then(() => {
+
+          //dispatch action "getChallengesData"
+          dispatch('getChallengesData')
+
+          //resolve promise
+          resolve()
+
+        })
+
+    })
+
+  },
 
 }
