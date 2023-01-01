@@ -3,6 +3,8 @@ export const state =()=>({
   email:"",
   image:"",
   score:"",
+  rank:0,
+  progress:0.0
 })
 
 
@@ -14,6 +16,8 @@ export const mutations ={
       state.email = payload.email
       state.image = payload.image
       state.score = payload.score
+      state.rank = payload.rank
+      state.progress = payload.progress
     },
 }
 
@@ -43,9 +47,11 @@ export const getters = {
   getStudent (state) {
     return ({
       name: state.name,
-      email:state.email,
-      image:state.image,
-      score:state.score,
+      email: state.email,
+      image: state.image,
+      score: state.score,
+      rank: state.rank,
+      progress: state.progress
     })
   }
 }
