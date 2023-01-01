@@ -2,7 +2,7 @@
   <div class="flex flex-col h-full">
     <div class="border-b-2 bg-white border-slate-200 py-5 sticky top-0 w-full flex items-center px-8">
       <div>
-        <NuxtLink to="/video">
+        <NuxtLink to="/siswa/video">
           <svg width="10" height="18" viewBox="0 0 10 18" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M9 1L1 9L9 17" stroke="#56739D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
