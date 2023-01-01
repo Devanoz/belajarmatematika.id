@@ -16,14 +16,13 @@ export const mutations = {
 
     //mutation "SET_CHALLENGES_DATA"
     SET_CHALLENGES_DATA(state, payload) {
-
         //set value state "challenges"
         state.challenges = payload
     },
 
-  SET_CHALLENGE_DATA(state, payload){
-      state.challenge = payload
-  },
+    SET_CHALLENGE_DATA(state, payload){
+        state.challenge = payload
+    },
 
     //mutation "SET_PAGE"
     SET_PAGE(state, payload) {

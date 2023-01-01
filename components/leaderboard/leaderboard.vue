@@ -9,7 +9,7 @@
     </div>
     <div class="profile h-14 w-14 relative">
       <img class="h-14 w-14 rounded-full absolute" :src="image" alt="">
-      <img class="absolute -bottom-2 -right-2" src="~/assets/img/peringkat/lencana/juara1.svg" alt="juara1">
+      <img class="absolute -bottom-2 -right-2" :src="getLeaderUrl">
     </div>
     <div class="profile-detail h-14 w-20 mx-4">
       <p class="name text-[#333333]">
@@ -26,6 +26,22 @@
 
 export default {
   name: 'LeaderBoard',
+  data ()  {
+    return {
+      profileImage : "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80"
+    }
+  },
+  computed: {
+    getLeaderUrl () {
+      if(this.no === 1){
+        return require("~/assets/img/peringkat/lencana/juara1.svg");
+      }else if(this.no === 2 ){
+        return require("~/assets/img/peringkat/lencana/juara2.svg")
+      }else if(this.no === 3 ){
+        return require("~/assets/img/peringkat/lencana/juara3.svg")
+      }
+    }
+  },
   props: {
     no: {
       type: Number,
@@ -42,6 +58,10 @@ export default {
     image: {
       type: String,
       default: ''
+    },
+    rank: {
+      type : Number,
+      default:1
     }
   }
 }
