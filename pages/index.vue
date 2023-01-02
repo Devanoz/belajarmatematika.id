@@ -27,7 +27,7 @@
             </button>
 
             <span class="text-center w-full inline-block mt-8">Belum Punya Akun?
-                <NuxtLink to="siswa/auth/register" class="underline text-lg text-cyan-700">
+                <NuxtLink to="/register" class="underline text-lg text-cyan-700">
                     Daftar
                 </NuxtLink>
             </span>

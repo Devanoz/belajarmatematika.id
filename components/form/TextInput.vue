@@ -1,7 +1,7 @@
 <template>
   <label class="flex flex-col">
     <span class="mb-2 text-xl font-thin text-slate-400">{{ label }}</span>
-    <input class="bg-white px-5 py-3 font-light text-lg rounded-full" :type="type" :name="name" :defaultValue="defaultValue" :placeholder="placeholder">
+    <input class="bg-white px-5 py-3 font-light text-lg rounded-full" @change="sendValue($event.target.value)" :type="type" :name="name" :defaultValue="defaultValue" :placeholder="placeholder">
   </label>
 </template>
 
@@ -14,8 +14,10 @@ export default {
     placeholder: { type: String, default: '' },
     type: { type: String, default: 'text' }
   },
-  setup: () => {
-
-  }
+  methods : {
+    sendValue (value) {
+      this.$emit("data",value)
+    }
+  },
 }
 </script>
