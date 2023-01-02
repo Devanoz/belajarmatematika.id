@@ -10,7 +10,6 @@
       <div class="list-materi">
         <div class="z-10">
           <div>
-              <!-- card materi -->
               <div v-for="(topik,topik_index) in topiks" :key="topik.id"
                    class="
                 flex
@@ -91,7 +90,6 @@
 <script>
 export default {
   name: 'index.vue',
-
   layout: "guru",
   middleware: "isTeacher",
   data() {
@@ -99,9 +97,6 @@ export default {
       topiks: [],
       show:[]
     };
-  },
-  computed:{
-
   },
   created() {
     this.$store.dispatch("teacher/topik/getTopiksData").then(() => {
@@ -137,11 +132,37 @@ export default {
     },
     onHapusClicked (topik_id) {
       const currentPath = this.$router.currentRoute.path
-      this.$axios.delete(`api/teacher/topiks/${topik_id}`).then((response)=>{
-        console.log("berhasil menghapus data")
-        this.$router.go(currentPath)
-      }).catch((err)=>{
-        console.log("gagal menghapus data")
+      this.$swal.fire({
+        title: 'APAKAH ANDA YAKIN ?',
+        text: "INGIN MENGHAPUS DATA INI !",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'YA, HAPUS!',
+        cancelButtonText: 'TIDAK',
+      }).then((result)=>{
+        if(result.isConfirmed){
+          this.$axios.delete(`api/teacher/topiks/${topik_id}`).then((response)=>{
+            this.$swal.fire({
+              title: 'BERHASIL!',
+              text: "Data Berhasil Dihapus!",
+              icon: 'success',
+              showConfirmButton: false,
+              timer: 2000
+            }).then(()=>{
+              this.$router.go(currentPath)
+            })
+          }).catch((err)=>{
+            this.$swal.fire({
+              title: 'GAGAL!',
+              text: "Data GAGAL Dihapus!",
+              icon: 'error',
+              showConfirmButton: false,
+              timer: 2000
+            })
+          })
+        }
       })
     }
   },
