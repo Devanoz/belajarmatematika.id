@@ -62,13 +62,28 @@ export default {
         formData.append('title',this.title)
         formData.append('kelas_id',this.kelas_id)
         this.$axios.post('/api/teacher/topiks',formData).then(()=>{
-          console.log('berhasil menambahkan topik')
-          this.$router.go(-1)
+          this.$swal.fire({
+            title: "berhasil menambahkan topik",
+            icon: "success",
+            timer: 1000,
+            showConfirmButton : false
+          }).then(()=>{
+            this.$router.go(-1)
+          })
         }).catch((err)=>{
-          console.log(err.message)
+          this.$swal.fire({
+            title: "gagal menambahkan topik",
+            icon: "error",
+            text: err.message,
+            timer: 1000
+          })
         })
       }else {
-        alert("salah satu field tidak boleh kosong")
+        this.$swal.fire({
+          title: "field tidak boleh kosong",
+          icon : "warning",
+          timer: 1000
+        })
       }
     },
     onOptionChange (event) {
