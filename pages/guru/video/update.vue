@@ -172,19 +172,39 @@ export default {
       }, 50);
     },
     onTambahkanClick () {
-      const formData = new FormData()
-      console.log(this.video)
-      formData.append('title',this.title)
-      formData.append('url',this.videoUrl)
-      formData.append('materi_id',this.video.materi_id)
-      formData.append('_method','PATCH')
-      this.$axios.post(`/api/teacher/videos/${this.video.id}`,formData)
-        .then((response)=>{
-          alert("sukses mengupdate data video")
-          this.$router.go(-1)
-        }).catch((err)=>{
-          alert("gagal menambahkan data video" + err.message)
+      if(this.title && this.materi_id && this.videoUrl){
+        const formData = new FormData()
+        console.log(this.video)
+        formData.append('title',this.title)
+        formData.append('url',this.videoUrl)
+        formData.append('materi_id',this.video.materi_id)
+        formData.append('_method','PATCH')
+        this.$axios.post(`/api/teacher/videos/${this.video.id}`,formData)
+          .then(()=>{
+            this.$swal.fire({
+              title: "data berhasil diupdate",
+              icon: "success",
+              timer: 1000,
+              showConfirmButton : false
+            }).then(()=>{
+              this.$router.go(-1)
+            })
+          }).catch((err)=>{
+            this.$swal.fire({
+              title: "gagal mengupdate video",
+              icon:'error',
+              text: err.message,
+              timer: 1000
+            })
+          })
+
+      }else {
+        this.$swal.fire({
+          title: "Field tidak boleh kosong",
+          icon: "warning",
+          timer: 1000
         })
+      }
 
     },
     onInputMateriClicked () {

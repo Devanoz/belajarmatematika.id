@@ -142,13 +142,39 @@ export default {
       })
     },
     onHapusClicked (video_id) {
-        const currentPath = this.$router.currentRoute.path
-        this.$axios.delete(`api/teacher/videos/${video_id}`).then((response)=>{
-          console.log("berhasil menghapus data")
-          this.$router.go(currentPath)
-        }).catch((err)=>{
-          console.log("gagal menghapus data")
-        })
+      const currentPath = this.$router.currentRoute.path
+      this.$swal.fire({
+        title: 'APAKAH ANDA YAKIN ?',
+        text: "INGIN MENGHAPUS DATA INI !",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'YA, HAPUS!',
+        cancelButtonText: 'TIDAK',
+      }).then((result)=>{
+        if(result.isConfirmed){
+          this.$axios.delete(`api/teacher/videos/${video_id}`).then((response)=>{
+            this.$swal.fire({
+              title: 'BERHASIL!',
+              text: "Data Berhasil Dihapus!",
+              icon: 'success',
+              showConfirmButton: false,
+              timer: 2000
+            }).then(()=>{
+              this.$router.go(currentPath)
+            })
+          }).catch((err)=>{
+            this.$swal.fire({
+              title: 'GAGAL!',
+              text: "Data GAGAL Dihapus!",
+              icon: 'error',
+              showConfirmButton: false,
+              timer: 2000
+            })
+          })
+        }
+      })
     }
   },
 };

@@ -155,16 +155,37 @@ export default {
       }, 50);
     },
     onTambahkanClick () {
-      let formData = new FormData()
-      formData.append('title',this.title)
-      formData.append('url',this.videoUrl)
-      formData.append('materi_id',this.materi_id)
+      if(this.title && this.materi_id && this.videoUrl){
+        let formData = new FormData()
+        formData.append('title',this.title)
+        formData.append('url',this.videoUrl)
+        formData.append('materi_id',this.materi_id)
 
-      this.$axios.post('/api/teacher/videos',formData).then(()=>{
-        alert("sukses menambahkan data video")
-      }).catch((err)=>{
-        alert("gagal menambahkan data video")
-      })
+        this.$axios.post('/api/teacher/videos',formData).then(()=>{
+          this.$swal.fire({
+            title: "berhasil menambahkan video",
+            icon: "success",
+            timer: 1000,
+            showConfirmButton : false
+          }).then(()=>{
+            this.$router.go(-1)
+          })
+        }).catch((err)=>{
+          this.$swal.fire({
+            title: "gagal menambahkan video",
+            icon: "error",
+            text: err.message,
+            timer: 1000
+          })
+        })
+      }else {
+        this.$swal.fire({
+          title: "field tidak boleh kosong",
+          icon : "warning",
+          timer: 1000
+        })
+      }
+
     },
     onInputMateriClicked () {
       this.materi_placeholder = "pilih materi"

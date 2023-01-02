@@ -65,7 +65,7 @@ export default {
   },
   methods : {
     onTambahkanClick () {
-      if(!this.title.isEmpty && this.kelas_id){
+      if(this.title && this.kelas_id){
         const formData = new FormData()
         formData.append('title',this.title)
         formData.append('kelas_id',this.kelas_id)
