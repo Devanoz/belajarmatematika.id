@@ -43,13 +43,13 @@
         <!-- dropdown kelas -->
 
         <div class="relative inline-block text-left col-span-4 mr-2 z-20">
-          
+
 
             <multiselect v-model="filter.kelas" :options="provinces" :searchable="true" placeholder="Select one" selected-label="" select-label="" deselect-label="">
-               
+
             </multiselect>
 
-           
+
         </div>
 
         <!-- <div class="col-span-1"></div> -->
@@ -57,7 +57,7 @@
         <!-- dropdown materi -->
         <div class="relative inline-block text-left shadow-2xl col-span-4 z-20 row-end-11">
             <multiselect v-model="filter.materi" :options="provinces" :searchable="true" placeholder="Select one" selected-label="" select-label="" deselect-label="">
-               
+
             </multiselect>
         </div>
 
@@ -102,16 +102,7 @@
 
     <!-- slide detail materi -->
     <div class="relative z-0 opacity-0 easy-in-out duration-500" :class="{ 'opacity-100': slideOver, 'z-30': slideOver }" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
-        <!--
-   Background backdrop, show/hide based on slide-over state.
 
-   Entering: "ease-in-out duration-500"
-     From: "opacity-0"
-     To: "opacity-100"
-   Leaving: "ease-in-out duration-500"
-     From: "opacity-100"
-     To: "opacity-0"
- -->
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity hidden"></div>
 
         <div class="fixed inset-0 overflow-hidden">

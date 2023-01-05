@@ -4,6 +4,8 @@ export const state = () => ({
     //materis
     materis: [],
 
+    materisWithTopik:[],
+
     materi:{},
 
     //page
@@ -21,6 +23,10 @@ export const mutations = {
         state.materis = payload
     },
 
+    SET_MATERIS_WITH_TOPIK_DATA(state,payload){
+        state.materisWithTopik = payload
+    },
+
     SET_MATERI_DATA(state, payload){
       state.materi = payload
     },
@@ -36,6 +42,62 @@ export const mutations = {
 
 //actions
 export const actions = {
+
+
+  //get materis data
+  getMaterisWithTopikData({ commit, state }, payload) {
+
+    //search
+    let search = payload ? payload : ''
+
+    //set promise
+    return new Promise((resolve, reject) => {
+
+      //fetching Rest API "/api/admin/materis" with method "GET"
+      this.$axios.get(`/api/teacher/topiksWithMateris`)
+
+        //success
+        .then((response) => {
+
+          //commit ti mutation "SET_MATERIS_DATA"
+          commit('SET_MATERIS_WITH_TOPIK_DATA', response.data.data)
+
+          //resolve promise
+          resolve()
+        })
+
+    })
+
+  },
+
+
+  //update materi
+  updateMateri({ dispatch, commit }, { materiId, payload }) {
+
+    //set promise
+    return new Promise((resolve, reject) => {
+
+      //store to Rest API "/api/teacher/materis/:id" with method "POST"
+      this.$axios.post(`/api/teacher/materis/${materiId}`, payload)
+
+        //success
+        .then(() => {
+
+          //dispatch action "getChallengesData"
+          dispatch('getMaterisData')
+
+          //resolve promise
+          resolve()
+
+        })
+
+        //error
+        .catch(error => {
+          reject(error)
+        })
+
+    })
+  },
 
     //get materis data
     getMaterisData({ commit, state }, payload) {

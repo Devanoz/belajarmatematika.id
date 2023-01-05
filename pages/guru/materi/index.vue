@@ -1,222 +1,224 @@
 <template>
-<div class="flex flex-col h-full px-4 py-4">
+
+
+  <div  @click="onRootClicked($event)" class="divide-gray-500 lex flex-col h-full px-4 py-4">
     <div class="header">
-        <h2 class="text-center text-2xl text-green-primary font-semibold">Materi Pembelajaran</h2>
-        <hr class=" mt-3">
+      <h2 class="text-center text-2xl text-green-primary font-semibold">Materi</h2>
+      <hr class=" mt-3">
     </div>
+    <div id="video-list" class="p-2.5">
+      <div class="list-materi">
+        <div class="z-10">
+          <div>
+            <div v-for="(topik,topik_index) in materis" :key="topik.id">
+              <h1 class="text-[1em] text-cyan-700">{{topik.title}}</h1>
 
-    <!-- bar select -->
-    <div class="bar-select grid grid-cols-10 mt-4 z-20">
-        <button @click="changeMateriToFlex" class="text-sky-800 drop-shadow-md z-20" :class="{ 'text-gray-500': isMateriFlex }">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M6.71429 1H2.14286C1.83975 1 1.54906 1.12041 1.33474 1.33474C1.12041 1.54906 1 1.83975 1 2.14286V6.71429C1 7.01739 1.12041 7.30808 1.33474 7.52241C1.54906 7.73674 1.83975 7.85714 2.14286 7.85714H6.71429C7.01739 7.85714 7.30808 7.73674 7.52241 7.52241C7.73674 7.30808 7.85714 7.01739 7.85714 6.71429V2.14286C7.85714 1.83975 7.73674 1.54906 7.52241 1.33474C7.30808 1.12041 7.01739 1 6.71429 1ZM2.14286 6.71429V2.14286H6.71429V6.71429H2.14286Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" />
-                <path d="M15.8569 1H11.2854C10.9823 1 10.6916 1.12041 10.4773 1.33474C10.263 1.54906 10.1426 1.83975 10.1426 2.14286V6.71429C10.1426 7.01739 10.263 7.30808 10.4773 7.52241C10.6916 7.73674 10.9823 7.85714 11.2854 7.85714H15.8569C16.16 7.85714 16.4507 7.73674 16.665 7.52241C16.8793 7.30808 16.9997 7.01739 16.9997 6.71429V2.14286C16.9997 1.83975 16.8793 1.54906 16.665 1.33474C16.4507 1.12041 16.16 1 15.8569 1ZM11.2854 6.71429V2.14286H15.8569V6.71429H11.2854Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" />
-                <path d="M6.71429 10.1428H2.14286C1.83975 10.1428 1.54906 10.2632 1.33474 10.4776C1.12041 10.6919 1 10.9826 1 11.2857V15.8571C1 16.1602 1.12041 16.4509 1.33474 16.6652C1.54906 16.8796 1.83975 17 2.14286 17H6.71429C7.01739 17 7.30808 16.8796 7.52241 16.6652C7.73674 16.4509 7.85714 16.1602 7.85714 15.8571V11.2857C7.85714 10.9826 7.73674 10.6919 7.52241 10.4776C7.30808 10.2632 7.01739 10.1428 6.71429 10.1428ZM2.14286 15.8571V11.2857H6.71429V15.8571H2.14286Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" />
-                <path d="M15.8569 10.1428H11.2854C10.9823 10.1428 10.6916 10.2632 10.4773 10.4776C10.263 10.6919 10.1426 10.9826 10.1426 11.2857V15.8571C10.1426 16.1602 10.263 16.4509 10.4773 16.6652C10.6916 16.8796 10.9823 17 11.2854 17H15.8569C16.16 17 16.4507 16.8796 16.665 16.6652C16.8793 16.4509 16.9997 16.1602 16.9997 15.8571V11.2857C16.9997 10.9826 16.8793 10.6919 16.665 10.4776C16.4507 10.2632 16.16 10.1428 15.8569 10.1428ZM11.2854 15.8571V11.2857H15.8569V15.8571H11.2854Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" />
-            </svg>
-
-        </button>
-
-        <button @click="changeMateriToList" class="text-sky-800 drop-shadow-md z-20" :class="{ 'text-gray-500': isMateriVertical }">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M17 9C17 9.18186 16.9462 9.35628 16.8504 9.48487C16.7547 9.61347 16.6248 9.68571 16.4894 9.68571H1.51064C1.37521 9.68571 1.24533 9.61347 1.14956 9.48487C1.0538 9.35628 1 9.18186 1 9C1 8.81814 1.0538 8.64372 1.14956 8.51513C1.24533 8.38653 1.37521 8.31429 1.51064 8.31429H16.4894C16.6248 8.31429 16.7547 8.38653 16.8504 8.51513C16.9462 8.64372 17 8.81814 17 9ZM1.51064 2.37143H16.4894C16.6248 2.37143 16.7547 2.29918 16.8504 2.17059C16.9462 2.04199 17 1.86758 17 1.68571C17 1.50385 16.9462 1.32944 16.8504 1.20084C16.7547 1.07224 16.6248 1 16.4894 1H1.51064C1.37521 1 1.24533 1.07224 1.14956 1.20084C1.0538 1.32944 1 1.50385 1 1.68571C1 1.86758 1.0538 2.04199 1.14956 2.17059C1.24533 2.29918 1.37521 2.37143 1.51064 2.37143ZM16.4894 15.6286H1.51064C1.37521 15.6286 1.24533 15.7008 1.14956 15.8294C1.0538 15.958 1 16.1324 1 16.3143C1 16.4961 1.0538 16.6706 1.14956 16.7992C1.24533 16.9278 1.37521 17 1.51064 17H16.4894C16.6248 17 16.7547 16.9278 16.8504 16.7992C16.9462 16.6706 17 16.4961 17 16.3143C17 16.1324 16.9462 15.958 16.8504 15.8294C16.7547 15.7008 16.6248 15.6286 16.4894 15.6286Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" />
-            </svg>
-
-        </button>
-
-        <!-- dropdown kelas -->
-
-        <div class="relative inline-block text-left col-span-4 mr-2 z-20">
-            <multiselect v-model="filter.topik" :options="topiks" :searchable="true" placeholder="Topik" selected-label="" select-label="" deselect-label="" track-by="title" label="title">
-
-            </multiselect>
-        </div>
-
-        <!-- <div class="col-span-1"></div> -->
-
-        <!-- dropdown materi -->
-        <div class="relative inline-block text-left col-span-4 z-20 row-end-11">
-
-            <multiselect v-model="filter.kelas" :options="clases" :searchable="true" placeholder="Kelas" selected-label="selected" select-label="" deselect-label="" track-by="title" label="title">
-
-            </multiselect>
-        </div>
-
-    </div>
-
-    <!-- title materi -->
-
-    <!-- materi vertical -->
-    <div class="flex flex-col " :class="{ 'hidden': isMateriVertical }">
-        <div v-for="data in dataSample" class="z-10">
-            <div v-for="topik in data.topik">
-
-                <h2 class="text-xl mt-4 text-cyan-700">{{topik.nama}}</h2>
-
-                <!-- card materi -->
-                <div v-for="materi in topik.materi" :key="materi.id + topik.nama+ materi.nama" class="grid grid-cols-6 drop-shadow-lg border-b-2 mb-2 rounded-xl z-10 bg-white py-3 px-2">
-                    <div class="card-image col-span-1">
-                        <img src="@/assets/img/materi/book.svg" alt="">
-                    </div>
-                    <div class="card-content col-span-5 flex flex-col">
-                        <p class="font-light ">{{materi.nama}}</p>
-                    </div>
+              <div class="flex
+                justify-center
+                card-image
+                drop-shadow-lg
+                border-b-2
+                mb-2
+                rounded-xl
+                z-10
+                bg-white
+                py-3
+                px-2
+                my-3
+                z-30" v-if="topik.materis.length==0">
+                Yahh, Materi untuk topik ini belum ada
+              </div>
+              <!-- card materi -->
+              <div v-for="(materi, materi_index) in topik.materis" :key="materi.id"
+                   class="
+                flex
+                card-image
+                drop-shadow-lg
+                border-b-2
+                mb-2
+                rounded-xl
+                z-10
+                bg-white
+                py-3
+                px-2
+                my-3
+                z-30
+              "
+              >
+                <img src="@/assets/img/materi/book.svg" alt="" />
+                <div class="mx-3">
+                  <div>{{ materi.title }}</div>
                 </div>
-            </div>
+                <button class="absolute right-3 top-3" @click="handleToogleClick(topik_index,materi_index)">
+                  <img id="toogle"  src="@/assets/img/guru/video/tridot.svg" />
+                </button>
 
+                <transition name="fade">
+                  <div
+                    :key="materi_index"
+                    v-if="show[topik_index][materi_index]"
+                    class="
+                    bg-white
+                    w-20
+                    h-14
+                    absolute
+                    right-0
+                    -top-5
+                    z-10
+                    rounded-md
+                    flex flex-col
+                    shadow-lg
+                    p-2
+                    items-center
+                  "
+                  >
+                    <button @click="onEditClicked(materi.id,topik.id)" >edit</button>
+                    <button @click="onHapusClicked(materi.id)" >hapus</button>
+                  </div>
+                </transition>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
 
-    <!-- materi horizontal -->
-    <div class="grid grid-cols-6 mt-2" :class="{ 'hidden': isMateriFlex }">
-        <div v-for="index in materis" :key="index.id + 'index2' + index.id" class="flex flex-col col-span-2 bg-white mx-1 mt-2 z-10 drop-shadow-xl rounded-xl px-2 py-2">
-            <div class="image place-self-center">
-                <img src="@/assets/img/materi/book.svg" class=" w-14 h-14" alt="">
-
-            </div>
-            <div class="title place-self-center text-sm font-normal leading-4 mt-2 text-gray-700 text-center">
-                {{index.nama}}
-            </div>
-        </div>
-
-
-    </div>
-
-    <div class="relative">
-            <button class=" px-4 py-4 drop-shadow-xl bg-sky-700 fixed rounded-full bottom-32 z-20 right-4">
-                <nuxt-link to="materi/add">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 22V12M12 12V2M12 12H22M12 12H2" stroke="white" stroke-width="3.875" stroke-linecap="round" />
-                    </svg>
-                </nuxt-link>
-
-            </button>
-        </div>
-
-</div>
+    <NuxtLink to="/guru/materi/add">
+      <div
+        id="floating-button"
+        class="
+          bg-[#6D9DE0]
+          w-[3.375rem]
+          h-[3.375rem]
+          z-10
+          fixed
+          shadow-xl
+          bottom-[6rem]
+          right-[1.5rem]
+          rounded-full
+          flex
+          justify-center
+          items-center
+        "
+      >
+        <img src="@/assets/img/guru/video/plusSign.svg" alt="" />
+      </div>
+    </NuxtLink>
+  </div>
 </template>
+
+
 
 <script>
 import {
-    dataSamples
-} from "@/static/dataSample";
-import {
-    materi
-} from "@/static/listMateri";
-import {
-    topiks
-} from "@/static/topiks";
-
-import Multiselect from 'vue-multiselect'
-import 'vue-multiselect/dist/vue-multiselect.min.css'
+  dataSamples
+} from '@/static/dataSample'
 
 export default {
-    middleware: 'isTeacher',
-    layout: 'guru',
-    components: {
-        Multiselect
-    },
+  layout: 'guru',
+  middleware: 'isTeacher',
 
-    async asyncData({
-        store
-    }) {
-        await store.dispatch('teacher/kelas/getClasesData')
-        await store.dispatch('teacher/topik/getTopiksData')
-    },
+  async asyncData({
+    store
+  }) {
+    await store.dispatch('teacher/materi/getMaterisWithTopikData')
+  },
 
-    //computed
-    computed: {
-        clases() {
-            return this.$store.state.teacher.kelas.clases.data
-        },
-        topiks() {
-            return this.$store.state.teacher.topik.topiks.data
-        },
-    },
-    data() {
-        return {
-            filter: {
-                kelas: '',
-                materi: ''
-            },
-            kelas: [],
-            materis: materi,
-            dropdownClassClicked: false,
-            dropdownMateriClicked: false,
-            dataSample: dataSamples,
-            dataSample: dataSamples,
-            isMateriVertical: true,
-            isMateriFlex: false,
+  //computed
+  computed: {
+
+    // materis(){
+    //   return this.$store.state.teacher.materi.materis
+    // }
+
+  },
+
+
+
+  data() {
+    return {
+      materis: [],
+      show:[],
+      dataSample: dataSamples
+    }
+  },
+
+  created() {
+    this.$store.dispatch("teacher/materi/getMaterisWithTopikData").then(() => {
+      this.materis = this.$store.state.teacher.materi.materisWithTopik;
+      this.show = Array.from({length:this.materis.length},()=>{
+        return [false]
+      })
+    })
+  },
+
+  methods:{
+    handleToogleClick(topik_index,materi_index){
+      this.show[topik_index] = Array.from({length:this.materis[topik_index].materis.length},()=>false)
+      this.show[topik_index] = this.show[topik_index].map((show,idx)=>{
+        if(materi_index == idx) {
+          return true
+        }else {
+          return false
         }
+      })
+      this.$forceUpdate()
     },
-    mounted() {
-        console.log(window.location.href)
-
-        console.log("test")
-
+    onRootClicked(event){
+      if(event.target.id != 'toogle'){
+        this.show = this.show.map(()=>false)
+        this.$forceUpdate()
+      }
     },
-    methods: {
-        onDropdownClassClicked() {
-            if (this.dropdownClassClicked) {
-                this.dropdownClassClicked = false
-            } else {
-                this.dropdownClassClicked = true
-            }
-        },
-
-        onDropdownMateriClicked() {
-            if (this.dropdownMateriClicked) {
-                this.dropdownMateriClicked = false
-            } else {
-                this.dropdownMateriClicked = true
-            }
-        },
-        changeMateriToList() {
-            if (this.isMateriVertical) {
-                this.isMateriVertical = !this.isMateriVertical
-                this.isMateriFlex = !this.isMateriFlex
-            }
-        },
-
-        changeMateriToFlex() {
-            if (this.isMateriFlex) {
-                this.isMateriFlex = !this.isMateriFlex
-                this.isMateriVertical = !this.isMateriVertical
-            }
+    onEditClicked (materi_id,topik_id) {
+      let currentPath = this.$router.currentRoute.path
+      this.$router.push({
+        path: currentPath+'/update',
+        query: {
+          topik:topik_id,
+          materi:materi_id,
         }
+      })
     },
+    onHapusClicked (video_id) {
+      this.$swal.fire({
+        title: 'INGIN MENGHAPUS DATA INI?',
+        text: "DATA YANG BERKAITAN JUGA AKAN DIHAPUS",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'YA, HAPUS!',
+        cancelButtonText: 'TIDAK',
+      }).then((result) => {
+        if (result.isConfirmed) {
+
+          //dispatch to action "deleteCategory" vuex
+          this.$store.dispatch('teacher/challenge/destroyChallenge', video_id)
+            .then(() => {
+
+              //feresh data
+              this.$nuxt.refresh()
+
+              //alert
+              this.$swal.fire({
+                title: 'BERHASIL!',
+                text: "Data Berhasil Dihapus!",
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 2000
+              })
+
+            })
+        }
+      })
+    }
+
+  }
 }
 </script>
 
-<style scoped>
-.multiselect__tags {
-    min-height: 30px;
-    display: block;
-    padding: 8px 0px 0 34px !important;
-    border-radius: 23px;
-    border: 1px solid rgb(192, 192, 192);
-    background: #e0f2fd;
-    font-size: 14px;
-}
 
-.multiselect__input,
-.multiselect__single {
-    background: #e0f2fd;
-}
+<style>
 
-.multiselect__element {
-    display: block;
-    background: rgb(189, 231, 238);
-}
-
-.multiselect__option--selected.multiselect__option--highlight {
-    background: #fbb92c;
-    color: #fff;
-}
-
-.multiselect__option--highlight {
-    background: #438cf3;
-    outline: none;
-    color: white;
-}
 </style>

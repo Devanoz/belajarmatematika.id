@@ -4,6 +4,8 @@ export const state = () => ({
     //topiks
     topiks: [],
 
+    topik:{},
+
     //page
     page: 1,
 
@@ -17,6 +19,10 @@ export const mutations = {
 
         //set value state "topiks"
         state.topiks = payload
+    },
+
+    SET_TOPIK_DATA(state, payload){
+      state.topik = payload
     },
 
     //mutation "SET_PAGE"
@@ -42,7 +48,7 @@ export const actions = {
 
             //fetching Rest API "/api/admin/topiks" with method "GET"
             this.$axios.get(`/api/teacher/topiks?q=${search}&page=${state.page}`)
-            
+
             //success
             .then((response) => {
 
@@ -56,6 +62,31 @@ export const actions = {
         })
 
     },
+
+
+  getDetailTopik({ commit }, payload) {
+
+    //set promise
+    return new Promise((resolve, reject) => {
+
+      //get to Rest API "/api/teacher/topiks/:id" with method "GET"
+      this.$axios.get(`/api/teacher/topiks/${payload}`)
+
+        //success
+        .then(response => {
+
+          //commit to mutation "SET_MATERI_DATA"
+          commit('SET_TOPIK_DATA', response.data.data)
+
+          //resolve promise
+          resolve()
+
+        })
+
+    })
+
+  },
+
 
     //store topiks
     storeTopik({ dispatch, commit }, payload) {
