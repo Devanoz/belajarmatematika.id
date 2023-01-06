@@ -1,6 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  plugins: [require("daisyui")],
+  plugins: [
+    require('daisyui'),
+    require('@tailwindcss/forms'),
+  ],
 
   // daisyUI config (optional)
   daisyui: {
@@ -10,8 +13,8 @@ module.exports = {
     utils: true,
     logs: true,
     rtl: false,
-    prefix: "",
-    darkTheme: "dark",
+    prefix: '',
+    darkTheme: 'dark',
   },
   content: [
     './components/**/*.{js,vue,ts}',
@@ -22,8 +25,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+
       colors: {
-        'green-primary':'#56A28E',
+        'green-primary': '#56A28E',
         'cs-blue': {
           300: '#DFEAF8',
           600: '#6D9DE0',
