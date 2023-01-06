@@ -137,7 +137,6 @@
 
     </div>
 
-    slide detail materi
     <div class="relative z-0 opacity-0 easy-in-out duration-500"
          :class="{ 'opacity-100': slideOver, 'z-30': slideOver }" aria-labelledby="slide-over-title" role="dialog"
          aria-modal="true"
@@ -188,10 +187,11 @@
                   <div class="h-full bg-white drop-shadow-lg px-4 py-4 relative rounded-tl-2xl rounded-tr-2xl">
                     <h3 class="title text-cyan-800 font-semibold">{{ tempMateri.title }}</h3>
 
-                    <iframe v-if="tempMateri.content" class="mt-3"
-                            :src="tempMateri.content+'#toolbar=0'" width="100%"
+                    <object type="application/pdf" v-if="tempMateri.content" class="mt-3"
+                            :data="tempMateri.content" width="100%"
                             height="100%"
-                    ></iframe>
+                    ></object>
+                    halo
                   </div>
                 </div>
               </div>
