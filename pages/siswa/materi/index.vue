@@ -186,12 +186,22 @@
                 <div class="relative flex-1 sm:pt-6 flex-wrap">
                   <div class="h-full bg-white drop-shadow-lg px-4 py-4 relative rounded-tl-2xl rounded-tr-2xl">
                     <h3 class="title text-cyan-800 font-semibold">{{ tempMateri.title }}</h3>
+                    <!--                    <pdf :src="tempMateri.content" :page="1">-->
 
-                    <object type="application/pdf" v-if="tempMateri.content" class="mt-3"
-                            :data="tempMateri.content" width="100%"
-                            height="100%"
-                    ></object>
-                    halo
+                    <!--                    <object type="application/pdf" v-if="tempMateri.content" class="mt-3"-->
+                    <!--                            :data="tempMateri.content" width="100%"-->
+                    <!--                            height="100%"-->
+                    <!--                    ></object>-->
+
+                    <iframe width="100%" height="100%"
+                            src="https://drive.google.com/file/d/18SSqx_mjINFUIPkCCMAf-MMKxp8OSc8V/preview?usp=sharing"
+                    ></iframe>
+
+
+                    <!--                    <vue-pdf-embed :source="tempMateri.content"/>-->
+                    <!--                    <pdf :src="tempMateri.content"></pdf>-->
+
+
                   </div>
                 </div>
               </div>
@@ -215,11 +225,15 @@ import {
 } from '@/static/topiks'
 import Multiselect from 'vue-multiselect'
 import 'vue-multiselect/dist/vue-multiselect.min.css'
+// import VuePdfEmbed from 'vue-pdf-embed'
+// import VuePdfEmbed from 'vue-pdf-embed/dist/vue2-pdf-embed'
+// import pdf from 'vue-pdf'
 
 export default {
   middleware: 'isStudent',
   components: {
     Multiselect,
+
   },
   layout: 'app',
   async asyncData ({
@@ -352,4 +366,22 @@ export default {
   outline: none;
   color: white;
 }
+
+.iframe-container {
+  overflow: hidden;
+  padding-top: 62.5%;
+  position: relative;
+  height: 100%;
+}
+
+.iframe-container iframe {
+  border: 0;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+
 </style>
