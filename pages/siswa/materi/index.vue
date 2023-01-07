@@ -194,7 +194,7 @@
                     <!--                    ></object>-->
 
                     <iframe width="100%" height="100%"
-                            src="https://drive.google.com/file/d/18SSqx_mjINFUIPkCCMAf-MMKxp8OSc8V/preview?usp=sharing"
+                            :src="'https://docs.google.com/viewer?url='+tempMateri.content+'&embedded=true'"
                     ></iframe>
 
 
