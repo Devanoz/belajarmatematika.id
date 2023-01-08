@@ -1,14 +1,19 @@
 <template>
   <div class="flex flex-col h-full px-4 py-4">
-    <div class="grid grid-cols-3 gap-3 place-content-between">
-      <div class="flex">
+    <div class="z-20 grid grid-cols-5 gap-3 place-content-between">
+      <div class="flex col-span-4">
         <span class="text-2xl text-cyan-700 font-light col-start-1 col-span-2 self-center">Halo, </span>
-        <span class="text-2xl text-cyan-700 self-center ml-1"> {{ nama }}</span>
+        <span class="text-2xl text-cyan-700 self-center ml-1"> {{ user.name }}</span>
 
       </div>
-      <img class="rounded-full justify-end col-end-4 place-self-end"
-           :src="`https://ui-avatars.com/api/?name=${nama}&amp;background=4e73df&amp;color=ffffff&amp;size=50`" alt=""
-      >
+      <nuxt-link class="z-20 rounded-full justify-end col-end-6 place-self-end" to="/siswa/profile">
+        <img
+          class="rounded-full"
+          :src="`https://ui-avatars.com/api/?name=${user.name}&amp;background=4e73df&amp;color=ffffff&amp;size=50`"
+          alt=""
+        >
+      </nuxt-link>
+
     </div>
 
     <!-- search bar -->
@@ -266,6 +271,9 @@ export default {
   computed: {
     materis () {
       return this.$store.state.siswa.materi.materis
+    },
+    user () {
+      return this.$auth.user
     }
   },
 
