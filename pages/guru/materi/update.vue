@@ -167,7 +167,10 @@ export default {
 
       formData.append('title', this.materi.judul)
       formData.append('topik_id', this.materi.topik.id)
-      formData.append('content', this.materi.file)
+      if (this.materi.file != '') {
+        formData.append('content', this.materi.file)
+
+      }
       formData.append('_method', 'PATCH')
 
       //sending data to action "storeCategory" vuex
