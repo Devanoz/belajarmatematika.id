@@ -5,9 +5,9 @@
     </div>
     <hr class="bg-gray-300 h-0.5">
     <div id="image-wrapper" class="w-40 h-auto m-auto flex flex-row justify-center mt-5 relative">
-      <img :src="getProfileImageUrl" class="w-40 h-40 rounded-full">
+      <img :src="getProfileImageUrl" class="w-40 h-40 rounded-full" alt="profile image">
       <transition name="fade">
-      <img v-if="!isInputDisabled"  src="~/assets/img/murid/profilepic/editPhotoSign.svg" class="absolute bottom-0 right-0 w-12 h-12" >
+      <img v-if="!isInputDisabled"  src="~/assets/img/murid/profilepic/editPhotoSign.svg" class="absolute bottom-0 right-0 w-12 h-12"  alt="edit photo sign">
       </transition>
       <label v-if="!isInputDisabled" for="profile-img" class="absolute bottom-0 right-0 w-12 h-12 z-10">
         <input @change="handleProfileImage($event)" type="file" id="profile-img" class="hidden" >
@@ -16,6 +16,7 @@
     <h1 id="name" class="text-center mt-5">{{ studentName }}</h1>
     <h2 id="email" class="text-center mt-2 text-gray-500" >{{ studentEmail }}</h2>
     <div class="profile-section mt-6 px-10 h-auto">
+      <label for="name" class="ml-2 mb-2 font-bold">Name</label>
       <input
         id="name"
         type="text"
@@ -26,6 +27,7 @@
       />
     </div>
     <div class="profile-section mt-6 px-10 h-auto">
+      <label for="email" class="ml-2 mb-2 font-bold">Email</label>
       <input
         id="email"
         type="email"
@@ -36,6 +38,7 @@
       />
     </div>
     <div v-if="!isInputDisabled" class="profile-section mt-6 px-10 h-auto">
+      <label for="password" class="ml-2 mb-2 font-bold">Password</label>
       <input
         id="password"
         type="password"
@@ -46,6 +49,7 @@
       />
     </div>
     <div v-if="!isInputDisabled" class="profile-section mt-6 px-10 h-auto">
+      <label for="password-confirmation" class="ml-2 mb-2 font-bold">Password Confirmation</label>
       <input
         id="password-confirmation"
         type="text"
@@ -137,7 +141,7 @@ export default {
           if(this.passwordConfirmation) {
             formData.append('password_confirmation',this.passwordConfirmation)
           }
-          this.$axios.post('/api/student/profile',formData).then((response)=>{
+          this.$axios.post('/api/student/profile',formData).then(()=>{
             this.$swal.fire({
               title : 'Update profile sukses',
               icon : 'success',
