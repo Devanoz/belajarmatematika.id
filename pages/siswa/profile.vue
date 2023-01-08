@@ -122,7 +122,6 @@ export default {
         this.isInputDisabled = !this.isInputDisabled
       }else {
           const formData = new FormData()
-          formData.append('_method','PATCH')
           if(this.name) {
             formData.append('name',this.name)
           }
