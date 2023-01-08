@@ -12,6 +12,23 @@
           <div>
             <div v-for="(materi,materi_index) in challenges" :key="materi.id">
               <h1 class="text-[1em] text-cyan-700">{{ materi.title }}</h1>
+
+              <div class="flex
+                justify-center
+                card-image
+                drop-shadow-lg
+                border-b-2
+                mb-2
+                rounded-xl
+                z-10
+                bg-white
+                py-3
+                px-2
+                my-3
+                z-30" v-if="materi.challenges.length==0"
+              >
+                Yahh, Tantangan untuk topik ini belum ada
+              </div>
               <!-- card materi -->
               <div v-for="(challenge,challenge_index) in materi.challenges" :key="challenge.id"
                    class="
