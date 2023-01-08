@@ -84,6 +84,10 @@ export default {
                 .catch(error => {
                     //assign validation
                     // this.validation = error.response.data
+                  this.$swal.fire({
+                    text : 'Email atau password salah',
+                    icon :'warning'
+                  })
                 })
         }
 
