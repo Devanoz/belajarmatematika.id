@@ -1,7 +1,7 @@
 <template>
 
 
-  <div  @click="onRootClicked($event)" class="divide-gray-500 lex flex-col h-full px-4 py-4">
+  <div @click="onRootClicked($event)" class="divide-gray-500 lex flex-col h-full px-4 py-4">
     <div class="header">
       <h2 class="text-center text-2xl text-green-primary font-semibold">Materi</h2>
       <hr class=" mt-3">
@@ -11,7 +11,7 @@
         <div class="z-10">
           <div>
             <div v-for="(topik,topik_index) in materis" :key="topik.id">
-              <h1 class="text-[1em] text-cyan-700">{{topik.title}}</h1>
+              <h1 class="text-[1em] text-cyan-700">{{ topik.title }}</h1>
 
               <div class="flex
                 justify-center
@@ -25,7 +25,8 @@
                 py-3
                 px-2
                 my-3
-                z-30" v-if="topik.materis.length==0">
+                z-30" v-if="topik.materis.length==0"
+              >
                 Yahh, Materi untuk topik ini belum ada
               </div>
               <!-- card materi -->
@@ -45,12 +46,12 @@
                 z-30
               "
               >
-                <img src="@/assets/img/materi/book.svg" alt="" />
+                <img src="@/assets/img/materi/book.svg" alt=""/>
                 <div class="mx-3">
                   <div>{{ materi.title }}</div>
                 </div>
                 <button class="absolute right-3 top-3" @click="handleToogleClick(topik_index,materi_index)">
-                  <img id="toogle"  src="@/assets/img/guru/video/tridot.svg" />
+                  <img id="toogle" src="@/assets/img/guru/video/tridot.svg"/>
                 </button>
 
                 <transition name="fade">
@@ -72,8 +73,8 @@
                     items-center
                   "
                   >
-                    <button @click="onEditClicked(materi.id,topik.id)" >edit</button>
-                    <button @click="onHapusClicked(materi.id)" >hapus</button>
+                    <button @click="onEditClicked(materi.id,topik.id)">edit</button>
+                    <button @click="onHapusClicked(materi.id)">hapus</button>
                   </div>
                 </transition>
               </div>
@@ -101,12 +102,11 @@
           items-center
         "
       >
-        <img src="@/assets/img/guru/video/plusSign.svg" alt="" />
+        <img src="@/assets/img/guru/video/plusSign.svg" alt=""/>
       </div>
     </NuxtLink>
   </div>
 </template>
-
 
 
 <script>
@@ -118,7 +118,7 @@ export default {
   layout: 'guru',
   middleware: 'isTeacher',
 
-  async asyncData({
+  async asyncData ({
     store
   }) {
     await store.dispatch('teacher/materi/getMaterisWithTopikData')
@@ -133,57 +133,56 @@ export default {
 
   },
 
-
-
-  data() {
+  data () {
     return {
       materis: [],
-      show:[],
+      show: [],
       dataSample: dataSamples
     }
   },
 
-  created() {
-    this.$store.dispatch("teacher/materi/getMaterisWithTopikData").then(() => {
-      this.materis = this.$store.state.teacher.materi.materisWithTopik;
-      this.show = Array.from({length:this.materis.length},()=>{
+  created () {
+    this.$store.dispatch('teacher/materi/getMaterisWithTopikData').then(() => {
+      this.materis = this.$store.state.teacher.materi.materisWithTopik
+      this.show = Array.from({ length: this.materis.length }, () => {
         return [false]
       })
     })
   },
 
-  methods:{
-    handleToogleClick(topik_index,materi_index){
-      this.show[topik_index] = Array.from({length:this.materis[topik_index].materis.length},()=>false)
-      this.show[topik_index] = this.show[topik_index].map((show,idx)=>{
-        if(materi_index == idx) {
+  methods: {
+    handleToogleClick (topik_index, materi_index) {
+      this.show[topik_index] = Array.from({ length: this.materis[topik_index].materis.length }, () => false)
+      this.show[topik_index] = this.show[topik_index].map((show, idx) => {
+        if (materi_index == idx) {
           return true
-        }else {
+        } else {
           return false
         }
       })
       this.$forceUpdate()
     },
-    onRootClicked(event){
-      if(event.target.id != 'toogle'){
-        this.show = this.show.map(()=>false)
+    onRootClicked (event) {
+      if (event.target.id != 'toogle') {
+        this.show = this.show.map(() => false)
         this.$forceUpdate()
       }
     },
-    onEditClicked (materi_id,topik_id) {
+    onEditClicked (materi_id, topik_id) {
       let currentPath = this.$router.currentRoute.path
       this.$router.push({
-        path: currentPath+'/update',
+        path: currentPath + '/update',
         query: {
-          topik:topik_id,
-          materi:materi_id,
+          topik: topik_id,
+          materi: materi_id,
         }
       })
     },
-    onHapusClicked (video_id) {
+    onHapusClicked (materi) {
+
       this.$swal.fire({
         title: 'INGIN MENGHAPUS DATA INI?',
-        text: "DATA YANG BERKAITAN JUGA AKAN DIHAPUS",
+        text: 'DATA YANG BERKAITAN JUGA AKAN DIHAPUS',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#d33',
@@ -194,7 +193,7 @@ export default {
         if (result.isConfirmed) {
 
           //dispatch to action "deleteCategory" vuex
-          this.$store.dispatch('teacher/challenge/destroyChallenge', video_id)
+          this.$store.dispatch('teacher/materi/destroyMateri', materi)
             .then(() => {
 
               //feresh data
@@ -203,11 +202,14 @@ export default {
               //alert
               this.$swal.fire({
                 title: 'BERHASIL!',
-                text: "Data Berhasil Dihapus!",
+                text: 'Data Berhasil Dihapus!',
                 icon: 'success',
                 showConfirmButton: false,
                 timer: 2000
               })
+
+              const currentPath = this.$router.currentRoute.path
+              this.$router.go(currentPath)
 
             })
         }

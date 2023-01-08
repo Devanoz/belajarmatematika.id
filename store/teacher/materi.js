@@ -1,51 +1,53 @@
 //state
 export const state = () => ({
 
-    //materis
-    materis: [],
+  //materis
+  materis: [],
 
-    materisWithTopik:[],
+  materisWithTopik: [],
 
-    materi:{},
+  materi: {},
 
-    //page
-    page: 1,
+  //page
+  page: 1,
 
 })
 
 //mutations
 export const mutations = {
 
-    //mutation "SET_MATERIS_DATA"
-    SET_MATERIS_DATA(state, payload) {
+  //mutation "SET_MATERIS_DATA"
+  SET_MATERIS_DATA (state, payload) {
 
-        //set value state "materis"
-        state.materis = payload
-    },
+    //set value state "materis"
+    state.materis = payload
+  },
 
-    SET_MATERIS_WITH_TOPIK_DATA(state,payload){
-        state.materisWithTopik = payload
-    },
+  SET_MATERIS_WITH_TOPIK_DATA (state, payload) {
+    state.materisWithTopik = payload
+  },
 
-    SET_MATERI_DATA(state, payload){
-      state.materi = payload
-    },
+  SET_MATERI_DATA (state, payload) {
+    state.materi = payload
+  },
 
-    //mutation "SET_PAGE"
-    SET_PAGE(state, payload) {
+  //mutation "SET_PAGE"
+  SET_PAGE (state, payload) {
 
-        //set value state "page"
-        state.page = payload
-    },
+    //set value state "page"
+    state.page = payload
+  },
 
 }
 
 //actions
 export const actions = {
 
-
   //get materis data
-  getMaterisWithTopikData({ commit, state }, payload) {
+  getMaterisWithTopikData ({
+    commit,
+    state
+  }, payload) {
 
     //search
     let search = payload ? payload : ''
@@ -70,9 +72,14 @@ export const actions = {
 
   },
 
-
   //update materi
-  updateMateri({ dispatch, commit }, { materiId, payload }) {
+  updateMateri ({
+    dispatch,
+    commit
+  }, {
+    materiId,
+    payload
+  }) {
 
     //set promise
     return new Promise((resolve, reject) => {
@@ -99,33 +106,36 @@ export const actions = {
     })
   },
 
-    //get materis data
-    getMaterisData({ commit, state }, payload) {
+  //get materis data
+  getMaterisData ({
+    commit,
+    state
+  }, payload) {
 
-        //search
-        let search = payload ? payload : ''
+    //search
+    let search = payload ? payload : ''
 
-        //set promise
-        return new Promise((resolve, reject) => {
+    //set promise
+    return new Promise((resolve, reject) => {
 
-            //fetching Rest API "/api/admin/materis" with method "GET"
-            this.$axios.get(`/api/teacher/materis?q=${search}&page=${state.page}`)
+      //fetching Rest API "/api/admin/materis" with method "GET"
+      this.$axios.get(`/api/teacher/materis?q=${search}&page=${state.page}`)
 
-            //success
-            .then((response) => {
+        //success
+        .then((response) => {
 
-                //commit ti mutation "SET_MATERIS_DATA"
-                commit('SET_MATERIS_DATA', response.data.data)
+          //commit ti mutation "SET_MATERIS_DATA"
+          commit('SET_MATERIS_DATA', response.data.data)
 
-                //resolve promise
-                resolve()
-            })
-
+          //resolve promise
+          resolve()
         })
 
-    },
+    })
 
-  getDetailMateri({ commit }, payload) {
+  },
+
+  getDetailMateri ({ commit }, payload) {
 
     //set promise
     return new Promise((resolve, reject) => {
@@ -148,33 +158,61 @@ export const actions = {
 
   },
 
+  //store materis
+  storeMateri ({
+    dispatch,
+    commit
+  }, payload) {
 
-    //store materis
-    storeMateri({ dispatch, commit }, payload) {
+    //set promise
+    return new Promise((resolve, reject) => {
 
-        //set promise
-        return new Promise((resolve, reject) => {
+      //store to Rest API "/api/admin/categories" with method "POST"
+      this.$axios.post('/api/teacher/materis', payload)
 
-            //store to Rest API "/api/admin/categories" with method "POST"
-            this.$axios.post('/api/teacher/materis', payload)
+        //success
+        .then(() => {
 
-            //success
-            .then(() => {
+          //dispatch action "getCategoriesData"
+          dispatch('getMaterisData')
 
-                //dispatch action "getCategoriesData"
-                dispatch('getMaterisData')
-
-                //resolve promise
-                resolve()
-
-            })
-
-            //error
-            .catch(error => {
-                reject(error)
-            })
+          //resolve promise
+          resolve()
 
         })
-    },
+
+        //error
+        .catch(error => {
+          reject(error)
+        })
+
+    })
+  },
+
+  destroyMateri ({
+    dispatch,
+    commit
+  }, payload) {
+
+    //set promise
+    return new Promise((resolve, reject) => {
+
+      //delete to Rest API "/api/teacher/materis/:id" with method "DELETE"
+      this.$axios.delete(`/api/teacher/materis/${payload}`)
+
+        //success
+        .then(() => {
+
+          //dispatch action "getChallengesData"
+          dispatch('getMaterisData')
+
+          //resolve promise
+          resolve()
+
+        })
+
+    })
+
+  },
 
 }
