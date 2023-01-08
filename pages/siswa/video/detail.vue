@@ -18,7 +18,7 @@
 
     <div class="mt-4">
       <iframe
-        height="315"
+        height="250"
         class="w-full"
         :src="url"
         title="YouTube video player"
