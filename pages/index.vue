@@ -83,7 +83,7 @@ export default {
 
                 .catch(error => {
                     //assign validation
-                    this.validation = error.response.data
+                    // this.validation = error.response.data
                 })
         }
 
