@@ -14,6 +14,9 @@
       <h1 class="text-[1.4em] col-span-2 text-gray-700 font-bold text-center">
         Profile
       </h1>
+      <div @click="logout" class="pl-8">
+        <img src="@/assets/img/murid/profilepic/logout.svg" class="w-10 h-10" alt="logout">
+      </div>
     </div>
     <hr class="bg-gray-300 h-0.5">
     <div id="image-wrapper" class="w-40 h-auto m-auto flex flex-row justify-center mt-5 relative">
@@ -228,6 +231,14 @@ export default {
         }
       }
     },
+    async logout() {
+
+      //logout auth
+      await this.$auth.logout()
+
+      //redirect route admin login
+      await this.$router.push('/')
+    }
   }
 }
 </script>
