@@ -130,6 +130,7 @@
 <script>
 export default {
   name: 'update-video',
+  middleware : 'isTeacher',
   data() {
     return {
       video:null,

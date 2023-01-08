@@ -130,6 +130,7 @@
 <script>
 export default {
   name: "AddVideo",
+  middleware: 'isTeacher',
   data() {
     return {
       popupClicked: false,
