@@ -114,6 +114,7 @@ export default {
         const video = response.data.data
         this.url = video.url
         this.comments = response.data.data.comments
+        this.show = Array.from({length:this.comments.length},()=>true)
         this.studentComment = ''
         this.$forceUpdate()
         this.$swal.fire({
