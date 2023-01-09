@@ -9,23 +9,109 @@
           class="absolute bg-black opacity-70 w-full h-full inset-0 z-20"
         ></div>
         <div
-          class="w-full max-w-lg p-3 absolute mx-auto mt-52 my-auto rounded-xl shadow-lg bg-white z-30"
+          class="w-full max-w-lg p-3 absolute mx-auto mt-20 my-auto rounded-xl shadow-lg bg-white z-30"
         >
           <div>
-            <div class="text-center p-3 flex-auto justify-center leading-6">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="w-16 h-16 flex items-center text-purple-500 mx-auto"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                  clip-rule="evenodd"
-                />
-              </svg>
-              <h2 class="text-2xl font-bold py-4">Are you sure?</h2>
+            <div class="text-center px-0.5 flex-auto justify-center leading-6">
+              <h2 class="text-xl text-gray-700 font-bold">
+                Edit Question
+              </h2>
+
+              <form>
+                <div class="flex flex-col mt-2">
+                  <label class=" font-medium text-gray-500 self-start">Deskripsi Soal</label>
+                  <textarea id="" v-model="questionData.title" cols="42" rows="2"
+                            class="w-full text-gray-500 mb-2 border-gray-500 rounded-2xl px-2 py-1 border-2"
+                  />
+                </div>
+
+                <div class="flex flex-col mt-2">
+                  <label class="mt-4 font-medium text-gray-500 self-start">Uploud Gambar Soal (Opsional)</label>
+
+                  <div v-if="questionData.file == ''" class="flex items-center justify-center w-full mb-2  px-2">
+                    <label for="dropzone-file"
+                           class="flex flex-col items-center justify-center w-full h-20 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 hover:bg-gray-100 "
+                    >
+                      <div class="flex flex-col items-center justify-center pt-5 pb-6">
+
+                        <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Klik untuk melampirkan file</span>
+                        </p>
+                      </div>
+                      <input id="dropzone-file" type="file" class="hidden" @change="handleFileChange">
+
+                    </label>
+                  </div>
+                  <div v-if="questionData.file !=''" class="file-preview px-4 mt-6">
+                <span class=" font-semibold text-gray-500 mb-3">
+                  Terlampir
+                </span>
+                    <div class="grid grid-cols-4">
+                      <img src="~/assets/img/general/pdf.svg" alt="">
+                      <span class=" col-span-2">
+                    {{ questionData.file.name }}
+                  </span>
+                      <button class="place-self-end self-center" @click="onFileDeleted">
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M8.10385 7.01018L12.7491 2.3649C12.8266 2.29274 12.8887 2.20572 12.9318 2.10903C12.9748 2.01234 12.998 1.90797 12.9999 1.80213C13.0017 1.6963 12.9823 1.59117 12.9426 1.49302C12.903 1.39487 12.844 1.30571 12.7691 1.23087C12.6943 1.15602 12.6051 1.09701 12.507 1.05737C12.4088 1.01772 12.3037 0.998255 12.1979 1.00012C12.092 1.00199 11.9877 1.02516 11.891 1.06824C11.7943 1.11132 11.7073 1.17343 11.6351 1.25087L6.98982 5.89615L2.34454 1.25087C2.19512 1.11164 1.99749 1.03584 1.79329 1.03945C1.58908 1.04305 1.39425 1.12577 1.24983 1.27019C1.10542 1.41461 1.02269 1.60944 1.01909 1.81364C1.01549 2.01785 1.09129 2.21548 1.23052 2.3649L5.8758 7.01018L1.23052 11.6555C1.08291 11.8032 1 12.0036 1 12.2125C1 12.4213 1.08291 12.6217 1.23052 12.7695C1.37831 12.9171 1.57865 13 1.78753 13C1.99641 13 2.19675 12.9171 2.34454 12.7695L6.98982 8.1242L11.6351 12.7695C11.7829 12.9171 11.9832 13 12.1921 13C12.401 13 12.6013 12.9171 12.7491 12.7695C12.8967 12.6217 12.9796 12.4213 12.9796 12.2125C12.9796 12.0036 12.8967 11.8032 12.7491 11.6555L8.10385 7.01018Z"
+                            fill="#BDBDBD" stroke="#828282" stroke-width="0.4"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex flex-col mt-2">
+                  <label class=" font-medium text-gray-500 self-start">Bentuk Soal</label>
+                  <multiselect
+                    v-model="questionData.is_pilihan_ganda"
+                    :options="options"
+                    :searchable="true"
+                    placeholder="Pilihan Ganda / Essay"
+                    selected-label="text"
+                    select-label=""
+                    deselect-label=""
+                    track-by="text"
+                    label="text"
+                  />
+                </div>
+
+                <div v-if="questionData.is_pilihan_ganda.value ==1" class="opsi-pilgan mt-2">
+                  <label class="mt-6 font-medium text-gray-500 mb-2">Pilihan A</label><br>
+                  <input id="judul" v-model="questionData.options[0].body" type="text"
+                         class="w-full h-11 mb-2 rounded-2xl border-2 text-gray-500 border-gray-400 px-5"
+                  >
+                  <label class="mt-6 font-medium text-gray-500 mb-2">Pilihan B</label><br>
+                  <input id="judul" v-model="questionData.options[1].body" type="text"
+                         class="w-full h-11 mb-2 rounded-2xl border-2 text-gray-500 border-gray-400 px-5"
+                  >
+                  <label class="mt-6 font-medium text-gray-500 mb-2">Pilihan C</label><br>
+                  <input id="judul" v-model="questionData.options[2].body" type="text"
+                         class="w-full h-11 mb-2 rounded-2xl border-2 text-gray-500 border-gray-400 px-5"
+                  >
+                  <label class="mt-6 font-medium text-gray-500 mb-2">Pilihan D</label><br>
+                  <input id="judul" v-model="questionData.options[3].body" type="text"
+                         class="w-full h-11 mb-2 rounded-2xl border-2 text-gray-500 border-gray-400 px-5"
+                  >
+
+
+                  <label class=" font-medium text-gray-500 mb-2">Kunci Jawaban</label><br>
+                  <multiselect
+                    v-model="questionData.answerKey"
+                    :options="questionData.options"
+                    :searchable="true"
+                    placeholder="Kunci"
+                    selected-label=""
+                    select-label=""
+                    deselect-label=""
+                    track-by="body"
+                    label="body"
+                  />
+                </div>
+
+
+              </form>
+
               <p class="text-md text-gray-500 px-8">
                 Do you really want to exit without saving your work?
               </p>
@@ -146,14 +232,19 @@
             </p>
             <div v-if="question.is_pilihan_ganda ==1" class="optionA ml-2 mt-2">
 
-              <div class="grid grid-cols-2 ">
-                <div class="form-group justify-self-start">
-                  <input type="radio" :name="'opsi' + question.title" class="checked:text-green-600"
-                         :checked="question.answer_key=='A'"
-                  >
-                  <label>{{ question.options[0].A }}</label>
+              <div class="grid grid-cols-9 ">
+                <div class="form-group col-span-8 grid justify-items-center">
+
+                  <label class="option w-full">
+                    <input type="radio" :name="'opsi' + question.title" class="checked:text-green-600"
+                           :checked="question.answer_key=='A'"
+                    >
+                    <span>
+                    {{ question.options[0].A }}
+                    </span>
+                  </label>
                 </div>
-                <div v-if="question.answer_key=='A'" class="checked justify-self-end">
+                <div v-if="question.answer_key=='A'" class="checked justify-self-end self-center">
                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                       d="M8.6 11.8L6.425 9.625C6.24167 9.44167 6.01667 9.35 5.75 9.35C5.48333 9.35 5.25 9.45 5.05 9.65C4.86667 9.83333 4.775 10.0667 4.775 10.35C4.775 10.6333 4.86667 10.8667 5.05 11.05L7.9 13.9C8.08333 14.0833 8.31667 14.175 8.6 14.175C8.88333 14.175 9.11667 14.0833 9.3 13.9L14.975 8.225C15.1583 8.04167 15.25 7.81667 15.25 7.55C15.25 7.28333 15.15 7.05 14.95 6.85C14.7667 6.66667 14.5333 6.575 14.25 6.575C13.9667 6.575 13.7333 6.66667 13.55 6.85L8.6 11.8ZM10 20C8.61667 20 7.31667 19.7373 6.1 19.212C4.88333 18.6873 3.825 17.975 2.925 17.075C2.025 16.175 1.31267 15.1167 0.788 13.9C0.262667 12.6833 0 11.3833 0 10C0 8.61667 0.262667 7.31667 0.788 6.1C1.31267 4.88333 2.025 3.825 2.925 2.925C3.825 2.025 4.88333 1.31233 6.1 0.787C7.31667 0.262333 8.61667 0 10 0C11.3833 0 12.6833 0.262333 13.9 0.787C15.1167 1.31233 16.175 2.025 17.075 2.925C17.975 3.825 18.6873 4.88333 19.212 6.1C19.7373 7.31667 20 8.61667 20 10C20 11.3833 19.7373 12.6833 19.212 13.9C18.6873 15.1167 17.975 16.175 17.075 17.075C16.175 17.975 15.1167 18.6873 13.9 19.212C12.6833 19.7373 11.3833 20 10 20Z"
@@ -163,14 +254,19 @@
                 </div>
               </div>
 
-              <div class="grid grid-cols-2 ">
-                <div class="form-group justify-self-start">
-                  <input type="radio" :name="'opsi' + question.title" class="checked:text-green-600"
-                         :checked="question.answer_key=='B'"
-                  >
-                  <label>{{ question.options[0].B }}</label>
+              <div class="grid grid-cols-9 ">
+                <div class="form-group col-span-8 grid justify-items-center">
+
+                  <label class="option w-full">
+                    <input type="radio" :name="'opsi' + question.title" class="checked:text-green-600"
+                           :checked="question.answer_key=='B'"
+                    >
+                    <span>
+                    {{ question.options[0].B }}
+                    </span>
+                  </label>
                 </div>
-                <div v-if="question.answer_key=='B'" class="checked justify-self-end">
+                <div v-if="question.answer_key=='B'" class="checked justify-self-end self-center">
                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                       d="M8.6 11.8L6.425 9.625C6.24167 9.44167 6.01667 9.35 5.75 9.35C5.48333 9.35 5.25 9.45 5.05 9.65C4.86667 9.83333 4.775 10.0667 4.775 10.35C4.775 10.6333 4.86667 10.8667 5.05 11.05L7.9 13.9C8.08333 14.0833 8.31667 14.175 8.6 14.175C8.88333 14.175 9.11667 14.0833 9.3 13.9L14.975 8.225C15.1583 8.04167 15.25 7.81667 15.25 7.55C15.25 7.28333 15.15 7.05 14.95 6.85C14.7667 6.66667 14.5333 6.575 14.25 6.575C13.9667 6.575 13.7333 6.66667 13.55 6.85L8.6 11.8ZM10 20C8.61667 20 7.31667 19.7373 6.1 19.212C4.88333 18.6873 3.825 17.975 2.925 17.075C2.025 16.175 1.31267 15.1167 0.788 13.9C0.262667 12.6833 0 11.3833 0 10C0 8.61667 0.262667 7.31667 0.788 6.1C1.31267 4.88333 2.025 3.825 2.925 2.925C3.825 2.025 4.88333 1.31233 6.1 0.787C7.31667 0.262333 8.61667 0 10 0C11.3833 0 12.6833 0.262333 13.9 0.787C15.1167 1.31233 16.175 2.025 17.075 2.925C17.975 3.825 18.6873 4.88333 19.212 6.1C19.7373 7.31667 20 8.61667 20 10C20 11.3833 19.7373 12.6833 19.212 13.9C18.6873 15.1167 17.975 16.175 17.075 17.075C16.175 17.975 15.1167 18.6873 13.9 19.212C12.6833 19.7373 11.3833 20 10 20Z"
@@ -180,14 +276,19 @@
                 </div>
               </div>
 
-              <div class="grid grid-cols-2 ">
-                <div class="form-group justify-self-start">
-                  <input type="radio" :name="'opsi' + question.title" class="checked:text-green-600"
-                         :checked="question.answer_key=='C'"
-                  >
-                  <label>{{ question.options[0].C }}</label>
+              <div class="grid grid-cols-9 ">
+                <div class="form-group col-span-8 grid justify-items-center">
+
+                  <label class="option w-full">
+                    <input type="radio" :name="'opsi' + question.title" class="checked:text-green-600"
+                           :checked="question.answer_key=='C'"
+                    >
+                    <span>
+                    {{ question.options[0].C }}
+                    </span>
+                  </label>
                 </div>
-                <div v-if="question.answer_key=='C'" class="checked justify-self-end">
+                <div v-if="question.answer_key=='C'" class="checked justify-self-end self-center">
                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                       d="M8.6 11.8L6.425 9.625C6.24167 9.44167 6.01667 9.35 5.75 9.35C5.48333 9.35 5.25 9.45 5.05 9.65C4.86667 9.83333 4.775 10.0667 4.775 10.35C4.775 10.6333 4.86667 10.8667 5.05 11.05L7.9 13.9C8.08333 14.0833 8.31667 14.175 8.6 14.175C8.88333 14.175 9.11667 14.0833 9.3 13.9L14.975 8.225C15.1583 8.04167 15.25 7.81667 15.25 7.55C15.25 7.28333 15.15 7.05 14.95 6.85C14.7667 6.66667 14.5333 6.575 14.25 6.575C13.9667 6.575 13.7333 6.66667 13.55 6.85L8.6 11.8ZM10 20C8.61667 20 7.31667 19.7373 6.1 19.212C4.88333 18.6873 3.825 17.975 2.925 17.075C2.025 16.175 1.31267 15.1167 0.788 13.9C0.262667 12.6833 0 11.3833 0 10C0 8.61667 0.262667 7.31667 0.788 6.1C1.31267 4.88333 2.025 3.825 2.925 2.925C3.825 2.025 4.88333 1.31233 6.1 0.787C7.31667 0.262333 8.61667 0 10 0C11.3833 0 12.6833 0.262333 13.9 0.787C15.1167 1.31233 16.175 2.025 17.075 2.925C17.975 3.825 18.6873 4.88333 19.212 6.1C19.7373 7.31667 20 8.61667 20 10C20 11.3833 19.7373 12.6833 19.212 13.9C18.6873 15.1167 17.975 16.175 17.075 17.075C16.175 17.975 15.1167 18.6873 13.9 19.212C12.6833 19.7373 11.3833 20 10 20Z"
@@ -197,14 +298,19 @@
                 </div>
               </div>
 
-              <div class="grid grid-cols-2 ">
-                <div class="form-group justify-self-start">
-                  <input type="radio" :name="'opsi' + question.title" class="checked:text-green-600"
-                         :checked="question.answer_key=='D'"
-                  >
-                  <label>{{ question.options[0].D }}</label>
+              <div class="grid grid-cols-9 ">
+                <div class="form-group col-span-8 grid justify-items-center">
+
+                  <label class="option w-full">
+                    <input type="radio" :name="'opsi' + question.title" class="checked:text-green-600"
+                           :checked="question.answer_key=='D'"
+                    >
+                    <span>
+                    {{ question.options[0].D }}
+                    </span>
+                  </label>
                 </div>
-                <div v-if="question.answer_key=='D'" class="checked justify-self-end">
+                <div v-if="question.answer_key=='D'" class="checked justify-self-end self-center">
                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                       d="M8.6 11.8L6.425 9.625C6.24167 9.44167 6.01667 9.35 5.75 9.35C5.48333 9.35 5.25 9.45 5.05 9.65C4.86667 9.83333 4.775 10.0667 4.775 10.35C4.775 10.6333 4.86667 10.8667 5.05 11.05L7.9 13.9C8.08333 14.0833 8.31667 14.175 8.6 14.175C8.88333 14.175 9.11667 14.0833 9.3 13.9L14.975 8.225C15.1583 8.04167 15.25 7.81667 15.25 7.55C15.25 7.28333 15.15 7.05 14.95 6.85C14.7667 6.66667 14.5333 6.575 14.25 6.575C13.9667 6.575 13.7333 6.66667 13.55 6.85L8.6 11.8ZM10 20C8.61667 20 7.31667 19.7373 6.1 19.212C4.88333 18.6873 3.825 17.975 2.925 17.075C2.025 16.175 1.31267 15.1167 0.788 13.9C0.262667 12.6833 0 11.3833 0 10C0 8.61667 0.262667 7.31667 0.788 6.1C1.31267 4.88333 2.025 3.825 2.925 2.925C3.825 2.025 4.88333 1.31233 6.1 0.787C7.31667 0.262333 8.61667 0 10 0C11.3833 0 12.6833 0.262333 13.9 0.787C15.1167 1.31233 16.175 2.025 17.075 2.925C17.975 3.825 18.6873 4.88333 19.212 6.1C19.7373 7.31667 20 8.61667 20 10C20 11.3833 19.7373 12.6833 19.212 13.9C18.6873 15.1167 17.975 16.175 17.075 17.075C16.175 17.975 15.1167 18.6873 13.9 19.212C12.6833 19.7373 11.3833 20 10 20Z"
@@ -255,7 +361,41 @@ export default {
 
   data () {
     return {
-      tempQuestion: {},
+      options: [
+        {
+          value: 1,
+          text: 'Pilihan Ganda'
+        },
+        {
+          value: 0,
+          text: 'Essay'
+        }
+
+      ],
+      questionData: {
+        title: '',
+        file: '',
+        is_pilihan_ganda: '',
+        answerKey: '',
+        options: [
+          {
+            id: 'A',
+            body: ''
+          },
+          {
+            id: 'B',
+            body: ''
+          }, {
+            id: 'C',
+            body: ''
+          }, {
+            id: 'D',
+            body: ''
+          }
+        ]
+      },
+
+      tempQuestion: '',
       isOpen: false,
       materi_id: '',
       challenge_id: '',
@@ -308,7 +448,59 @@ export default {
 
   },
 
+  watch: {
+    tempQuestion () {
+      console.log('temp question berubahh')
+      this.questionData.title = this.tempQuestion.title
+      if (this.tempQuestion.is_pilihan_ganda == 1) {
+        this.questionData.is_pilihan_ganda = {
+          value: 1,
+          text: 'Pilihan Ganda'
+        }
+        this.questionData.options[0].body = this.tempQuestion.options[0].A
+        this.questionData.options[1].body = this.tempQuestion.options[0].B
+        this.questionData.options[2].body = this.tempQuestion.options[0].C
+        this.questionData.options[3].body = this.tempQuestion.options[0].D
+      } else {
+        this.questionData.is_pilihan_ganda = {
+          value: 0,
+          text: 'Essay'
+        }
+      }
+
+    }
+  },
+
   methods: {
+
+    handleFileChange (e) {
+      // get image
+      const image = this.questionData.file = e.target.files[0]
+      // check fileType
+      if (!image.type.match('image.*')) {
+        console.log('error')
+        this.$swal.fire({
+          title: 'OOPS!',
+          text: 'Format File Tidak Didukung!',
+          icon: 'error',
+          showConfirmButton: false,
+          timer: 2000
+        })
+
+        // if fileType not allowed, then clear value and set null
+        e.target.value = ''
+
+        // set state "category.image" to null
+        this.questionData.file = ''
+      }
+
+      console.log('yee berhasil')
+    },
+
+    onFileDeleted () {
+      this.questionData.file = ''
+    },
+
     onEdit (data) {
       this.tempQuestion = data
       this.isOpen = !this.isOpen
@@ -360,6 +552,32 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+.option {
+  padding: 0.8rem;
+  display: block;
+  background-color: white;
+  margin-bottom: 0.5rem;
+  border-radius: 0.8rem;
+  border: 0.15rem solid #6D9DE0;
+  cursor: pointer;
+}
 
+.option:hover {
+  background-color: #FFF3B6;
+}
+
+.option.selected {
+  background-color: #2ed054;
+}
+
+.option.selected.disabled {
+  background-color: #8fe1a2;
+
+}
+
+.option.disabled {
+  background-color: #7899bd;
+
+}
 </style>

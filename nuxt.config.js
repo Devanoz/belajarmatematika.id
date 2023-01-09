@@ -16,18 +16,37 @@ export default {
     },
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
-      { name: 'format-detection', content: 'telephone=no' }
+      {
+        name: 'viewport',
+        content: 'width=device-width, initial-scale=1'
+      },
+      {
+        hid: 'description',
+        name: 'description',
+        content: ''
+      },
+      {
+        name: 'format-detection',
+        content: 'telephone=no'
+      }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [{
+      rel: 'icon',
+      type: 'image/x-icon',
+      href: '/favicon.ico'
+    }]
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: ['@/assets/css/main.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: [
+    {
+      src: '~/plugins/JwPagination',
+      mode: 'client'
+    },
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -52,70 +71,68 @@ export default {
     '@nuxtjs/auth-next'
   ],
 
-
-
   auth: {
     strategies: {
 
-        //strategy "admin"
-        teacher: {
-          scheme: 'local',
-          token: {
-            property: 'token',
-            required: true,
-            type: 'Bearer'
+      //strategy "admin"
+      teacher: {
+        scheme: 'local',
+        token: {
+          property: 'token',
+          required: true,
+          type: 'Bearer'
+        },
+        user: {
+          property: 'user',
+          // autoFetch: true
+        },
+        endpoints: {
+          login: {
+            url: '/api/teacher/login',
+            method: 'post',
+            propertyName: 'token'
+          },
+          logout: {
+            url: '/api/teacher/logout',
+            method: 'post'
           },
           user: {
-            property: 'user',
-            // autoFetch: true
-          },
-          endpoints: {
-            login: {
-              url: '/api/teacher/login',
-              method: 'post',
-              propertyName: 'token'
-            },
-            logout: {
-              url: '/api/teacher/logout',
-              method: 'post'
-            },
-            user: {
-              url: '/api/teacher/user',
-              method: 'get',
-              propertyName: 'user'
-            }
-          },
+            url: '/api/teacher/user',
+            method: 'get',
+            propertyName: 'user'
+          }
         },
+      },
 
-        //strategy "customer"
-        student: {
-          scheme: 'local',
-          token: {
-            property: 'token',
-            required: true,
-            type: 'Bearer'
+      //strategy "customer"
+      student: {
+        scheme: 'local',
+        token: {
+          property: 'token',
+          required: true,
+          type: 'Bearer'
+        },
+        user: {
+          property: 'user',
+          // autoFetch: true
+        },
+        endpoints: {
+          login: {
+            url: '/api/student/login',
+            method: 'post',
+            propertyName: 'token'
+          },
+          logout: {
+            url: '/api/student/logout',
+            method: 'post'
           },
           user: {
-            property: 'user',
-            // autoFetch: true
-          },
-          endpoints: {
-            login: {
-              url: '/api/student/login',
-              method: 'post',
-              propertyName: 'token'
-            },
-            logout: {
-              url: '/api/student/logout',
-              method: 'post'
-            },
-            user: {
-              url: '/api/student/user',
-              method: 'get',
-              propertyName: 'user'
-            }
-          },
+            url: '/api/student/user',
+            method: 'get',
+            propertyName: 'user'
+          }
         },
+      },
 
     },
   },

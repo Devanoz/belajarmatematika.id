@@ -43,7 +43,7 @@
                         {{ challenge.title }}
                     </span>
           <span class="text-gray-400 text-md">
-                        5 soal
+                        {{ challenge.questions_count }} soal
                     </span>
         </div>
       </div>

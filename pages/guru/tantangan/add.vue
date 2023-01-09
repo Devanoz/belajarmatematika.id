@@ -340,10 +340,11 @@ export default {
         file: '',
         is_pilihan_ganda: '',
         answerKey: '',
-        options: [{
-          id: 'A',
-          body: ''
-        },
+        options: [
+          {
+            id: 'A',
+            body: ''
+          },
           {
             id: 'B',
             body: ''
@@ -381,6 +382,13 @@ export default {
       // check fileType
       if (!image.type.match('image.*')) {
         console.log('error')
+        this.$swal.fire({
+          title: 'OOPS!',
+          text: 'Format File Tidak Didukung!',
+          icon: 'error',
+          showConfirmButton: false,
+          timer: 2000
+        })
 
         // if fileType not allowed, then clear value and set null
         e.target.value = ''
