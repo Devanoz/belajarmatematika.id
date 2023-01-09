@@ -203,7 +203,8 @@ export default {
       console.log(oldData)
       console.log('hehe')
       if (this.answer != '') {
-        if (oldData[0].id <= newData[0].id) {
+        if (oldData[0].id >= newData[0].id) {
+          console.log('bisa subimit')
           this.submitAnswer(oldData[0].id)
 
           if (oldData[0].id === newData[0].id) {
