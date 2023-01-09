@@ -1,7 +1,7 @@
 <template>
 
   <div>
-    <!--  edit quetion modal   -->
+    <!--  edit quetion moda   -->
     <transition name="fade">
       <div v-if="isModalVisible">
         <div
