@@ -40,10 +40,9 @@
 
                 :for="'option' + item.options[0].A"
                 class="option w-[20.438rem] "
-                :class="{ selected: isAselected, disabled: item.student_answers.length>0, historySelected:item.student_answers[0].answer==='A'}"
+                :class="{ selected: isAselected, disabled: item.student_answers.length>0, historySelected:item.student_answers.length > 0 ? (item.student_answers[0].answer == 'A'? true: false): false}"
               >
                 <input
-                  :checked="item.student_answers[0].answer==='A'"
                   :disabled="item.student_answers.length>0"
                   type="radio"
                   :id="'option' + item.options[0].A"
@@ -60,7 +59,7 @@
 
                 :for="'option' + item.options[0].B"
                 class="option w-[20.438rem] "
-                :class="{ selected: isBselected,disabled: item.student_answers.length>0, historySelected:item.student_answers[0].answer==='B'}"
+                :class="{ selected: isBselected,disabled: item.student_answers.length>0, historySelected:item.student_answers.length > 0 ? (item.student_answers[0].answer == 'B'? true: false): false}"
 
               >
                 <input
@@ -82,7 +81,7 @@
 
                 :for="'option' + item.options[0].C"
                 class="option w-[20.438rem] "
-                :class="{ selected: isCselected, disabled: item.student_answers.length>0, historySelected:item.student_answers[0].answer==='C'}"
+                :class="{ selected: isCselected, disabled: item.student_answers.length>0, historySelected:item.student_answers.length > 0 ? (item.student_answers[0].answer == 'C'? true: false): false}"
 
               >
                 <input
@@ -104,7 +103,7 @@
 
                 :for="'option' + item.options[0].D"
                 class="option w-full "
-                :class="{ selected: isDselected, disabled: item.student_answers.length>0, historySelected:item.student_answers[0].answer==='D'}"
+                :class="{ selected: isDselected, disabled: item.student_answers.length>0, historySelected:item.student_answers.length > 0 ? (item.student_answers[0].answer == 'D'? true: false): false}"
 
               >
                 <input
