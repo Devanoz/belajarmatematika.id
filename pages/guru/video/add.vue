@@ -1,7 +1,7 @@
 <template>
-  <div class="h-full divide-y divide-gray-500">
+  <div class="h-full">
     <div class="title h-16 flex flex-row justify-between items-center">
-      <div class="ml-8 text-[1.4em]">
+      <div @click="onBackButtonClicked" class="ml-8 text-[1.4em]">
         <svg
           width="18"
           height="18"
@@ -19,21 +19,6 @@
       </div>
       <h1 class="text-[1.4em] text-gray-700 font-bold">Tambah Video</h1>
       <div class="button-tambah mr-8 text-[1.4em]">
-        <svg
-          width="24"
-          height="22"
-          viewBox="0 0 24 22"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M9.9125 10.9999H4.00046L2.02345 3.13481C2.01079 3.0891 2.00308 3.04217 2.00045 2.99481C1.97845 2.27381 2.77245 1.7738 3.46046 2.1038L22.0006 10.9999L3.46046 19.8959C2.78045 20.2229 1.99645 19.7369 2.00045 19.0289C2.00247 18.9657 2.01359 18.903 2.03345 18.8429L3.50046 13.9999"
-            stroke="#56739D"
-            stroke-width="2.3"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
       </div>
     </div>
     <div class="input-video">
@@ -130,6 +115,7 @@
 <script>
 export default {
   name: "AddVideo",
+  middleware: 'isTeacher',
   data() {
     return {
       popupClicked: false,
@@ -147,6 +133,9 @@ export default {
     })
   },
   methods: {
+    onBackButtonClicked () {
+      this.$router.go(-1)
+    },
     onListMateriClicked(event,title) {
       this.materi_id = event.target.value
       this.materi_placeholder = title

@@ -1,4 +1,5 @@
 export const state =()=>({
+  id:0,
   name:"",
   email:"",
   image:"",
@@ -12,6 +13,7 @@ export const mutations ={
 
     SET_STUDENT_DATA(state, payload) {
       //set value state "topiks"
+      state.id = payload.id
       state.name = payload.name
       state.email = payload.email
       state.image = payload.image
@@ -46,6 +48,7 @@ export const actions = {
 export const getters = {
   getStudent (state) {
     return ({
+      id: state.id,
       name: state.name,
       email: state.email,
       image: state.image,

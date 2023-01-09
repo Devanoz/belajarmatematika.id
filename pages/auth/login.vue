@@ -56,7 +56,7 @@ export default {
   methods: {
     async login() {
 
-await this.$auth.loginWith('teacher', {
+        await this.$auth.loginWith('teacher', {
         data: {
             email: this.user.email,
             password: this.user.password
@@ -71,12 +71,14 @@ await this.$auth.loginWith('teacher', {
         })
 
     })
-
     .catch(error => {
         //assign validation
-        this.validation = error.response.data
+        this.$swal.fire({
+          text: 'Email atau password salah',
+          icon : 'warning'
+        })
     })
-}
+    }
   },
 
 }

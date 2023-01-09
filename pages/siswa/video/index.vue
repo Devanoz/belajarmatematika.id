@@ -30,7 +30,7 @@
           <h2 class="text-xl text-cs-blue-500 font-bold">
             {{ materi.title }}
           </h2>
-          <div @click="onVideoClicked(video.id)" v-for="video in materi.videos" :key="video.id" class="grid grid-flow-row grid-cols-1 gap-8 mt-8 items-center justify-items-center place-items-center">
+          <div v-if="materi.videos.length > 0" @click="onVideoClicked(video.id)" v-for="video in materi.videos" :key="video.id" class="grid grid-flow-row grid-cols-1 gap-8 mt-8 items-center justify-items-center place-items-center">
             <div class="w-full h-36 flex justify-start p-4 items-center  bg-slate-200 rounded-md shadow-lg">
               <div class="h-28 w-28 rounded-md overflow-hidden">
                 <iframe
@@ -50,6 +50,11 @@
                   {{ video.created_at }}
                 </span>
               </div>
+            </div>
+          </div>
+          <div v-if="materi.videos.length === 0" class="grid grid-flow-row grid-cols-1 gap-8 mt-8 items-center justify-items-center place-items-center">
+            <div class="w-full h-20 flex justify-center items-center p-4 items-center  bg-slate-200 rounded-md shadow-lg font-bold">
+              no content
             </div>
           </div>
         </div>

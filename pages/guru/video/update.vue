@@ -130,6 +130,7 @@
 <script>
 export default {
   name: 'update-video',
+  middleware : 'isTeacher',
   data() {
     return {
       video:null,
@@ -174,7 +175,6 @@ export default {
     onTambahkanClick () {
       if(this.title && this.materi_id && this.videoUrl){
         const formData = new FormData()
-        console.log(this.video)
         formData.append('title',this.title)
         formData.append('url',this.videoUrl)
         formData.append('materi_id',this.video.materi_id)
