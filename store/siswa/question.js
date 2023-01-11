@@ -104,7 +104,7 @@ export const actions = {
         .then(() => {
 
           //dispatch action "getCategoriesData"
-          // dispatch('getQuestionsData')
+          // dispatch('getQuestionsData', payload.challenge_id)
 
           //resolve promise
           resolve()
@@ -134,7 +134,7 @@ export const actions = {
         .then(() => {
 
           //dispatch action "getCategoriesData"
-          // dispatch('getQuestionsData')
+          dispatch('getQuestionsData', payload)
 
           //resolve promise
           resolve()

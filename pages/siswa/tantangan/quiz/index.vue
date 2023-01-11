@@ -199,11 +199,11 @@ export default {
   watch: {
     pageOfItems (newData, oldData) {
       console.log(this.answer)
-      console.log(newData)
-      console.log(oldData)
+      console.log(newData[0], 'ini data baru')
+      console.log(oldData[0], 'ini data lama')
       console.log('hehe')
       if (this.answer != '') {
-        if (oldData[0].id >= newData[0].id) {
+        if (oldData[0].id <= newData[0].id) {
           console.log('bisa subimit')
           this.submitAnswer(oldData[0].id)
 
@@ -224,6 +224,7 @@ export default {
 
       //define formData
       let formData = new FormData()
+      formData.append('challenge_id', this.$route.query.id)
 
       formData.append('question_id', data)
       if (this.isAselected == true) {
@@ -243,6 +244,7 @@ export default {
 
         //success
         .then(() => {
+          this.$store.dispatch('siswa/question/getQuestionsData', this.$route.query.id)
           this.isAselected = false
           this.isBselected = false
           this.isCselected = false
