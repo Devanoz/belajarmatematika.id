@@ -1,4 +1,4 @@
 import Vue from 'vue'
-import JwPagination from 'jw-vue-pagination'
+import VueCircle from 'vue2-circle-progress'
 
-Vue.component('jw-pagination', JwPagination)
+Vue.component('vue-circle', VueCircle)

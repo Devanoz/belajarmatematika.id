@@ -42,7 +42,7 @@ export const actions = {
     return new Promise((resolve, reject) => {
 
       //fetching Rest API "/api/admin/materis" with method "GET"
-      this.$axios.get(`/api/student/questions?challenge_id=${challenge_id}`)
+      this.$axios.get(`/api/student/questions?challenge_id=${challenge_id}&page=${state.page}`)
 
         //success
         .then((response) => {
@@ -104,7 +104,7 @@ export const actions = {
         .then(() => {
 
           //dispatch action "getCategoriesData"
-          // dispatch('getQuestionsData')
+          // dispatch('getQuestionsData', payload.challenge_id)
 
           //resolve promise
           resolve()
@@ -134,7 +134,7 @@ export const actions = {
         .then(() => {
 
           //dispatch action "getCategoriesData"
-          // dispatch('getQuestionsData')
+          dispatch('getQuestionsData', payload)
 
           //resolve promise
           resolve()

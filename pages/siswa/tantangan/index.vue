@@ -5,7 +5,7 @@
         <span class="text-2xl text-gray-700 font-semibold col-start-1 col-span-3">Ayo Bermain</span>
         <span class=" text-lg text-gray-400 font-normal">Sambil belajar!</span>
       </div>
-      <nuxt-link to="/tantangan/history" class="justify-end col-end-4 place-self-end self-start">
+      <nuxt-link to="/siswa/tantangan/history" class="justify-end col-end-4 place-self-end self-start">
         <img class="text-3xl rounded-full  h-7 w-7"
              src="@/assets/img/tantangan/history.svg" alt=""
         >
@@ -77,7 +77,8 @@ export default {
         path: currentPath + '/quiz',
         query: {
           id: challenge.id,
-          title: challenge.title
+          title: challenge.title,
+          page: 1
         }
       })
     },

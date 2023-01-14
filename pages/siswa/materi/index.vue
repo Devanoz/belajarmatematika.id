@@ -7,7 +7,14 @@
 
       </div>
       <nuxt-link class="z-20 rounded-full justify-end col-end-6 place-self-end" to="/siswa/profile">
+        <img v-if="user.image"
+             class="rounded-full w-16 h-16"
+             :src="user.image"
+             alt=""
+        >
+
         <img
+          v-else
           class="rounded-full"
           :src="`https://ui-avatars.com/api/?name=${user.name}&amp;background=4e73df&amp;color=ffffff&amp;size=50`"
           alt=""
