@@ -46,6 +46,14 @@ export default {
       src: '~/plugins/JwPagination',
       mode: 'client'
     },
+    {
+      src: '~/plugins/Progress',
+      mode: 'client'
+    },
+    {
+      src: '~/plugins/VueCircle',
+      mode: 'client'
+    },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

@@ -42,7 +42,7 @@ export const actions = {
     return new Promise((resolve, reject) => {
 
       //fetching Rest API "/api/admin/materis" with method "GET"
-      this.$axios.get(`/api/student/questions?challenge_id=${challenge_id}`)
+      this.$axios.get(`/api/student/questions?challenge_id=${challenge_id}&page=${state.page}`)
 
         //success
         .then((response) => {

@@ -6,6 +6,8 @@ export const state = () => ({
 
   challengesWithTopik: [],
 
+  doneChallenges: [],
+
   challenge: {},
 
   //page
@@ -21,6 +23,12 @@ export const mutations = {
 
     //set value state "challenges"
     state.challenges = payload
+  },
+
+  SET_DONE_CHALLENGES_DATA (state, payload) {
+
+    //set value state "challenges"
+    state.doneChallenges = payload
   },
 
   SET_CHALLENGES_WITH_TOPIK_DATA (state, payload) {
@@ -126,6 +134,34 @@ export const actions = {
 
           //commit ti mutation "SET_CHALLENGES_DATA"
           commit('SET_CHALLENGES_DATA', response.data.data)
+
+          //resolve promise
+          resolve()
+        })
+
+    })
+
+  },
+
+  getChallengesDoneData ({
+    commit,
+    state
+  }, payload) {
+
+    //search
+    let search = payload ? payload : ''
+
+    //set promise
+    return new Promise((resolve, reject) => {
+
+      //fetching Rest API "/api/admin/challenges" with method "GET"
+      this.$axios.get(`/api/student/challenges?q=${search}&page=${state.page}&done=true`)
+
+        //success
+        .then((response) => {
+
+          //commit ti mutation "SET_CHALLENGES_DATA"
+          commit('SET_DONE_CHALLENGES_DATA', response.data.data)
 
           //resolve promise
           resolve()

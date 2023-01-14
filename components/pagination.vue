@@ -3,7 +3,7 @@
   >
 
     <button
-      @click="setPage(pager.currentPage - 1)"
+      @click="setPage(currentPage - 1)"
       class="page-item previous "
       :class="{'disabled': pager.currentPage === 1}" :style="liStyles"
     >
@@ -46,14 +46,14 @@
         <div id=""
              class="text-[#56739D] w-[5.625rem] h-[2.25rem] bg-[#DAE5FF] mx-auto absolute top-20 left-0 right-0 rounded-2xl flex flex-col justify-center text-center"
         >
-          <div>{{ page }}/{{ pager.totalPages }}</div>
+          <div>{{ currentPage }}/{{ items.total }}</div>
         </div>
 
 
       </li>
     </ul>
 
-    <button v-if="pager.currentPage === pager.totalPages" class="page-item next" @click="setPage(pager.currentPage + 1)"
+    <button v-if="pager.currentPage === pager.totalPages" class="page-item next" @click="setPage(currentPage + 1)"
             :class="{'disabled': pager.currentPage === pager.totalPages}" :style="liStyles"
     >
 
@@ -89,7 +89,7 @@
 
     </button>
 
-    <button v-else class="page-item next" @click="setPage(pager.currentPage + 1)"
+    <button v-else class="page-item next" @click="setPage(currentPage + 1)"
             :class="{'disabled': pager.currentPage === pager.totalPages}" :style="liStyles"
     >
 
@@ -191,12 +191,19 @@ export default {
   data () {
     return {
       pager: {},
+      currentPage: 1,
       ulStyles: {},
       liStyles: {},
       aStyles: {}
     }
   },
   created () {
+    const {
+      items,
+      pageSize,
+      maxPages
+    } = this
+    this.currentPage = items.current_page
     if (!this.$listeners.changePage) {
       throw 'Missing required event listener: "changePage"'
     }
@@ -217,20 +224,34 @@ export default {
   },
   methods: {
     setPage (page) {
+
+      let currentPath = this.$router.currentRoute.path
+      this.$router.push({
+        path: currentPath,
+        query: {
+          id: this.$route.query.id,
+          title: this.$route.query.title,
+          page: page,
+
+        }
+      })
       const {
         items,
         pageSize,
         maxPages
       } = this
+
       if (page < 1) {
         this.$router.push({
           name: 'siswa-tantangan'
         })
       }
+
+      this.currentPage = page
       // get new pager object for specified page
-      const pager = paginate(items.length, page, pageSize, maxPages)
+      const pager = paginate(items.data.length, page, pageSize, maxPages)
       // get new page of items from items array
-      const pageOfItems = items.slice(pager.startIndex, pager.endIndex + 1)
+      const pageOfItems = items.data
       // update pager
       this.pager = pager
       // emit change page event to parent component

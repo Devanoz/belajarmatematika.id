@@ -77,7 +77,8 @@ export default {
         path: currentPath + '/quiz',
         query: {
           id: challenge.id,
-          title: challenge.title
+          title: challenge.title,
+          page: 1
         }
       })
     },
