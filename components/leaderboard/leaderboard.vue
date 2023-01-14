@@ -49,7 +49,7 @@ export default {
     },
     name: {
       type: String,
-      default: 'Murid'
+      default: ''
     },
     point: {
       type: String,

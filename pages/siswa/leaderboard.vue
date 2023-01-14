@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="root">
     <div class="title text-center my-3">
       <h1>Papan Peringkat</h1>
     </div>
@@ -10,15 +10,15 @@
       <div
         class="progress-wrapper  h-2/3 w-1/2 flex flex-col justify-start items-center gap-1"
       >
-        <p class="progress-percentage text-center">
-          {{ studentProgress }}%
-        </p>
+        <!--        <p class="progress-percentage text-center">-->
+        <!--          {{ studentProgress }}%-->
+        <!--        </p>-->
         <div
           class="circular-progress rounded-full  w-28 h-28 flex flex-col justify-center items-center"
         >
-          <radial-progress-bar :completed-steps="studentProgress" :total-steps="totalSteps" :diameter="diameter" :fps="fps" inner-stroke-color="#E0E0E0" start-color="#84B2F3" stop-color="#84B2F3">
-            <img src="~/assets/img/peringkat/rocket.svg">
-          </radial-progress-bar>
+          <!--          <radial-progress-bar :completed-steps="studentProgress" :total-steps="totalSteps" :diameter="diameter" :fps="fps" inner-stroke-color="#E0E0E0" start-color="#84B2F3" stop-color="#84B2F3">-->
+          <!--            <img src="~/assets/img/peringkat/rocket.svg">-->
+          <!--          </radial-progress-bar>-->
         </div>
       </div>
     </div>
@@ -40,27 +40,27 @@
           <div class="peringkat-ikon w-6  h-5" />
           <p>Peringkat</p>
         </div>
-        <div class="poin-pts  h-3 w-20 text-center">
-          {{ student.score }} Pts
-        </div>
-        <div  class="lencana-img  h-3 w-16">
-          <img class="mx-auto h-9 w-9" :src="getLeaderUrl">
-        </div>
-        <div class="no-peringkat  h-3 w-16 text-center">
-          #{{ student.rank }}
-        </div>
+        <!--        <div class="poin-pts  h-3 w-20 text-center">-->
+        <!--          {{ student.score }} Pts-->
+        <!--        </div>-->
+        <!--        <div  class="lencana-img  h-3 w-16">-->
+        <!--          <img class="mx-auto h-9 w-9" :src="getLeaderUrl">-->
+        <!--        </div>-->
+        <!--        <div class="no-peringkat  h-3 w-16 text-center">-->
+        <!--          #{{ student.rank }}-->
+        <!--        </div>-->
       </div>
       <div
         class="leaderboard-list h-[24.875rem] mx-auto -mt-10 rounded-2xl overflow-y-scroll py-5"
       >
-        <leaderboard
-          v-for="student in students"
-          :key="student.student_id"
-          :no="++leaderboardCounter"
-          :name="student.student.name"
-          :point="student.score"
-          :image="student.student.image"
-        />
+        <!--        <leaderboard-->
+        <!--          v-for="student in students"-->
+        <!--          :key="student.student_id"-->
+        <!--          :no="++leaderboardCounter"-->
+        <!--          :name="student.student.name"-->
+        <!--          :point="student.score"-->
+        <!--          :image="getStudentImage(student.student.image)"-->
+        <!--        />-->
       </div>
     </div>
   </div>
@@ -68,15 +68,27 @@
 
 <script>
 import leaderboard from '~/components/leaderboard/leaderboard.vue'
-import RadialProgressBar from 'vue-radial-progress'
+// import RadialProgressBar from 'vue-radial-progress'
 
 export default {
-  name: 'Leaderboard',
+  name: 'leaderboard',
+  layout :'app',
   components: {
     leaderboard,
-    RadialProgressBar
   },
-  layout: 'app',
+  data () {
+    return {
+      leaderboardCounter:0,
+      completedSteps: 20,
+      totalSteps: 100,
+      diameter:120,
+      fps:60,
+    }
+  },
+  created () {
+    this.$store.dispatch("student/getStudentData")
+    this.$store.dispatch('siswa/leaderboard/getStudentsData').then(()=>console.log(this.$store.state['siswa/leaderboard/students']))
+  },
   computed: {
     students () {
       return this.$store.state.siswa.leaderboard.students
@@ -85,7 +97,7 @@ export default {
       return this.$store.getters['student/getStudent']
     },
     studentProgress () {
-      return this.$store.getters['student/getStudent'].progress.toFixed(2)
+      return parseFloat(this.$store.getters['student/getStudent'].progress.toFixed(2))
     },
     getLeaderUrl () {
       if(this.student.rank === 1){
@@ -98,24 +110,10 @@ export default {
         return require("~/assets/img/peringkat/lencana/no-rank.svg");
       }
     },
-  },
-  created () {
-    this.$store.dispatch('siswa/leaderboard/getStudentsData')
-    this.$store.dispatch("student/getStudentData")
-  },
-  data () {
-    return {
-      leaderboardCounter:0,
-      completedSteps: 20,
-      totalSteps: 100,
-      diameter:120,
-      fps:60,
+    getStudentImage (studentImage) {
 
     }
   },
-  mounted () {
-
-  }
 
 }
 </script>
@@ -136,19 +134,19 @@ export default {
   font-size: 0.813rem;
 }
 .detail-peringkat .lencana,.peringkat,.poin,.poin-pts,.no-peringkat {
-    color: #CBD0D6;
+  color: #CBD0D6;
 }
 .poin-ikon {
-    background: url("~/assets/img/peringkat/poin.svg");
+  background: url("@/assets/img/peringkat/poin.svg");
 }
 .lencana-ikon {
-    background: url("~/assets/img/peringkat/lencana.svg");
+  background: url("@/assets/img/peringkat/lencana.svg");
 }
 .peringkat-ikon {
-    background: url("~/assets/img/peringkat/peringkat.svg");
+  background: url("@/assets/img/peringkat/peringkat.svg");
 }
 .progress-percentage {
-    color: #84B2F3;
+  color: #84B2F3;
 ;
 }
 </style>
