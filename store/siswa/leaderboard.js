@@ -85,3 +85,9 @@ export const actions = {
 
 }
 
+export const getters = {
+  getStudentList (state) {
+    return state.students
+  }
+}
+
