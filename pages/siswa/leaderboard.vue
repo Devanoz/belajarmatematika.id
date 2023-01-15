@@ -19,15 +19,18 @@
           <!--          <radial-progress-bar :completed-steps="studentProgress" :total-steps="totalSteps" :diameter="diameter" :fps="fps" inner-stroke-color="#E0E0E0" start-color="#84B2F3" stop-color="#84B2F3">-->
           <!--            <img src="~/assets/img/peringkat/rocket.svg">-->
           <!--          </radial-progress-bar>-->
-          <Progress class="flex justify-center items-center" :transitionDuration="2000" :radius="50"
-                    strokeColor="#84B2F3"
-                    :strokeWidth="8"
-                    :value="userProgress"
-          >
-            <template>
-              <img src="~/assets/img/peringkat/rocket.svg" class="mx-auto">
-            </template>
-          </Progress>
+          <client-only>
+            <Progress class="flex justify-center items-center" :transitionDuration="2000" :radius="50"
+                      strokeColor="#84B2F3"
+                      :strokeWidth="8"
+                      :value="userProgress"
+            >
+              <template>
+                <img src="~/assets/img/peringkat/rocket.svg" class="mx-auto">
+              </template>
+            </Progress>
+            
+          </client-only>
         </div>
       </div>
     </div>
@@ -53,7 +56,7 @@
           {{ student.score }} Pts
         </div>
         <div class="lencana-img  h-3 w-16">
-          <img class="mx-auto h-9 w-9" :src="getLeaderUrl">
+          <!--          <img class="mx-auto h-9 w-9" :src="getLeaderUrl">-->
         </div>
         <div class="no-peringkat  h-3 w-16 text-center">
           #{{ student.rank }}
@@ -108,17 +111,17 @@ export default {
       return this.$auth.user
     },
 
-    getLeaderUrl () {
-      if (this.student.rank === 1) {
-        return require('~/assets/img/peringkat/lencana/juara1.svg')
-      } else if (this.student.rank === 2) {
-        return require('~/assets/img/peringkat/lencana/juara2.svg')
-      } else if (this.student.rank === 3) {
-        return require('~/assets/img/peringkat/lencana/juara3.svg')
-      } else {
-        return require('~/assets/img/peringkat/lencana/no-rank.svg')
-      }
-    }
+    // getLeaderUrl () {
+    //   if (this.student.rank === 1) {
+    //     return require('~/assets/img/peringkat/lencana/juara1.svg')
+    //   } else if (this.student.rank === 2) {
+    //     return require('~/assets/img/peringkat/lencana/juara2.svg')
+    //   } else if (this.student.rank === 3) {
+    //     return require('~/assets/img/peringkat/lencana/juara3.svg')
+    //   } else {
+    //     return require('~/assets/img/peringkat/lencana/no-rank.svg')
+    //   }
+    // }
   },
 
 }
