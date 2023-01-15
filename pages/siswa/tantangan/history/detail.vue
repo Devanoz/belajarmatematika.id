@@ -16,7 +16,7 @@
     <div class="resume-result w-full bg-[#e0e4fc] h-50 mt-5 rounded-xl px-4">
       <div class="flex flex-col mt-5">
         <span class="text-gray-600 text-xl">Materi kuis</span>
-        <span class="text-sky-800 text-xl font-semibold">Volume balok</span>
+        <span class="text-sky-800 text-xl font-semibold">{{ questions.materi.title }}</span>
       </div>
 
       <div class="inner-box mt-2 bg-[#ffb47c] w-full h-auto grid grid-cols-7 rounded-tl-xl rounded-tr-2xl">

@@ -35,7 +35,10 @@
         </svg>
       </div>
 
-      <input class="peer h-full w-full outline-none font-light text-gray-300 pr-2 bg-sky-100" type="text" id="search"
+      <input @keyup="onSearching" v-model="search"
+             class="peer h-full w-full outline-none font-light text-gray-300 pr-2 bg-sky-100"
+             type="text"
+             id="search"
              placeholder="Cari Materi"
       />
 
@@ -259,6 +262,8 @@ export default {
         kelas: '',
         materi: ''
       },
+
+      search: '',
       tempMateri: {},
       topiks: topiks,
       dataSample: dataSamples,
@@ -293,6 +298,10 @@ export default {
   },
 
   methods: {
+    async onSearching (data) {
+      console.log(this.search)
+      await this.$store.dispatch('siswa/materi/getMaterisData', this.search)
+    },
     slideMateri (data) {
       this.tempMateri = data
       console.log(this.tempMateri)
