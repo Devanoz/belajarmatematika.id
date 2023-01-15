@@ -102,12 +102,12 @@ export default {
       return parseFloat(this.$auth.user.progress.toFixed(2))
     },
     students () {
-      return this.$store.getters['siswa/leaderboard/getStudentList']
+      return this.$store.state.siswa.leaderboard.students
     },
     student () {
       return this.$auth.user
     },
-    
+
     getLeaderUrl () {
       if (this.student.rank === 1) {
         return require('~/assets/img/peringkat/lencana/juara1.svg')
