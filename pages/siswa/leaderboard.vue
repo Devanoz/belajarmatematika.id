@@ -11,7 +11,7 @@
         class="progress-wrapper  h-2/3 w-1/2 flex flex-col justify-start items-center gap-1"
       >
         <p class="progress-percentage text-center">
-          {{ studentProgress }}%
+          {{ userProgress }}%
         </p>
         <div
           class="circular-progress rounded-full  w-28 h-28 flex flex-col justify-center items-center"
@@ -90,10 +90,13 @@ export default {
       no: 1
     }
   },
-  created () {
-    this.$store.dispatch('student/getStudentData')
-    this.$store.dispatch('siswa/leaderboard/getStudentsData')
+
+  async asyncData ({
+    store
+  }) {
+    await store.dispatch('siswa/leaderboard/getStudentsData')
   },
+
   computed: {
     userProgress () {
       return parseFloat(this.$auth.user.progress.toFixed(2))
@@ -102,11 +105,9 @@ export default {
       return this.$store.getters['siswa/leaderboard/getStudentList']
     },
     student () {
-      return this.$store.getters['student/getStudent']
+      return this.$auth.user
     },
-    studentProgress () {
-      return parseFloat(this.$store.getters['student/getStudent'].progress.toFixed(2))
-    },
+    
     getLeaderUrl () {
       if (this.student.rank === 1) {
         return require('~/assets/img/peringkat/lencana/juara1.svg')
