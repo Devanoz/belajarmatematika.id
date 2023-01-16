@@ -10,8 +10,8 @@
       </div>
     </div>
     <div class="profile h-14 w-14 relative">
-            <img class="h-14 w-14 rounded-full absolute" :src="getProfileImage" alt="gambar profile">
-            <img class="absolute -bottom-2 -right-2 w-8 h-8" :src="getLeaderUrl" alt="peringkat">
+      <!--            <img class="h-14 w-14 rounded-full absolute" :src="getProfileImage" alt="gambar profile">-->
+      <!--            <img class="absolute -bottom-2 -right-2 w-8 h-8" :src="getLeaderUrl" alt="peringkat">-->
     </div>
     <div class="profile-detail h-14 w-20 mx-4">
       <p class="name text-[#333333]">
@@ -34,23 +34,23 @@ export default {
     }
   },
   computed: {
-    getLeaderUrl () {
-      if (this.no === 1) {
-        return require('~/assets/img/peringkat/lencana/juara1.svg')
-      } else if (this.no === 2) {
-        return require('~/assets/img/peringkat/lencana/juara2.svg')
-      } else if (this.no === 3) {
-        return require('~/assets/img/peringkat/lencana/juara3.svg')
-      } else {
-        return require('~/assets/img/peringkat/lencana/no-rank.svg')
-      }
-    },
-    getProfileImage () {
-      if (!this.image) {
-        return require('@/assets/img/murid/profilepic/defaultUser.svg')
-      }
-      return this.image
-    }
+    // getLeaderUrl () {
+    //   if (this.no === 1) {
+    //     return require('~/assets/img/peringkat/lencana/juara1.svg')
+    //   } else if (this.no === 2) {
+    //     return require('~/assets/img/peringkat/lencana/juara2.svg')
+    //   } else if (this.no === 3) {
+    //     return require('~/assets/img/peringkat/lencana/juara3.svg')
+    //   } else {
+    //     return require('~/assets/img/peringkat/lencana/no-rank.svg')
+    //   }
+    // },
+    // getProfileImage () {
+    //   if (!this.image) {
+    //     return require('@/assets/img/murid/profilepic/defaultUser.svg')
+    //   }
+    //   return this.image
+    // }
   },
   props: {
     no: {
