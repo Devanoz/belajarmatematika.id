@@ -38,13 +38,15 @@
 </template>
 
 <script>
-// import Leaderboard from '~/components/leaderboard/leaderboard.vue'
+import Leaderboard from '~/components/leaderboard/leaderboard.vue'
 
 export default {
   middleware: 'isStudent',
   name: 'leaderboard',
   layout: 'app',
-  components: {},
+  components: {
+    Leaderboard
+  },
   data () {
     return {
       leaderboardCounter: 0,
