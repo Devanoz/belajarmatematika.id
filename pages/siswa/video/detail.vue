@@ -30,10 +30,11 @@
     <h1 class="mt-2 ml-2 font-bold">{{comments.length}} Comments</h1>
     <div id="comment-list" class="max-h-80 m-3 overflow-y-scroll rounded-xl">
       <div v-for="(comment,comment_idx) in comments" class="relative flex card-image drop-shadow-lg border-b-2 mb-2 rounded-xl z-10 bg-white py-3 px-2 my-3 z-20">
-        <img v-if="!comment.student.image" src="~/assets/img/murid/profilepic/defaultUser.svg" class="w-10 h-10">
-        <img v-if="comment.student.image" :src="comment.student.image" class="w-10 h-10 rounded-full">
+        <img v-if="!comment.student.image" src="~/assets/img/murid/profilepic/defaultUser.svg" class="w-10 h-10" alt="student image">
+        <img v-if="comment.student.image" :src="comment.student.image" class="w-10 h-10 rounded-full" alt="student image">
         <div v-if="comment.student" id="student-detail" class="ml-3">
           <h1 class="font-bold"> {{ comment.student.name }} </h1>
+          <span>{{ getCommentMoment(comment.updated_at) }}</span>
           <textarea @change="handleCommentChange($event.target.value)" :disabled="show[comment_idx]" class="w-64 card-image drop-shadow-lg bg-gray-200 border-b-2 z-10 mt-2 py-1 px-2 rounded-xl">{{ comment.title }}</textarea>
         </div>
         <div v-if="comment.student_id === getStudentId && show[comment_idx]" id="handle-change" class="absolute top-2 right-2 gap-2 flex flex-row justify-center items-center w-auto h-7 card-image drop-shadow-lg bg-gray-200 border-b-2 z-10 py-1 px-2 rounded-xl">
@@ -61,7 +62,7 @@
 </template>
 
 <script>
-
+import moment from 'moment'
 export default {
   name: 'Video',
   layout: 'default',
@@ -84,7 +85,7 @@ export default {
   computed : {
     getStudentId () {
       return this.$store.getters['student/getStudent'].id
-    }
+    },
   },
   async created () {
     if (!this.getStudentId) {
@@ -101,6 +102,9 @@ export default {
   methods: {
     doClick () {
       this.clicked = !this.clicked
+    },
+    getCommentMoment(comment_moment) {
+      return moment(comment_moment,"YYYY-MM-DD","id").fromNow()
     },
     getColor () {
       return (this.clicked) ? 'red' : ''
