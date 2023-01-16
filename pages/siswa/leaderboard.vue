@@ -56,7 +56,7 @@
           {{ student.score }} Pts
         </div>
         <div class="lencana-img  h-3 w-16">
-                    <img class="mx-auto h-9 w-9" :src="getLeaderUrl" alt="lencana">
+          <img class="mx-auto h-9 w-9" :src="getLeaderUrl" alt="lencana">
         </div>
         <div class="no-peringkat  h-3 w-16 text-center">
           #{{ student.rank }}
@@ -78,6 +78,7 @@ import Leaderboard from '~/components/leaderboard/leaderboard.vue'
 
 export default {
   name: 'leaderboard',
+  middleware: 'isStudent',
   layout: 'app',
   components: {
     Leaderboard,
