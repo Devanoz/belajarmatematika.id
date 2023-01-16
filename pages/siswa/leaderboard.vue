@@ -26,10 +26,10 @@
                       :value="userProgress"
             >
               <template>
-                <img src="~/assets/img/peringkat/rocket.svg" class="mx-auto">
+                <img src="~/assets/img/peringkat/rocket.svg" class="mx-auto" alt="rocket">
               </template>
             </Progress>
-            
+
           </client-only>
         </div>
       </div>
@@ -56,7 +56,7 @@
           {{ student.score }} Pts
         </div>
         <div class="lencana-img  h-3 w-16">
-          <!--          <img class="mx-auto h-9 w-9" :src="getLeaderUrl">-->
+                    <img class="mx-auto h-9 w-9" :src="getLeaderUrl" alt="lencana">
         </div>
         <div class="no-peringkat  h-3 w-16 text-center">
           #{{ student.rank }}
@@ -111,17 +111,17 @@ export default {
       return this.$auth.user
     },
 
-    // getLeaderUrl () {
-    //   if (this.student.rank === 1) {
-    //     return require('~/assets/img/peringkat/lencana/juara1.svg')
-    //   } else if (this.student.rank === 2) {
-    //     return require('~/assets/img/peringkat/lencana/juara2.svg')
-    //   } else if (this.student.rank === 3) {
-    //     return require('~/assets/img/peringkat/lencana/juara3.svg')
-    //   } else {
-    //     return require('~/assets/img/peringkat/lencana/no-rank.svg')
-    //   }
-    // }
+    getLeaderUrl () {
+      if (this.student.rank === 1) {
+        return require('~/assets/img/peringkat/lencana/juara1.svg')
+      } else if (this.student.rank === 2) {
+        return require('~/assets/img/peringkat/lencana/juara2.svg')
+      } else if (this.student.rank === 3) {
+        return require('~/assets/img/peringkat/lencana/juara3.svg')
+      } else {
+        return require('~/assets/img/peringkat/lencana/no-rank.svg')
+      }
+    }
   },
 
 }
