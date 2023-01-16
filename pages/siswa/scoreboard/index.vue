@@ -19,18 +19,18 @@
           <!--          <radial-progress-bar :completed-steps="studentProgress" :total-steps="totalSteps" :diameter="diameter" :fps="fps" inner-stroke-color="#E0E0E0" start-color="#84B2F3" stop-color="#84B2F3">-->
           <!--            <img src="~/assets/img/peringkat/rocket.svg">-->
           <!--          </radial-progress-bar>-->
-          <client-only>
-            <Progress class="flex justify-center items-center" :transitionDuration="2000" :radius="50"
-                      strokeColor="#84B2F3"
-                      :strokeWidth="8"
-                      :value="userProgress"
-            >
-              <template>
-                <img src="~/assets/img/peringkat/rocket.svg" class="mx-auto">
-              </template>
-            </Progress>
+          <!--          <client-only>-->
+          <!--            <Progress class="flex justify-center items-center" :transitionDuration="2000" :radius="50"-->
+          <!--                      strokeColor="#84B2F3"-->
+          <!--                      :strokeWidth="8"-->
+          <!--                      :value="userProgress"-->
+          <!--            >-->
+          <!--              <template>-->
+          <!--                <img src="~/assets/img/peringkat/rocket.svg" class="mx-auto">-->
+          <!--              </template>-->
+          <!--            </Progress>-->
 
-          </client-only>
+          <!--          </client-only>-->
         </div>
       </div>
     </div>
@@ -65,9 +65,9 @@
       <div
         class="leaderboard-list h-[24.875rem] mx-auto -mt-10 rounded-2xl overflow-y-scroll py-5"
       >
-        <Leaderboard v-for="student in students" :key="student.id" :no="no++" :name="student.student.name"
-                     :image="student.student.image" :point="student.score"
-        />
+        <!--        <Leaderboard v-for="student in students" :key="student.id" :no="no++" :name="student.student.name"-->
+        <!--                     :image="student.student.image" :point="student.score"-->
+        <!--        />-->
       </div>
     </div>
   </div>
