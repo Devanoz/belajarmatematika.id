@@ -20,16 +20,21 @@
             </NuxtLink>
         </div>
 
-        <div class="mt-auto mb-16">
+        <div class="mt-auto mb-10">
 
             <button type="submit" class="bg-cs-blue-500 w-full py-3 text-center text-white rounded-2xl shadow-md">
                 Masuk
             </button>
 
-            <span class="text-center w-full inline-block mt-8">Belum Punya Akun?
+            <span class="text-center w-full inline-block mt-5">Belum Punya Akun?
                 <NuxtLink to="/register" class="underline text-lg text-cyan-700">
                     Daftar
                 </NuxtLink>
+            </span>
+            <span class="text-center w-full inline-block mt-5">
+              <NuxtLink to="auth/login" class="underline text-lg text-cyan-700 mt-8">
+                Masuk sebagai Guru
+              </NuxtLink>
             </span>
         </div>
     </form>
@@ -37,7 +42,6 @@
 </template>
 
 <script>
-import Vue from 'vue'
 import TextInput from '~/components/form/TextInput.vue'
 import CheckBox from '~/components/form/CheckBox.vue'
 
@@ -81,7 +85,7 @@ export default {
 
                 })
 
-                .catch(error => {
+                .catch(() => {
                     //assign validation
                     // this.validation = error.response.data
                   this.$swal.fire({
