@@ -9,13 +9,32 @@
     </div>
 
     <div class="p-4">
+      <div
+        class="relative z-20 flex items-center w-full h-10 mt-4 mb-4 rounded-3xl focus-within:shadow-lg bg-sky-100 overflow-hidden"
+      >
+        <div class="grid place-items-center ml-2 h-full w-12 text-cyan-800">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            />
+          </svg>
+        </div>
+
+        <input @keyup="onSearching" v-model="search"
+               class="peer h-full w-full outline-none font-light text-gray-300 pr-2 bg-sky-100"
+               type="text"
+               id="search"
+               placeholder="Cari Video"
+        />
+
+      </div>
       <h2 class="text-xl text-cs-blue-500 font-bold">
         Tontonan Terakhir
       </h2>
 
       <div class="mt-4">
         <iframe
-          height="315"
+          height="200"
           class="w-full rounded-lg drop-shadow-lg"
           src="https://www.youtube.com/embed/fZz0OW8USZw"
           title="YouTube video player"
@@ -73,6 +92,7 @@ export default {
     return {
       clicked: false,
       val: '~/assets/img/navbar/basic/peringkat.svg',
+      search :''
     }
   },
   created () {
@@ -98,7 +118,11 @@ export default {
          id:video_id
         }
       })
-    }
+    },
+    async onSearching (data) {
+      console.log(this.search)
+      await this.$store.dispatch("siswa/video/getVideosData",this.search)
+    },
   }
 }
 </script>
