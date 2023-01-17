@@ -65,7 +65,7 @@
       <div
         class="leaderboard-list h-[24.875rem] mx-auto -mt-10 rounded-2xl overflow-y-scroll py-5"
       >
-        <Leaderboard v-for="student in students" :key="student.id" :no="(no>students.length)?no++:no"  :name="student.student.name"
+        <Leaderboard v-for="(student,student_idx) in students" :key="student.id" :no="++student_idx"  :name="student.student.name"
                      :image="student.student.image" :point="student.score"
         />
       </div>
