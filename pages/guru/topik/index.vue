@@ -56,7 +56,7 @@
                     items-center
                   "
                   >
-                    <button @click="onEditClicked(video.id,item.id)" >edit</button>
+                    <button @click="onEditClicked(video.id)" >edit</button>
                     <button @click="onHapusClicked(video.id)" >hapus</button>
                   </div>
                 </transition>
@@ -150,7 +150,7 @@ export default {
       }
     },
     //done
-    onEditClicked (video_id,topik_id) {
+    onEditClicked (topik_id) {
       let currentPath = this.$router.currentRoute.path
       this.$router.push({
         path: currentPath+'/update',
@@ -160,7 +160,6 @@ export default {
       })
     },
     onHapusClicked (topik_id) {
-      const currentPath = this.$router.currentRoute.path
       this.$swal.fire({
         title: 'APAKAH ANDA YAKIN ?',
         text: "INGIN MENGHAPUS DATA INI !",
