@@ -6,6 +6,25 @@
       </h2>
       <hr class="mt-3" />
     </div>
+    <div
+      class="relative z-20 flex items-center w-full h-10 mt-4 mb-4 rounded-3xl focus-within:shadow-lg bg-sky-100 overflow-hidden"
+    >
+      <div class="grid place-items-center ml-2 h-full w-12 text-cyan-800">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+          />
+        </svg>
+      </div>
+
+      <input @keyup="onSearching" v-model="search"
+             class="peer h-full w-full outline-none font-light text-gray-300 pr-2 bg-sky-100"
+             type="text"
+             id="search"
+             placeholder="Cari Topik"
+      />
+
+    </div>
     <div id="video-list" class="p-2.5">
       <div class="list-materi">
         <div class="z-10">
@@ -115,7 +134,8 @@ export default {
   data() {
     return {
       materis: [],
-      show:[]
+      show:[],
+      search :''
     };
   },
   computed:{
@@ -130,6 +150,11 @@ export default {
     })
   },
   methods: {
+    onSearching () {
+      this.$store.dispatch("teacher/topik/getTopiksData",this.search).then((response)=>{
+        this.materis = response
+      })
+    },
     //done
     handleToogleClick(materi_index,topik_index){
       this.show[materi_index] = Array.from({length:this.materis[materi_index].topiks.length},()=>false)
