@@ -117,7 +117,7 @@ export default {
   //computed
   computed: {
     topiks () {
-      return this.$store.state.teacher.topik.topiks.data
+      return this.$store.state.teacher.topik.topiks
     },
   },
 

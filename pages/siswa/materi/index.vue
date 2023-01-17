@@ -113,24 +113,22 @@
 
     <!-- materi vertical -->
     <div class="flex flex-col " :class="{ 'hidden': isMateriVertical }">
-      <div v-for="data in dataSample" class="z-10">
-        <div v-for="topik in data.topik">
+      <div v-for="data in topikWithMateris" class="z-10">
+        <h2 class="text-xl mt-4 text-cyan-700">{{ data.title }}</h2>
 
-          <h2 class="text-xl mt-4 text-cyan-700">{{ topik.nama }}</h2>
-
-          <!-- card materi -->
-          <div v-for="materi in topik.materi" :key="materi.id + 'index' + topik.nama+materi.nama"
-               class="grid grid-cols-6 drop-shadow-lg border-b-2 mb-2 rounded-xl z-10 bg-white py-3 px-2"
-               @click="toggleSlide"
-          >
-            <div class="card-image col-span-1">
-              <img src="@/assets/img/materi/book.svg" alt="">
-            </div>
-            <div class="card-content col-span-5 flex flex-col">
-              <p class="font-light ">{{ materi.nama }}</p>
-            </div>
+        <!-- card materi -->
+        <div v-for="materi in data.materis" :key="materi.id + 'index' + data.nama+materi.title"
+             class="grid grid-cols-6 drop-shadow-lg border-b-2 mb-2 rounded-xl z-10 bg-white py-3 px-2"
+             @click="slideMateri(materi)"
+        >
+          <div class="card-image col-span-1">
+            <img src="@/assets/img/materi/book.svg" alt="">
+          </div>
+          <div class="card-content col-span-5 flex flex-col">
+            <p class="font-light ">{{ materi.title }}</p>
           </div>
         </div>
+
 
       </div>
     </div>
@@ -255,6 +253,7 @@ export default {
     store
   }) {
     await store.dispatch('siswa/materi/getMaterisData')
+    await store.dispatch('siswa/materi/getMaterisWithTopikData')
   },
   data () {
     return {
@@ -283,6 +282,10 @@ export default {
   computed: {
     materis () {
       return this.$store.state.siswa.materi.materis
+    },
+
+    topikWithMateris () {
+      return this.$store.state.siswa.materi.materisWithTopik
     },
     user () {
       return this.$auth.user
