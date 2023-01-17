@@ -56,7 +56,7 @@ export const actions = {
                 commit('SET_TOPIKS_DATA', response.data.data)
 
                 //resolve promise
-                resolve()
+                resolve(response.data.data)
             })
 
         })

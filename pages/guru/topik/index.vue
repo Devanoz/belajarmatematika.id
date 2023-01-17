@@ -10,7 +10,10 @@
       <div class="list-materi">
         <div class="z-10">
           <div>
-              <div v-for="(topik,topik_index) in topiks" :key="topik.id"
+            <div v-for="(item,materi_index) in materis" :key="item.id">
+              <h1 class="text-[1em]">{{item.title}}</h1>
+              <!-- card materi -->
+              <div v-if="item.topiks.length > 0" v-for="(video,video_index) in item.topiks" :key="video.id"
                    class="
                 flex
                 card-image
@@ -28,16 +31,16 @@
               >
                 <img src="@/assets/img/materi/book.svg" alt="" />
                 <div class="mx-3">
-                  <div>{{ topik.title }}</div>
-                  <div>{{ topik.created_at }}</div>
+                  <div>{{ video.title }}</div>
+                  <div>{{ video.created_at }}</div>
                 </div>
-                <button class="absolute right-3 top-3" @click="handleToogleClick(topik_index)">
+                <button class="absolute right-3 top-3" @click="handleToogleClick(materi_index,video_index)">
                   <img id="toogle"  src="@/assets/img/guru/video/tridot.svg" />
                 </button>
                 <transition name="fade">
                   <div
-                    :key="topik_index"
-                    v-if="show[topik_index]"
+                    :key="video_index"
+                    v-if="show[materi_index][video_index]"
                     class="
                     bg-white
                     w-20
@@ -53,11 +56,28 @@
                     items-center
                   "
                   >
-                    <button @click="onEditClicked(topik.id)" >edit</button>
-                    <button @click="onHapusClicked(topik.id)" >hapus</button>
+                    <button @click="onEditClicked(video.id,item.id)" >edit</button>
+                    <button @click="onHapusClicked(video.id)" >hapus</button>
                   </div>
                 </transition>
               </div>
+              <!--              else no content-->
+              <div v-if="item.topiks.length === 0" class="flex
+                justify-center
+                card-image
+                drop-shadow-lg
+                border-b-2
+                mb-2
+                rounded-xl
+                z-10
+                bg-white
+                py-3
+                px-2
+                my-3
+                z-30">
+                yahh, video untuk materi ini belum ada
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -94,20 +114,27 @@ export default {
   middleware: "isTeacher",
   data() {
     return {
-      topiks: [],
+      materis: [],
       show:[]
     };
   },
+  computed:{
+
+  },
   created() {
     this.$store.dispatch("teacher/topik/getTopiksData").then(() => {
-      this.topiks = this.$store.state.teacher.topik.topiks.data
-      this.show = Array.from({length:this.topiks.length},()=>false)
+      this.materis = this.$store.state.teacher.topik.topiks
+      this.show = Array.from({length:this.materis.length},()=>{
+        return [false]
+      })
     })
   },
   methods: {
-    handleToogleClick(topik_index){
-      this.show = this.show.map((val,index)=>{
-        if(index === topik_index){
+    //done
+    handleToogleClick(materi_index,topik_index){
+      this.show[materi_index] = Array.from({length:this.materis[materi_index].topiks.length},()=>false)
+      this.show[materi_index] = this.show[materi_index].map((show,idx)=>{
+        if(topik_index == idx) {
           return true
         }else {
           return false
@@ -115,13 +142,15 @@ export default {
       })
       this.$forceUpdate()
     },
+    //done
     onRootClicked(event){
-      if(event.target.id !== 'toogle'){
+      if(event.target.id != 'toogle'){
         this.show = this.show.map(()=>false)
         this.$forceUpdate()
       }
     },
-    onEditClicked (topik_id) {
+    //done
+    onEditClicked (video_id,topik_id) {
       let currentPath = this.$router.currentRoute.path
       this.$router.push({
         path: currentPath+'/update',
@@ -151,7 +180,13 @@ export default {
               showConfirmButton: false,
               timer: 2000
             }).then(()=>{
-              this.$router.go(currentPath)
+              this.$store.dispatch("teacher/topik/getTopiksData").then(() => {
+                this.materis = this.$store.state.teacher.topik.topiks
+                this.show = Array.from({length:this.materis.length},()=>{
+                  return [false]
+                })
+                this.$forceUpdate()
+              })
             })
           }).catch((err)=>{
             this.$swal.fire({
