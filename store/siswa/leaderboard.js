@@ -48,7 +48,7 @@ export const actions = {
           commit('SET_STUDENTS_DATA', response.data.data)
 
           //resolve promise
-          resolve()
+          resolve(response.data.data)
         })
 
     })

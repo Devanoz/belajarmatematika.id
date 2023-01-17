@@ -65,7 +65,7 @@
       <div
         class="leaderboard-list h-[24.875rem] mx-auto -mt-10 rounded-2xl overflow-y-scroll py-5"
       >
-        <Leaderboard v-for="student in students" :key="student.id" :no="no++" :name="student.student.name"
+        <Leaderboard v-for="student in students" :key="student.id" :no="(no>students.length)?no++:no"  :name="student.student.name"
                      :image="student.student.image" :point="student.score"
         />
       </div>
@@ -91,7 +91,7 @@ export default {
       diameter: 120,
       fps: 60,
       //leaderboard number
-      no: 1
+      no: 1,
     }
   },
 
@@ -105,13 +105,12 @@ export default {
     userProgress () {
       return parseFloat(this.$auth.user.progress.toFixed(2))
     },
-    students () {
-      return this.$store.state.siswa.leaderboard.students
-    },
     student () {
       return this.$auth.user
     },
-
+    students () {
+      return this.$store.state.siswa.leaderboard.students
+    },
     getLeaderUrl () {
       if (this.student.rank === 1) {
         return require('~/assets/img/peringkat/lencana/juara1.svg')
@@ -124,6 +123,9 @@ export default {
       }
     }
   },
+  methods : {
+
+  }
 
 }
 </script>
