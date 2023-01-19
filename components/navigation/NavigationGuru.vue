@@ -1,6 +1,6 @@
 <template>
-    <div class="bg-white rounded-t-xl shadow-md px-10 sm:px-20 py-6 max-h-[6rem] max-w-screen-sm fixed bottom-0 mx-auto w-full border border-slate-200">
-        <div class="h-full flex justify-between items-center w-full">
+    <div class="bg-white rounded-t-xl shadow-md px-5 sm:px-20 py-6 max-h-[6rem] max-w-screen-sm fixed bottom-0 mx-auto w-full border border-slate-200">
+        <div class="h-full flex justify-between items-center w-full gap-3">
             <button @click="onMateriClicked">
 
                 <div class="flex flex-col items-center gap-y-1">
@@ -29,12 +29,27 @@
 
             <button @click="onTopikClicked">
                 <div  class="flex flex-col items-center gap-y-1">
-                    <img v-if="peringkatClicked" class="h-6 w-auto" src="~/assets/img/navbar/basic/peringkat-color.svg">
-                    <img v-else class="h-6 w-auto" src="~/assets/img/navbar/basic/peringkat.svg">
+                    <img v-if="topikClicked" class="h-6 w-auto" src="~/assets/img/navbar/basic/topik-active.svg">
+                    <img v-else class="h-6 w-auto" src="~/assets/img/navbar/basic/topik-inactive.svg">
                     <span class="text-slate-400">Topik</span>
                 </div>
             </button>
-        </div>
+
+            <button @click="onLeaderboardClicked">
+              <div  class="flex flex-col items-center gap-y-1">
+                <img v-if="peringkatClicked" class="h-6 w-auto" src="~/assets/img/navbar/basic/peringkat-color.svg">
+                <img v-else  class="h-6 w-auto" src="~/assets/img/navbar/basic/peringkat.svg">
+                <span class="text-slate-400">rank</span>
+              </div>
+            </button>
+            <button @click="onAkunClicked">
+              <div  class="flex flex-col items-center gap-y-1">
+                <!--                <img v-if="peringkatClicked" class="h-6 w-auto" src="~/assets/img/navbar/basic/peringkat-color.svg">-->
+                <img  class="h-6 w-auto" src="~/assets/img/navbar/basic/peringkat.svg">
+                <span class="text-slate-400">Akun</span>
+              </div>
+            </button>
+          </div>
     </div>
     </template>
 
@@ -45,7 +60,8 @@
                 materiClicked: true,
                 videoClicked: false,
                 tantanganClicked: false,
-                peringkatClicked: false
+                peringkatClicked: false,
+                topikClicked: false,
             }
         },
         mounted() {
@@ -61,6 +77,7 @@
                 this.videoClicked = false
                 this.tantanganClicked = false
                 this.peringkatClicked = false
+                this.topikClicked = false
             },
 
             onVideoClicked() {
@@ -71,6 +88,7 @@
                 this.videoClicked = true
                 this.tantanganClicked = false
                 this.peringkatClicked = false
+                this.topikClicked = false
             },
 
             onTantanganClicked() {
@@ -81,6 +99,7 @@
                 this.videoClicked = false
                 this.tantanganClicked = true
                 this.peringkatClicked = false
+                this.topikClicked = false
             },
 
             onTopikClicked() {
@@ -90,9 +109,29 @@
                 this.materiClicked = false
                 this.videoClicked = false
                 this.tantanganClicked = false
-                this.peringkatClicked = true
+                this.topikClicked = true
+                this.peringkatClicked = false
             },
-
+            onLeaderboardClicked () {
+              this.$router.push({
+                name:'guru-leaderboard'
+              })
+              this.materiClicked = false
+              this.videoClicked = false
+              this.tantanganClicked = false
+              this.topikClicked = false
+              this.peringkatClicked = true
+            },
+            onAkunClicked () {
+              this.$router.push({
+                name:'guru-akun'
+              })
+              this.materiClicked = false
+              this.videoClicked = false
+              this.tantanganClicked = false
+              this.topikClicked = false
+              this.peringkatClicked = false
+            }
         }
     }
     </script>
