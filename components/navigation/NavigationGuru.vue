@@ -44,8 +44,8 @@
             </button>
             <button @click="onAkunClicked">
               <div  class="flex flex-col items-center gap-y-1">
-                <!--                <img v-if="peringkatClicked" class="h-6 w-auto" src="~/assets/img/navbar/basic/peringkat-color.svg">-->
-                <img  class="h-6 w-auto" src="~/assets/img/navbar/basic/peringkat.svg">
+                <img v-if="accountClicked" class="h-6 w-auto" src="~/assets/img/navbar/basic/account-active.svg">
+                <img v-else class="h-6 w-auto" src="~/assets/img/navbar/basic/account-inactive.svg">
                 <span class="text-slate-400">Akun</span>
               </div>
             </button>
@@ -62,6 +62,7 @@
                 tantanganClicked: false,
                 peringkatClicked: false,
                 topikClicked: false,
+                accountClicked: false,
             }
         },
         mounted() {
@@ -78,6 +79,7 @@
                 this.tantanganClicked = false
                 this.peringkatClicked = false
                 this.topikClicked = false
+                this.accountClicked = false
             },
 
             onVideoClicked() {
@@ -89,6 +91,7 @@
                 this.tantanganClicked = false
                 this.peringkatClicked = false
                 this.topikClicked = false
+                this.accountClicked = false
             },
 
             onTantanganClicked() {
@@ -100,6 +103,7 @@
                 this.tantanganClicked = true
                 this.peringkatClicked = false
                 this.topikClicked = false
+                this.accountClicked = false
             },
 
             onTopikClicked() {
@@ -111,6 +115,7 @@
                 this.tantanganClicked = false
                 this.topikClicked = true
                 this.peringkatClicked = false
+                this.accountClicked = false
             },
             onLeaderboardClicked () {
               this.$router.push({
@@ -121,6 +126,7 @@
               this.tantanganClicked = false
               this.topikClicked = false
               this.peringkatClicked = true
+              this.accountClicked = false
             },
             onAkunClicked () {
               this.$router.push({
@@ -131,6 +137,7 @@
               this.tantanganClicked = false
               this.topikClicked = false
               this.peringkatClicked = false
+              this.accountClicked = true
             }
         }
     }
