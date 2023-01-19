@@ -6,6 +6,28 @@
       <h2 class="text-center text-2xl text-green-primary font-semibold">Materi</h2>
       <hr class=" mt-3">
     </div>
+
+    <div
+      class="relative z-20 flex items-center w-full h-10 mt-4 rounded-3xl focus-within:shadow-lg bg-sky-100 overflow-hidden"
+    >
+      <div class="grid place-items-center ml-2 h-full w-12 text-cyan-800">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+          />
+        </svg>
+      </div>
+
+      <input @keyup="onSearching" v-model="search"
+             class="peer h-full w-full outline-none font-light text-gray-300 pr-2 bg-sky-100"
+             type="text"
+             id="search"
+             placeholder="Cari Materi"
+      />
+
+    </div>
+
+
     <div id="video-list" class="p-2.5">
       <div class="list-materi">
         <div class="z-10">
@@ -135,6 +157,7 @@ export default {
 
   data () {
     return {
+      search: '',
       materis: [],
       show: [],
       dataSample: dataSamples
@@ -151,6 +174,16 @@ export default {
   },
 
   methods: {
+    async onSearching () {
+      console.log(this.search)
+      await this.$store.dispatch('teacher/materi/getMaterisWithTopikData', this.search).then(() => {
+        this.materis = this.$store.state.teacher.materi.materisWithTopik
+        this.show = Array.from({ length: this.materis.length }, () => {
+          return [false]
+        })
+      })
+
+    },
     handleToogleClick (topik_index, materi_index) {
       this.show[topik_index] = Array.from({ length: this.materis[topik_index].materis.length }, () => false)
       this.show[topik_index] = this.show[topik_index].map((show, idx) => {
