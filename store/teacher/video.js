@@ -41,7 +41,7 @@ export const actions = {
     return new Promise((resolve, reject) => {
 
       //fetching Rest API "/api/admin/materis" with method "GET"
-      this.$axios.get(`/api/teacher/videos?q=${search}&page=${state.page}`)
+      this.$axios.get(`/api/teacher/videos?title=${search}&page=${state.page}`)
 
         //success
         .then((response) => {
@@ -50,7 +50,7 @@ export const actions = {
           commit('SET_VIDEOS_DATA', response.data.data)
 
           //resolve promise
-          resolve()
+          resolve(response.data.data)
         })
 
     })
