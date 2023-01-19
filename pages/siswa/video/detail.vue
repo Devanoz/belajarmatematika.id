@@ -196,7 +196,7 @@ export default {
         this.studentComment = ''
         this.studentReplyComment = ''
         this.showReplyComment[comment_idx] = !this.showReplyComment[comment_idx]
-        this.replyShow = Array.from({length:this.comments.length},()=>false)//
+        this.replyShowList[comment_idx] = Array.from({length:this.comments[comment_idx].reply_comments.length},()=>true)
         this.$forceUpdate()
       }).catch((err)=>{
       })
