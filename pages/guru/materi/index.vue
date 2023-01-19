@@ -33,24 +33,9 @@
         <div class="z-10">
           <div>
             <div v-for="(topik,topik_index) in materis" :key="topik.id">
-              <h1 class="text-[1em] text-cyan-700">{{ topik.title }}</h1>
+              <h1 v-if="topik.materis.length > 0" class="text-[1em] text-cyan-700">{{ topik.title }}</h1>
 
-              <div class="flex
-                justify-center
-                card-image
-                drop-shadow-lg
-                border-b-2
-                mb-2
-                rounded-xl
-                z-10
-                bg-white
-                py-3
-                px-2
-                my-3
-                z-30" v-if="topik.materis.length==0"
-              >
-                Yahh, Materi untuk topik ini belum ada
-              </div>
+
               <!-- card materi -->
               <div v-for="(materi, materi_index) in topik.materis" :key="materi.id"
                    class="
