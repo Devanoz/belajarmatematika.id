@@ -198,9 +198,7 @@ export default {
         this.showReplyComment[comment_idx] = !this.showReplyComment[comment_idx]
         this.replyShow = Array.from({length:this.comments.length},()=>false)//
         this.$forceUpdate()
-        console.log(this.comments)
       }).catch((err)=>{
-        console.log(err)
       })
       this.$forceUpdate()
     },
