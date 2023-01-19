@@ -51,7 +51,7 @@
                 z-30
               "
               >
-                <img src="@/assets/img/materi/book.svg" alt=""/>
+                <img src="@/assets/img/challenge/ujian.svg" alt=""/>
                 <div class="mx-3">
                   <div>{{ challenge.title }}</div>
                 </div>
