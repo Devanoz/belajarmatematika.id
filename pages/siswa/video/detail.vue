@@ -29,23 +29,48 @@
     </div>
     <h1 class="mt-2 ml-2 font-bold">{{comments.length}} Comments</h1>
     <div id="comment-list" class="max-h-80 m-3 overflow-y-scroll rounded-xl">
-      <div v-for="(comment,comment_idx) in comments" class="relative flex card-image drop-shadow-lg border-b-2 mb-2 rounded-xl z-10 bg-white py-3 px-2 my-3 z-20">
-        <img v-if="!comment.student.image" src="~/assets/img/murid/profilepic/defaultUser.svg" class="w-10 h-10" alt="student image">
-        <img v-if="comment.student.image" :src="comment.student.image" class="w-10 h-10 rounded-full" alt="student image">
-        <div v-if="comment.student" id="student-detail" class="ml-3">
-          <h1 class="font-bold"> {{ comment.student.name }} </h1>
-          <span>{{ getCommentMoment(comment.updated_at) }}</span>
-          <textarea @change="handleCommentChange($event.target.value)" :disabled="show[comment_idx]" class="w-64 card-image drop-shadow-lg bg-gray-200 border-b-2 z-10 mt-2 py-1 px-2 rounded-xl">{{ comment.title }}</textarea>
+      <div id="comment-container"  v-for="(comment,comment_idx) in comments">
+        <div class="relative flex card-image drop-shadow-lg border-b-2 mb-2 rounded-xl z-10 bg-white py-3 px-2 my-3 z-20">
+          <img v-if="!comment.student.image" src="~/assets/img/murid/profilepic/defaultUser.svg" class="w-10 h-10" alt="student image">
+          <img v-if="comment.student.image" :src="comment.student.image" class="w-10 h-10 rounded-full" alt="student image">
+          <div v-if="comment.student" id="student-detail" class="ml-3">
+            <h1 class="font-bold"> {{ comment.student.name }} </h1>
+            <span>{{ getCommentMoment(comment.updated_at) }}</span>
+            <textarea @change="handleCommentChange($event.target.value)" :disabled="show[comment_idx]" class="w-64 card-image drop-shadow-lg bg-gray-200 border-b-2 z-10 mt-2 py-1 px-2 rounded-xl">{{ comment.title }}</textarea>
+          </div>
+          <div v-if="comment.student_id === getStudentId && show[comment_idx]" id="handle-change" class="absolute top-2 right-2 gap-2 flex flex-row justify-center items-center w-auto h-7 card-image drop-shadow-lg bg-gray-200 border-b-2 z-10 py-1 px-2 rounded-xl">
+            <div @click="onEditClicked(comment.id,comment_idx)" class="text-yellow-500">edit</div> |
+            <div @click="onDeleteClicked(comment.id)" class="text-red-500">delete</div>
+          </div>
+          <div v-if="comment.student_id === getStudentId && !show[comment_idx]" id="handle-change" class="absolute top-2 right-2 gap-2 flex flex-row justify-center items-center w-auto h-7 card-image drop-shadow-lg bg-gray-200 border-b-2 z-10 py-1 px-2 rounded-xl">
+            <!--          <div @click="onEditClicked(comment.id)" class="text-yellow-500">edit</div> |-->
+            <!--          <div @click="onDeleteClicked(comment.id)" class="text-red-500">delete</div>-->
+            <div @click="confirmEdit(comment.id)">Confirm</div>
+          </div>
+          <div class="absolute left-5 bottom-2" @click="onCommentToogleClicked">^</div>
         </div>
-        <div v-if="comment.student_id === getStudentId && show[comment_idx]" id="handle-change" class="absolute top-2 right-2 gap-2 flex flex-row justify-center items-center w-auto h-7 card-image drop-shadow-lg bg-gray-200 border-b-2 z-10 py-1 px-2 rounded-xl">
-          <div @click="onEditClicked(comment.id,comment_idx)" class="text-yellow-500">edit</div> |
-          <div @click="onDeleteClicked(comment.id)" class="text-red-500">delete</div>
-        </div>
-        <div v-if="comment.student_id === getStudentId && !show[comment_idx]" id="handle-change" class="absolute top-2 right-2 gap-2 flex flex-row justify-center items-center w-auto h-7 card-image drop-shadow-lg bg-gray-200 border-b-2 z-10 py-1 px-2 rounded-xl">
-<!--          <div @click="onEditClicked(comment.id)" class="text-yellow-500">edit</div> |-->
-<!--          <div @click="onDeleteClicked(comment.id)" class="text-red-500">delete</div>-->
-          <div @click="confirmEdit(comment.id)">Confirm</div>
-        </div>
+        <transition name="fade">
+          <div v-if="replyShow" id="reply">
+            <div v-for="(reply,comment_idx) in comment.reply_comments" class="ml-5 bg-gray-100 relative flex card-image drop-shadow-lg border-b-2 mb-2 rounded-xl z-10 bg-white py-3 px-2 my-3 z-20">
+              <img v-if="reply.student_id?!reply.student.image:(reply.teacher_id)?true:false" src="~/assets/img/murid/profilepic/defaultUser.svg" class="w-10 h-10" alt="student image">
+              <img v-if="reply.student_id?reply.student.image:false" :src="comment.student.image" class="w-10 h-10 rounded-full" alt="student image">
+              <div v-if="comment.student" id="student-detail" class="ml-3">
+                <h1 class="font-bold"> {{ reply.student_id?reply.student.name:reply.teacher.name }} </h1>
+                <span>{{ getCommentMoment(reply.updated_at) }}</span>
+                <textarea @change="handleCommentChange($event.target.value)" :disabled="show[comment_idx]" class="w-64 card-image drop-shadow-lg bg-white border-b-2 z-10 mt-2 py-1 px-2 rounded-xl">{{ reply.title }}</textarea>
+              </div>
+              <div v-if="comment.student_id === getStudentId && show[comment_idx]" id="handle-change" class="absolute top-2 right-2 gap-2 flex flex-row justify-center items-center w-auto h-7 card-image drop-shadow-lg bg-gray-200 border-b-2 z-10 py-1 px-2 rounded-xl">
+                <div @click="onEditClicked(comment.id,comment_idx)" class="text-yellow-500">edit</div> |
+                <div @click="onDeleteClicked(reply.id)" class="text-red-500">delete</div>
+              </div>
+              <div v-if="comment.student_id === getStudentId && !show[comment_idx]" id="handle-change" class="absolute top-2 right-2 gap-2 flex flex-row justify-center items-center w-auto h-7 card-image drop-shadow-lg bg-gray-200 border-b-2 z-10 py-1 px-2 rounded-xl">
+                <!--          <div @click="onEditClicked(comment.id)" class="text-yellow-500">edit</div> |-->
+                <!--          <div @click="onDeleteClicked(comment.id)" class="text-red-500">delete</div>-->
+                <div @click="confirmEdit(comment.id)">Confirm</div>
+              </div>
+            </div>
+          </div>
+        </transition>
       </div>
     </div>
     <div class="bg-cs-blue-300 w-full p-4 pt-4 flex flex-row gap-4 justify-between absolute bottom-0 z-30">
@@ -79,7 +104,11 @@ export default {
       //show send
       show:[],
 
-      commentVal : ''
+      commentVal : '',
+      //reply show
+      replyShow: false,
+      //reply show list
+      replyShowList:[]
     }
   },
   computed : {
@@ -97,14 +126,18 @@ export default {
       this.url = video.url
       this.comments = response.data.data.comments
       this.show = Array.from({length:this.comments.length},()=>true)
+      this.replyShowList = Array.from({length:this.comments.length},()=>[true])
     })
   },
   methods: {
+    onCommentToogleClicked () {
+      this.replyShow = !this.replyShow
+    },
     doClick () {
       this.clicked = !this.clicked
     },
     getCommentMoment(comment_moment) {
-      return moment(comment_moment,"YYYY-MM-DD","id").fromNow()
+      return moment(comment_moment,"YYYY-MM-DD hh:mm:ss","id").fromNow()
     },
     getColor () {
       return (this.clicked) ? 'red' : ''
@@ -196,5 +229,11 @@ export default {
 <style>
 #root{
   width: inherit;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 </style>
