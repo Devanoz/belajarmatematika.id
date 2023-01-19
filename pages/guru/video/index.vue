@@ -30,7 +30,7 @@
         <div class="z-10">
           <div>
             <div v-for="(item,materi_index) in materis" :key="item.id">
-              <h1 class="text-[1em] text-cyan-700">{{ item.title }}</h1>
+              <h1 v-if="item.videos.length > 0" class="text-[1em] text-cyan-700">{{ item.title }}</h1>
               <!-- card materi -->
               <div v-if="item.videos.length > 0" v-for="(video,video_index) in item.videos" :key="video.id"
                    class="
@@ -81,22 +81,7 @@
                 </transition>
               </div>
               <!--              else no content-->
-              <div v-if="item.videos.length === 0" class="flex
-                justify-center
-                card-image
-                drop-shadow-lg
-                border-b-2
-                mb-2
-                rounded-xl
-                z-10
-                bg-white
-                py-3
-                px-2
-                my-3
-                z-30"
-              >
-                yahh, video untuk materi ini belum ada
-              </div>
+
             </div>
           </div>
         </div>
