@@ -51,7 +51,7 @@
                 <img src="@/assets/img/materi/book.svg" alt="" />
                 <div class="mx-3">
                   <div>{{ video.title }}</div>
-                  <div>{{ video.created_at }}</div>
+                  <div>{{ getTopikTimeStamp(video.updated_at) }}</div>
                 </div>
                 <button class="absolute right-3 top-3" @click="handleToogleClick(materi_index,video_index)">
                   <img id="toogle"  src="@/assets/img/guru/video/tridot.svg" />
@@ -127,6 +127,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 export default {
   name: 'index.vue',
   layout: "guru",
@@ -150,6 +151,9 @@ export default {
     })
   },
   methods: {
+    getTopikTimeStamp (updated_timeStamp) {
+      return moment(updated_timeStamp,'YYYY-MM-DD hh:mm:ss','id').fromNow()
+    },
     onSearching () {
       this.$store.dispatch("teacher/topik/getTopiksData",this.search).then((response)=>{
         this.materis = response
