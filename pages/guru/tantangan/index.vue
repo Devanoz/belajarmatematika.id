@@ -6,29 +6,34 @@
       <h2 class="text-center text-2xl text-green-primary font-semibold">Tantangan</h2>
       <hr class=" mt-3">
     </div>
+    <div
+      class="relative z-20 flex items-center w-full h-10 mt-4 mb-4 rounded-3xl focus-within:shadow-lg bg-sky-100 overflow-hidden"
+    >
+      <div class="grid place-items-center ml-2 h-full w-12 text-cyan-800">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+          />
+        </svg>
+      </div>
+
+      <input @keyup="onSearching" v-model="search"
+             class="peer h-full w-full outline-none font-light text-gray-300 pr-2 bg-sky-100"
+             type="text"
+             id="search"
+             placeholder="Cari Tantangan"
+      />
+
+    </div>
+
     <div id="video-list" class="p-2.5">
       <div class="list-materi">
         <div class="z-10">
           <div>
             <div v-for="(materi,materi_index) in challenges" :key="materi.id">
-              <h1 class="text-[1em] text-cyan-700">{{ materi.title }}</h1>
+              <h1 v-if="materi.challenges.length >0" class="text-[1em] text-cyan-700">{{ materi.title }}</h1>
 
-              <div class="flex
-                justify-center
-                card-image
-                drop-shadow-lg
-                border-b-2
-                mb-2
-                rounded-xl
-                z-10
-                bg-white
-                py-3
-                px-2
-                my-3
-                z-30" v-if="materi.challenges.length==0"
-              >
-                Yahh, Tantangan untuk topik ini belum ada
-              </div>
+
               <!-- card materi -->
               <div v-for="(challenge,challenge_index) in materi.challenges" :key="challenge.id"
                    class="
@@ -46,7 +51,7 @@
                 z-30
               "
               >
-                <img src="@/assets/img/materi/book.svg" alt=""/>
+                <img src="@/assets/img/challenge/ujian.svg" alt=""/>
                 <div class="mx-3">
                   <div>{{ challenge.title }}</div>
                 </div>
@@ -137,13 +142,13 @@ export default {
     return {
       challenges: [],
       show: [],
-      dataSample: dataSamples
+      search: ''
     }
   },
 
   created () {
     this.$store.dispatch('teacher/challenge/getChallengesData').then(() => {
-      this.challenges = this.$store.state.teacher.challenge.challenges.data
+      this.challenges = this.$store.state.teacher.challenge.challenges
       this.show = Array.from({ length: this.challenges.length }, () => {
         return [false]
       })
@@ -151,6 +156,17 @@ export default {
   },
 
   methods: {
+    async onSearching () {
+      console.log(this.search)
+      await this.$store.dispatch('teacher/challenge/getChallengesData', this.search).then(() => {
+        this.challenges = this.$store.state.teacher.challenge.challenges
+        this.show = Array.from({ length: this.challenges.length }, () => {
+          return [false]
+        })
+      })
+
+    },
+
     handleToogleClick (materi_index, challenge_index) {
       this.show[materi_index] = Array.from({ length: this.challenges[materi_index].challenges.length }, () => false)
       this.show[materi_index] = this.show[materi_index].map((show, idx) => {

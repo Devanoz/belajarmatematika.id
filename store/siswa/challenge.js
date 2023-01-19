@@ -127,7 +127,7 @@ export const actions = {
     return new Promise((resolve, reject) => {
 
       //fetching Rest API "/api/admin/challenges" with method "GET"
-      this.$axios.get(`/api/student/challenges?q=${search}&page=${state.page}`)
+      this.$axios.get(`/api/student/challenges?title=${search}&page=${state.page}`)
 
         //success
         .then((response) => {

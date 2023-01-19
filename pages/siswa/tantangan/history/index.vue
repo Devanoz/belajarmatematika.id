@@ -15,35 +15,39 @@
     </div>
 
     <div class="challenge-exist">
-      <div v-for="challenge in challenges"
-           @click="onEditClicked(challenge)"
-           class="p-3 mt-2 border-2 border-cyan-600 drop-shadow-md rounded-2xl grid grid-cols-4"
-      >
-        <img class="col-span-1 self-center" src="@/assets/img/tantangan/balok.svg" alt="">
-        <div class="content ml-2 col-span-2 self-center flex flex-col">
+      <div v-for="materi in challenges">
+        <h2 v-if="materi.challenges.length > 0" class="text-xl mt-4 text-cyan-700">{{ materi.title }}</h2>
+        <div v-for="challenge in materi.challenges"
+             @click="onEditClicked(challenge)"
+             class="p-3 mt-2 border-2 border-cyan-600 drop-shadow-md rounded-2xl grid grid-cols-4"
+        >
+          <img class="col-span-1 self-center" src="@/assets/img/tantangan/balok.svg" alt="">
+          <div class="content ml-2 col-span-2 self-center flex flex-col">
                     <span class="font-normal text-md text-gray-700">
                         {{ challenge.title }}
                     </span>
-          <span class="text-gray-400 text-md">
+            <span class="text-gray-400 text-md">
                         {{ challenge.updated_at }}
                     </span>
-        </div>
-        <div class="col-span-1 py-3">
-          <client-only class="bg-green-300 ">
-            <Progress class=" grid justify-items-center" :transitionDuration="2000" :radius="35"
-                      strokeColor="#659E8D"
-                      :strokeWidth="6"
-                      :value="challenge.student_challenges[0].score"
-            >
-              <div class=" text-[#659E8D] justify-self-center">
+          </div>
+          <div class="col-span-1 py-3">
+            <client-only class="bg-green-300 ">
+              <Progress class=" grid justify-items-center" :transitionDuration="2000" :radius="35"
+                        strokeColor="#659E8D"
+                        :strokeWidth="6"
+                        :value="challenge.student_challenges[0].score"
+              >
+                <div class=" text-[#659E8D] justify-self-center">
               <span class="">
               {{ challenge.student_challenges[0].score }}pts
 
               </span>
-              </div>
+                </div>
 
-            </Progress>
-          </client-only>
+              </Progress>
+            </client-only>
+
+          </div>
 
         </div>
 

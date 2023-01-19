@@ -56,7 +56,7 @@ export const actions = {
     return new Promise((resolve, reject) => {
 
       //fetching Rest API "/api/admin/materis" with method "GET"
-      this.$axios.get(`/api/teacher/topiksWithMateris`)
+      this.$axios.get(`/api/teacher/topiksWithMateris?title=${search}`)
 
         //success
         .then((response) => {

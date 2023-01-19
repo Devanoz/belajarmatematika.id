@@ -304,6 +304,8 @@ export default {
     async onSearching (data) {
       console.log(this.search)
       await this.$store.dispatch('siswa/materi/getMaterisData', this.search)
+      await this.$store.dispatch('siswa/materi/getMaterisWithTopikData', this.search)
+
     },
     slideMateri (data) {
       this.tempMateri = data
