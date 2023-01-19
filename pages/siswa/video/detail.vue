@@ -197,12 +197,15 @@ export default {
         this.studentReplyComment = ''
         this.showReplyComment[comment_idx] = !this.showReplyComment[comment_idx]
         this.replyShowList[comment_idx] = Array.from({length:this.comments[comment_idx].reply_comments.length},()=>true)
+        //
+        this.triggerComment = !this.triggerComment
         this.$forceUpdate()
       }).catch((err)=>{
       })
       this.$forceUpdate()
     },
     onReplyCommentSendCanceled (comment_idx) {
+      this.triggerComment = !this.triggerComment
       this.showReplyComment[comment_idx] = !this.showReplyComment[comment_idx]
       this.$forceUpdate()
     },
