@@ -70,7 +70,6 @@
 
 export default {
   name: 'add',
-  layout: 'guru',
   data () {
     return {
       submit: false,
