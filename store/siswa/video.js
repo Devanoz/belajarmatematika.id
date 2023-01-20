@@ -4,6 +4,8 @@ export const state = () => ({
   //topiks
   videos: [],
 
+  //last played url
+  currentVideos:null,
   //page
   page: 1,
 
@@ -15,7 +17,8 @@ export const mutations = {
   SET_VIDEOS_DATA(state, payload) {
 
     //set value state "topiks"
-    state.videos = payload
+    state.videos = payload.videos
+    state.currentVideos = payload.currentVideos
   },
 
   //mutation "SET_PAGE"
@@ -48,7 +51,7 @@ export const actions = {
           commit('SET_VIDEOS_DATA', response.data.data)
 
           //resolve promise
-          resolve()
+          resolve(response.data.data)
         })
 
     })
