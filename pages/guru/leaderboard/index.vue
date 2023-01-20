@@ -41,18 +41,9 @@ export default {
     }
   },
 
-  // async asyncData ({
-  //   store
-  // }) {
-  //   await store.dispatch('teacher/leaderboard/getStudentsData').then(()=>{
-  //     console.log(this.$store.state.teacher.leaderboard.students)
-  //   })
-  // },
 
   created () {
-    this.$store.dispatch('teacher/leaderboard/getStudentsData').then(()=>{
-      console.log(this.$store.state.teacher.leaderboard.students)
-    })
+    this.$store.dispatch('teacher/leaderboard/getStudentsData')
   },
   computed: {
     userProgress () {
