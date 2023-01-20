@@ -28,31 +28,32 @@
         />
 
       </div>
-      <h2 class="text-xl text-cs-blue-500 font-bold">
+      <h2 v-if="thereIsLastPlayed" class="text-xl text-cs-blue-500 font-bold">
         Tontonan Terakhir
       </h2>
 
-      <div class="mt-4">
+      <div v-if="thereIsLastPlayed" class="mt-4">
         <iframe
+          loading="lazy"
           height="200"
           class="w-full rounded-lg drop-shadow-lg"
-          src="https://www.youtube.com/embed/fZz0OW8USZw"
+          :src="currentVideosUrl"
           title="YouTube video player"
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen
         />
       </div>
-
       <div class="video-section my-5">
         <div v-for="materi in materis" :key="materi.id" class="group my-5">
           <h2 class="text-xl text-cs-blue-500 font-bold">
             {{ materi.title }}
           </h2>
           <div v-if="materi.videos.length > 0" @click="onVideoClicked(video.id)" v-for="video in materi.videos" :key="video.id" class="grid grid-flow-row grid-cols-1 gap-8 mt-8 items-center justify-items-center place-items-center">
-            <div class="w-full h-36 flex justify-start p-4 items-center  bg-slate-200 rounded-md shadow-lg">
-              <div class="h-28 w-28 rounded-md overflow-hidden">
+            <div :class="getVideoColor(video.student_videos_count)">
+              <div class="h-28 w-28 rounded-xl overflow-hidden">
                 <iframe
+                  loading="lazy"
                   class="object-cover object-center"
                   :src="video.url"
                   alt="random house"
@@ -66,7 +67,7 @@
                     {{ video.title }}
                   </span>
                 <span class="text-lg mx-5">
-                  {{ video.created_at }}
+                  {{ getVideoTimeStamp(video.updated_at) }}
                 </span>
               </div>
             </div>
@@ -83,6 +84,7 @@
 </template>
 
 <script language="ts">
+import moment from 'moment'
 
 export default {
   name: 'Video',
@@ -92,18 +94,35 @@ export default {
     return {
       clicked: false,
       val: '~/assets/img/navbar/basic/peringkat.svg',
-      search :''
+      search :'',
+      thereIsLastPlayed:false,
     }
   },
   created () {
-    this.$store.dispatch("siswa/video/getVideosData")
+    this.$store.dispatch("siswa/video/getVideosData").then((response)=>{
+      if(response.currentVideos) {
+        this.thereIsLastPlayed = true
+      }
+    })
   },
   computed:{
+    currentVideosUrl () {
+      return this.$store.state.siswa.video.currentVideos.url
+    },
     materis () {
       return this.$store.state.siswa.video.videos
-    }
+    },
   },
   methods: {
+    getVideoColor (videos_count) {
+      if(videos_count > 0) {
+        return "w-full h-36 flex justify-start p-4 items-center  bg-[#9df2b7] rounded-md shadow-lg border-2 border-slate-200"
+      }
+      return "w-full h-36 flex justify-start p-4 items-center  bg-[#fffff] rounded-md shadow-lg border-2 border-slate-200"
+    },
+    getVideoTimeStamp (videoTimeStamp) {
+      return moment(videoTimeStamp, 'YYYY-MM-DD hh:mm:ss', 'id').fromNow()
+    },
     doClick () {
       this.clicked = !this.clicked
     },
