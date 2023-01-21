@@ -149,6 +149,7 @@ export default {
   created () {
     this.$store.dispatch('teacher/challenge/getChallengesData').then(() => {
       this.challenges = this.$store.state.teacher.challenge.challenges
+      console.log(this.challenges)
       this.show = Array.from({ length: this.challenges.length }, () => {
         return [false]
       })

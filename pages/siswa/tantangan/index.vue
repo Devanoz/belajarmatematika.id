@@ -16,7 +16,7 @@
     <!-- ongoing -->
     <div class="mt-5 flex flex-col">
       <div
-          class="relative z-20 flex items-center w-full h-10 mt-4 mb-4 rounded-3xl focus-within:shadow-lg bg-sky-100 overflow-hidden"
+        class="relative z-20 flex items-center w-full h-10 mt-4 mb-4 rounded-3xl focus-within:shadow-lg bg-sky-100 overflow-hidden"
       >
         <div class="grid place-items-center ml-2 h-full w-12 text-cyan-800">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -35,25 +35,41 @@
 
       </div>
 
-      <span class="text-cyan-700 font-semibold">Sedang dikerjakan</span>
-      <div class="p-3 mt-2 bg-green-200 drop-shadow-md rounded-2xl grid grid-cols-4">
+      <span v-if="currentChallenge" class="text-cyan-700 font-semibold">Sedang dikerjakan</span>
+      <div v-if="currentChallenge" @click="onEditClicked(currentChallenge)"
+           class="p-3 mt-2 bg-green-200 drop-shadow-md rounded-2xl grid grid-cols-4"
+      >
         <img class="col-span-1" src="@/assets/img/tantangan/balok.svg" alt="">
         <div class="content ml-2 col-span-2 self-center flex flex-col">
                     <span class="text-gray-500 font-normal text-md">
                         Lanjutkan Kuis
                     </span>
           <span class=" text-xl">
-                        Volume Balok
+                        {{ currentChallenge.title }}
                     </span>
         </div>
-        <img class="self-center place-self-end" src="@/assets/img/tantangan/progress.svg" alt="">
+        <client-only class="bg-green-300 ">
+          <Progress class=" grid justify-items-center" :transitionDuration="2000" :radius="40"
+                    strokeColor="#659E8D"
+                    :strokeWidth="6"
+                    :value="userProgress"
+          >
+            <div class=" text-[#659E8D] justify-self-center">
+                            <span class="">
+                            {{ userProgress }} %
+
+                            </span>
+            </div>
+
+          </Progress>
+        </client-only>
       </div>
 
     </div>
 
     <div class="mt-5 flex flex-col">
       <span class="text-cyan-700 font-semibold">Tantangan Lainnya</span>
-      <div v-for="materi in challenges">
+      <div v-for="materi in challenges.challenges">
         <h2 v-if="materi.challenges.length > 0" class="text-xl mt-4 text-cyan-700">{{ materi.title }}</h2>
 
         <div v-for="challenge in materi.challenges"
@@ -98,6 +114,13 @@ export default {
   computed: {
     challenges () {
       return this.$store.state.siswa.challenge.challenges
+    },
+    userProgress () {
+      return ((this.$store.state.siswa.challenge.challenges.currentChallenges.completed_questions_count / this.$store.state.siswa.challenge.challenges.currentChallenges.questions_count) * 100).toFixed(2)
+    },
+
+    currentChallenge () {
+      return this.$store.state.siswa.challenge.challenges.currentChallenges
     }
   },
 

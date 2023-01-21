@@ -15,7 +15,7 @@
     </div>
 
     <div class="challenge-exist">
-      <div v-for="materi in challenges">
+      <div v-for="materi in challenges.challenges">
         <h2 v-if="materi.challenges.length > 0" class="text-xl mt-4 text-cyan-700">{{ materi.title }}</h2>
         <div v-for="challenge in materi.challenges"
              @click="onEditClicked(challenge)"
