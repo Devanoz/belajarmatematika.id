@@ -6,10 +6,10 @@
       <div v-if="isModalVisible">
         <div
           @click="onToggle"
-          class="absolute bg-black opacity-70 w-full h-full inset-0 z-20"
+          class="absolute overflow-hidden bg-black opacity-70 w-full h-full inset-0 z-20"
         ></div>
         <div
-          class="w-full max-w-lg p-3 absolute mx-auto mt-20 my-auto rounded-xl shadow-lg bg-white z-30"
+          class="w-full max-w-lg p-3 overflow-hidden absolute mx-auto mt-20 my-auto rounded-xl shadow-lg bg-white z-30"
         >
           <div>
             <div class="text-center px-0.5 flex-auto justify-center leading-6">
@@ -133,7 +133,7 @@
         </div>
       </div>
     </transition>
-    <div class="flex flex-col px-4 py-4">
+    <div class="flex overflow-hidden flex-col px-4 py-4">
 
       <div class="title h-16 grid grid-cols-4 items-center">
         <button class="ml-8 text-[1.4em] col-span-1">
@@ -211,18 +211,18 @@
 
       <div class="px-3">
         <div class="
-                relative
-                z-0
-                grid grid-cols-6
-                card-image
-                drop-shadow-lg
-                border-b-2
-                mb-2
-                rounded-xl
-                bg-white
-                py-3
-                px-3
-                my-3" v-for="question in questions"
+                      relative
+                      z-0
+                      grid grid-cols-6
+                      card-image
+                      drop-shadow-lg
+                      border-b-2
+                      mb-2
+                      rounded-xl
+                      bg-white
+                      py-3
+                      px-3
+                      my-3" v-for="question in questions"
         >
 
           <div class="body col-span-5">
@@ -240,8 +240,8 @@
                            :checked="question.answer_key=='A'"
                     >
                     <span>
-                    {{ question.options[0].A }}
-                    </span>
+                          {{ question.options[0].A }}
+                          </span>
                   </label>
                 </div>
                 <div v-if="question.answer_key=='A'" class="checked justify-self-end self-center">
@@ -262,8 +262,8 @@
                            :checked="question.answer_key=='B'"
                     >
                     <span>
-                    {{ question.options[0].B }}
-                    </span>
+                          {{ question.options[0].B }}
+                          </span>
                   </label>
                 </div>
                 <div v-if="question.answer_key=='B'" class="checked justify-self-end self-center">
@@ -284,8 +284,8 @@
                            :checked="question.answer_key=='C'"
                     >
                     <span>
-                    {{ question.options[0].C }}
-                    </span>
+                          {{ question.options[0].C }}
+                          </span>
                   </label>
                 </div>
                 <div v-if="question.answer_key=='C'" class="checked justify-self-end self-center">
@@ -306,8 +306,8 @@
                            :checked="question.answer_key=='D'"
                     >
                     <span>
-                    {{ question.options[0].D }}
-                    </span>
+                          {{ question.options[0].D }}
+                          </span>
                   </label>
                 </div>
                 <div v-if="question.answer_key=='D'" class="checked justify-self-end self-center">
@@ -431,11 +431,11 @@ export default {
     },
 
     materis () {
-      return this.$store.state.teacher.materi.materis.data
+      return this.$store.state.teacher.materi.materis
     },
 
     questions () {
-      return this.$store.state.teacher.question.questions.data
+      return this.$store.state.teacher.question.questions
     }
 
   },
