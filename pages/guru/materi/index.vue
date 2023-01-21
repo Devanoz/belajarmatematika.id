@@ -2,10 +2,34 @@
 
 
   <div @click="onRootClicked($event)" class="divide-gray-500 lex flex-col h-full px-4 py-4">
-    <div class="header">
-      <h2 class="text-center text-2xl text-green-primary font-semibold">Materi</h2>
-      <hr class=" mt-3">
+    <!--    <div class="header">-->
+    <!--      <h2 class="text-center text-2xl text-green-primary font-semibold">Materi</h2>-->
+    <!--      <hr class=" mt-3">-->
+    <!--    </div>-->
+
+    <div class="z-20 grid grid-cols-5 gap-3 place-content-between">
+      <div class="flex col-span-4">
+        <span class="text-2xl text-cyan-700 font-light col-start-1 col-span-2 self-center">Halo, </span>
+        <span class="text-2xl text-cyan-700 self-center ml-1"> {{ user.name }}</span>
+
+      </div>
+      <nuxt-link class="z-20 rounded-full justify-end col-end-6 place-self-end" to="/guru/profile">
+        <img v-if="user.image"
+             class="rounded-full w-16 h-16 shadow-2xl"
+             :src="user.image"
+             alt=""
+        >
+
+        <img
+          v-else
+          class="rounded-full"
+          :src="`https://ui-avatars.com/api/?name=${user.name}&amp;background=4e73df&amp;color=ffffff&amp;size=50`"
+          alt=""
+        >
+      </nuxt-link>
+
     </div>
+
 
     <div
       class="relative z-20 flex items-center w-full h-10 mt-4 rounded-3xl focus-within:shadow-lg bg-sky-100 overflow-hidden"
@@ -129,15 +153,14 @@ export default {
     store
   }) {
     await store.dispatch('teacher/materi/getMaterisWithTopikData')
+    await store.dispatch('teacher/user/getDetailUser')
+
   },
 
-  //computed
   computed: {
-
-    // materis(){
-    //   return this.$store.state.teacher.materi.materis
-    // }
-
+    user () {
+      return this.$store.state.teacher.user.user
+    }
   },
 
   data () {

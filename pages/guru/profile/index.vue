@@ -235,26 +235,33 @@ export default {
     handleFileChange (e) {
       // get image
       const image = this.teacher.file = e.target.files[0]
-      // check fileType
-      if (!image.type.match('image.*')) {
-        console.log('error')
-        this.$swal.fire({
-          title: 'OOPS!',
-          text: 'Format File Tidak Didukung!',
-          icon: 'error',
-          showConfirmButton: false,
-          timer: 2000
-        })
+      if (e.target.files[0]) {
+        // check fileType
+        if (!image.type.match('image.*')) {
+          console.log('error')
+          this.$swal.fire({
+            title: 'OOPS!',
+            text: 'Format File Tidak Didukung!',
+            icon: 'error',
+            showConfirmButton: false,
+            timer: 2000
+          })
 
-        // if fileType not allowed, then clear value and set null
-        e.target.value = ''
+          // if fileType not allowed, then clear value and set null
+          e.target.value = ''
 
-        // set state "category.image" to null
-        this.teacher.file = ''
+          // set state "category.image" to null
+          this.teacher.file = ''
+        }
+
+        if (this.teacher.file != '') {
+          this.teacher.profileUrl = URL.createObjectURL(e.target.files[0])
+
+        } else {
+          this.teacher.profileUrl = this.user.image
+        }
+
       }
-
-      this.teacher.profileUrl = URL.createObjectURL(e.target.files[0])
-      console.log(this.teacher.profileUrl)
 
       console.log('yee berhasil')
     },
