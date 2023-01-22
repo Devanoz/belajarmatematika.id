@@ -147,7 +147,7 @@
 
                 Pengaturan Akun
               </div>
-              
+
             </nuxt-link>
           </button>
           <hr class="border border-gray-300 relative">
