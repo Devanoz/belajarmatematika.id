@@ -97,9 +97,11 @@ export default {
         this.$swal.fire({
           text: 'succes',
           icon: 'success',
-          showConfirmButton: false
+          showConfirmButton: false,
+          timer: 2000
         })
         resetSubmitButtonCondition()
+        this.$router.go(-1)
       }).catch((err)=>{
         this.$swal.fire({
           text: 'Gagal menambahkan akun, mohon periksa field kembali',
