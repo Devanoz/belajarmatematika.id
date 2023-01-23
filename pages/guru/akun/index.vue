@@ -64,7 +64,7 @@ import moment from 'moment/moment'
 export default {
   name: 'index',
   layout: 'guru',
-  middleware:'isTeacher',
+  middleware:'isAdmin',
   data () {
     return {
       show: [],

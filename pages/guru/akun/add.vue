@@ -70,6 +70,7 @@
 
 export default {
   name: 'add',
+  middleware: 'isAdmin',
   data () {
     return {
       submit: false,
