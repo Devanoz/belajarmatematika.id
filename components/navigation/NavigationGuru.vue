@@ -42,7 +42,7 @@
                 <span class="text-slate-400">rank</span>
               </div>
             </button>
-            <button @click="onAkunClicked">
+            <button v-if="isAdmin" @click="onAkunClicked">
               <div  class="flex flex-col items-center gap-y-1">
                 <img v-if="accountClicked" class="h-6 w-auto" src="~/assets/img/navbar/basic/account-active.svg">
                 <img v-else class="h-6 w-auto" src="~/assets/img/navbar/basic/account-inactive.svg">
@@ -66,8 +66,16 @@
             }
         },
         mounted() {
-
+          console.log(this.$auth.user)
         },
+      computed :{
+        isAdmin () {
+          if(this.$auth.user.role === 'admin'){
+            return true
+          }
+          return false
+        },
+      },
         methods: {
             onMateriClicked() {
                 this.$router.push({
