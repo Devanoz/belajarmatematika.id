@@ -65,9 +65,6 @@
                 accountClicked: false,
             }
         },
-        mounted() {
-          console.log(this.$auth.user)
-        },
       computed :{
         isAdmin () {
           if(this.$auth.user.role === 'admin'){

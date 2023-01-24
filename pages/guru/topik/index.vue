@@ -130,6 +130,7 @@ export default {
   created () {
     this.$store.dispatch("teacher/topik/getTopiksData").then(() => {
       this.materis = this.$store.state.teacher.topik.topiks
+      console.log(this.materis)
       this.show = Array.from({ length: this.materis.length }, () => {
         return [false]
       })

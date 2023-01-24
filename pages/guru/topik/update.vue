@@ -54,7 +54,7 @@ export default {
   created () {
     this.topik_id = this.$route.query.topik
     this.$axios.get("/api/teacher/kelas").then((response)=>{
-      this.kelass = response.data.data.data
+      this.kelass = response.data.data
     })
     this.$axios.get(`/api/teacher/topiks/${this.topik_id}`).then((response)=>{
       const topik = response.data.data

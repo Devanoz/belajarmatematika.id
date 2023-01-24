@@ -59,10 +59,12 @@ export default {
       kelass: null,
     }
   },
+  computed : {
+
+  },
   created () {
     this.$axios.get("/api/teacher/kelas").then((response)=>{
-      this.kelass = response.data.data.data
-      // this.kelas_id = this.kelass[0].id
+      this.kelass = response.data.data
     })
   },
   methods : {
