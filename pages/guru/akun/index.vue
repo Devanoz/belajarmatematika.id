@@ -12,7 +12,7 @@
         <div class="z-10">
           <div>
             <div v-for="(akun,akun_index) in akuns" :key="akun.id" class="flex card-image drop-shadow-lg border-b-2 mb-2 rounded-xl z-10 bg-white py-3 px-2 my-3 z-30">
-              <img src="@/assets/img/navbar/basic/account-active.svg" alt=""/>
+              <img :src="getProfileImage(akun.image)" alt="" class="h-14 w-14 rounded-full"/>
               <div class="mx-3">
                 <div class="font-bold">{{ akun.name }}</div>
                 <div class="italic">{{ akun.email }}</div>
@@ -82,6 +82,12 @@ export default {
     })
   },
   methods : {
+    getProfileImage (imageUrl) {
+      if (!imageUrl) {
+        return require('@/assets/img/murid/profilepic/defaultUser.svg')
+      }
+      return imageUrl
+    },
     getAkunTimeStamp (akunTimeStamp) {
       return moment(akunTimeStamp, 'YYYY-MM-DD', 'id').fromNow()
     },
