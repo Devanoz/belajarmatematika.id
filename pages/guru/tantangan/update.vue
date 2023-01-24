@@ -2,11 +2,11 @@
 
   <div>
     <!--  edit quetion moda   -->
-    <transition name="fade">
+    <transition name="pop" appear>
       <div v-if="isModalVisible">
         <div
           @click="onToggle"
-          class="absolute overflow-hidden bg-black opacity-70 w-full h-full inset-0 z-20"
+          class="fixed  bg-black opacity-70 w-full h-full inset-0 z-20"
         ></div>
         <div
           class="w-full max-w-lg p-3 overflow-hidden absolute mx-auto mt-20 my-auto rounded-xl shadow-lg bg-white z-30"
@@ -64,6 +64,8 @@
                 <div class="flex flex-col mt-2">
                   <label class=" font-medium text-gray-500 self-start">Bentuk Soal</label>
                   <multiselect
+                    :allowEmpty="false"
+                    :hideSelected="true"
                     v-model="questionData.is_pilihan_ganda"
                     :options="options"
                     :searchable="true"
@@ -75,6 +77,7 @@
                     label="text"
                   />
                 </div>
+
 
                 <div v-if="questionData.is_pilihan_ganda.value ==1" class="opsi-pilgan mt-2">
                   <label class="mt-6 font-medium text-gray-500 mb-2">Pilihan A</label><br>
@@ -112,28 +115,29 @@
 
               </form>
 
-              <p class="text-md text-gray-500 px-8">
-                Do you really want to exit without saving your work?
-              </p>
+
             </div>
             <div class="p-3 mt-2 text-center space-x-4 md:block">
-              <button
-                class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-md hover:shadow-lg hover:bg-gray-100"
-              >
-                Save
-              </button>
+
               <button
                 @click="onToggle"
-                class="mb-2 md:mb-0 bg-purple-500 border border-purple-500 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-md hover:shadow-lg hover:bg-purple-600"
+                class="mb-2 md:mb-0 bg-red-500 border border-purple-500 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-md hover:shadow-lg hover:bg-purple-600"
               >
                 Close
+              </button>
+
+              <button
+                @click="updateQuestion"
+                class="mb-2 md:mb-0 bg-sky-500 text-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border rounded-md hover:shadow-lg "
+              >
+                Save
               </button>
             </div>
           </div>
         </div>
       </div>
     </transition>
-    <div class="flex overflow-hidden flex-col px-4 py-4">
+    <div class="flex  flex-col px-4 py-4">
 
       <div class="title h-16 grid grid-cols-4 items-center">
         <button class="ml-8 text-[1.4em] col-span-1">
@@ -235,7 +239,7 @@
               <div class="grid grid-cols-9 ">
                 <div class="form-group col-span-8 grid justify-items-center">
 
-                  <label class="option w-full">
+                  <label class="option w-full disabled" :class="{selected: question.answer_key=='A'}">
                     <input type="radio" :name="'opsi' + question.title" class="checked:text-green-600"
                            :checked="question.answer_key=='A'"
                     >
@@ -257,7 +261,7 @@
               <div class="grid grid-cols-9 ">
                 <div class="form-group col-span-8 grid justify-items-center">
 
-                  <label class="option w-full">
+                  <label class="option w-full disabled" :class="{selected: question.answer_key=='B'}">
                     <input type="radio" :name="'opsi' + question.title" class="checked:text-green-600"
                            :checked="question.answer_key=='B'"
                     >
@@ -279,7 +283,7 @@
               <div class="grid grid-cols-9 ">
                 <div class="form-group col-span-8 grid justify-items-center">
 
-                  <label class="option w-full">
+                  <label class="option w-full disabled" :class="{selected: question.answer_key=='C'}">
                     <input type="radio" :name="'opsi' + question.title" class="checked:text-green-600"
                            :checked="question.answer_key=='C'"
                     >
@@ -301,7 +305,7 @@
               <div class="grid grid-cols-9 ">
                 <div class="form-group col-span-8 grid justify-items-center">
 
-                  <label class="option w-full">
+                  <label class="option w-full disabled" :class="{selected: question.answer_key=='D'}">
                     <input type="radio" :name="'opsi' + question.title" class="checked:text-green-600"
                            :checked="question.answer_key=='D'"
                     >
@@ -375,7 +379,9 @@ export default {
       questionData: {
         title: '',
         file: '',
-        is_pilihan_ganda: '',
+        is_pilihan_ganda: {
+          value: ''
+        },
         answerKey: '',
         options: [
           {
@@ -457,6 +463,37 @@ export default {
           value: 1,
           text: 'Pilihan Ganda'
         }
+
+        switch (this.tempQuestion.answer_key) {
+          case 'A':
+            this.questionData.answerKey = {
+              id: 'A',
+              body: this.tempQuestion.options[0].A
+            }
+            break
+
+          case 'B':
+            this.questionData.answerKey = {
+              id: 'B',
+              body: this.tempQuestion.options[0].B
+            }
+            break
+
+          case 'C':
+            this.questionData.answerKey = {
+              id: 'C',
+              body: this.tempQuestion.options[0].C
+            }
+            break
+
+          case 'D':
+            this.questionData.answerKey = {
+              id: 'D',
+              body: this.tempQuestion.options[0].D
+            }
+            break
+
+        }
         this.questionData.options[0].body = this.tempQuestion.options[0].A
         this.questionData.options[1].body = this.tempQuestion.options[0].B
         this.questionData.options[2].body = this.tempQuestion.options[0].C
@@ -502,13 +539,56 @@ export default {
     },
 
     onEdit (data) {
+      window.scrollTo(0, 0)
       this.tempQuestion = data
       this.isOpen = !this.isOpen
+
       console.log(this.tempQuestion)
     },
     onToggle () {
       this.isOpen = !this.isOpen
     },
+
+    async updateQuestion () {
+      const formData = new FormData()
+      formData.append('title', this.questionData.title)
+
+      let isPilihanGanda = this.questionData.isPilihanGanda == true ? 1 : 0
+
+      if (this.questionData.is_pilihan_ganda.value == 1) {
+        formData.append('answer_key', this.questionData.answerKey ? this.questionData.answerKey.id : '')
+
+      } else {
+        console.log('ini bukan pilgan')
+        formData.append('answer_key', this.questionData.answerKey)
+      }
+
+      if (this.questionData.file !== '') {
+        formData.append('image', this.questionData.file)
+      }
+      formData.append('challenge_id', this.$route.query.challenge)
+      formData.append('is_pilihan_ganda', this.questionData.is_pilihan_ganda.value)
+      formData.append('A', this.questionData.options[0].body)
+      formData.append('B', this.questionData.options[1].body)
+      formData.append('C', this.questionData.options[2].body)
+      formData.append('D', this.questionData.options[3].body)
+      formData.append('_method', 'PATCH')
+
+      await this.$axios.post(`/api/teacher/questions/${this.tempQuestion.id}`, formData)
+        .then(() => {
+          this.$swal.fire({
+            title: 'BERHASIL!',
+            text: 'Data Berhasil Diupdate!',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 2000
+          })
+
+          this.$store.dispatch('teacher/question/getQuestionsData', this.$route.query.challenge)
+
+        })
+    },
+
     async updateChallenge () {
       //define formData
       const formData = new FormData()
@@ -553,11 +633,15 @@ export default {
 </script>
 
 <style>
+.options {
+  margin-bottom: 1rem;
+}
+
 .option {
   padding: 0.8rem;
   display: block;
   background-color: white;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.8rem !important;
   border-radius: 0.8rem;
   border: 0.15rem solid #6D9DE0;
   cursor: pointer;
@@ -576,8 +660,89 @@ export default {
 
 }
 
+.option.disabled.historySelected {
+  background-color: #8fe1a2;
+
+}
+
 .option.disabled {
   background-color: #7899bd;
 
 }
+
+
+.option.wrong {
+  background-color: #ff5a5f;
+}
+
+.option:last-of-type {
+  margin-bottom: 0;
+}
+
+.option.disabled {
+  opacity: 0.5;
+}
+
+.option input {
+  display: none;
+}
+
+.multiselect__tags {
+  min-height: 40px;
+  display: block;
+  padding: 8px 0px 0 34px !important;
+  border-radius: 23px;
+  border: 1px solid rgb(192, 192, 192);
+  background: #e0f2fd;
+  font-size: 14px;
+}
+
+.multiselect__input,
+.multiselect__single {
+  background: #e0f2fd;
+}
+
+
+.multiselect__element {
+  display: block;
+  background: rgb(189, 231, 238);
+}
+
+
+.multiselect__option--highlight {
+  background: #438cf3;
+  outline: none;
+  color: white;
+}
+
+.iframe-container {
+  overflow: hidden;
+  padding-top: 62.5%;
+  position: relative;
+  height: 100%;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+
+}
+
+
+.pop-enter-active,
+.pop-leave-active {
+  transition: transform 0.2s cubic-bezier(0.5, 0, 0.5, 1), opacity 0.2s linear;
+}
+
+.pop-enter,
+.pop-leave-to {
+  opacity: 0;
+  transform: scale(0.3) translateY(-50%);
+}
+
 </style>

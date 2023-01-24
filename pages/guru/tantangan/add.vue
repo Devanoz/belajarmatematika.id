@@ -367,7 +367,7 @@ export default {
   // computed
   computed: {
     materis () {
-      return this.$store.state.teacher.materi.materis.data
+      return this.$store.state.teacher.materi.materis
     }
   },
 
