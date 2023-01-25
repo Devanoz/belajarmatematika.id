@@ -32,18 +32,18 @@
       <div id="comment-container"  v-for="(comment,comment_idx) in comments" :id="comment.id">
         <div class="relative  card-image drop-shadow-lg border-b-2 mb-2 rounded-xl z-10 bg-white py-3 px-2 my-3 z-20" :id="comment.id">
           <div class="flex">
-            <img v-if="(comment.student)?!comment.student.image:!comment.teacher.image" src="~/assets/img/murid/profilepic/defaultUser.svg" class="w-10 h-10" alt="student image">
-            <img v-if="(comment.student)?comment.student.image:comment.teacher.image" :src="(comment.student)?comment.student.image:comment.teacher.image" class="w-10 h-10 rounded-full" alt="student image">
-            <div v-if="comment.student || comment.teacher" id="student-detail" class="ml-3">
-              <h1 class="font-bold"> {{ (comment.student)?comment.student.name:comment.teacher.name }} </h1>
+            <img v-if="(comment.teacher)?!comment.teacher.image:!comment.student.image" src="~/assets/img/murid/profilepic/defaultUser.svg" class="w-10 h-10" alt="student image">
+            <img v-if="(comment.teacher)?comment.teacher.image:comment.student.image" :src="(comment.teacher)?comment.teacher.image:comment.student.image" class="w-10 h-10 rounded-full" alt="student image">
+            <div v-if="comment.teacher || comment.student" id="student-detail" class="ml-3">
+              <h1 class="font-bold"> {{ (comment.teacher)?comment.teacher.name:comment.student.name }} </h1>
               <span>{{ getCommentMoment(comment.updated_at) }}</span>
               <textarea @change="handleCommentChange($event.target.value)" :disabled="show[comment_idx]" class="w-64 card-image drop-shadow-lg bg-gray-200 border-b-2 z-10 mt-2 py-1 px-2 rounded-xl">{{ comment.title }}</textarea>
             </div>
-            <div v-if="(comment.student_id)?comment.student_id === getStudentId && show[comment_idx]:false" id="handle-change" class="absolute top-2 right-2 gap-2 flex flex-row justify-center items-center w-auto h-7 card-image drop-shadow-lg bg-gray-200 border-b-2 z-10 py-1 px-2 rounded-xl">
+            <div v-if="(comment.teacher_id)?comment.teacher_id === getTeacherId && show[comment_idx]:false" id="handle-change" class="absolute top-2 right-2 gap-2 flex flex-row justify-center items-center w-auto h-7 card-image drop-shadow-lg bg-gray-200 border-b-2 z-10 py-1 px-2 rounded-xl">
               <div @click="onEditClicked(comment.id,comment_idx)" class="text-yellow-500">edit</div> |
               <div @click="onDeleteClicked(comment.id)" class="text-red-500">delete</div>
             </div>
-            <div v-if="(comment.student_id)?comment.student_id === getStudentId && !show[comment_idx]:false" id="handle-change" class="absolute top-2 right-2 gap-2 flex flex-row justify-center items-center w-auto h-7 card-image drop-shadow-lg bg-gray-200 border-b-2 z-10 py-1 px-2 rounded-xl">
+            <div v-if="(comment.teacher_id)?comment.teacher_id === getTeacherId && !show[comment_idx]:false" id="handle-change" class="absolute top-2 right-2 gap-2 flex flex-row justify-center items-center w-auto h-7 card-image drop-shadow-lg bg-gray-200 border-b-2 z-10 py-1 px-2 rounded-xl">
               <div @click="confirmEdit(comment.id)">Confirm</div>
             </div>
 
@@ -51,41 +51,41 @@
           <div class="flex gap-5 mt-2">
             <div v-if="comment.reply_comments.length>0" class="ml-2" @click="onCommentToogleClicked(comment_idx)">^</div>
             <transition name="fade">
-            <div v-if="showBalas[comment_idx]" @click="onBalas(comment_idx)" class="bg-blue-200 px-4 rounded-xl text-base">Balas</div>
+              <div v-if="showBalas[comment_idx]" @click="onBalas(comment_idx)" class="bg-blue-200 px-4 rounded-xl text-base">Balas</div>
             </transition>
           </div>
         </div>
-<!--        reply comment input-->
+        <!--        reply comment input-->
         <transition name="fade">
-        <div v-if="showReplyComment[comment_idx]"  class="bg-cs-blue-300 w-full p-4 pt-4 flex flex-row gap-4 justify-between">
-          <label class="w-full">
-            <input v-model="studentReplyComment" placeholder="Tambah Comment" class="w-full py-3 px-4 rounded-full" type="text">
-          </label>
-          <div class="flex flex-col justify-center">
-            <div @click="onReplyCommentSendCanceled(comment_idx)" class="bg-yellow-300 h-10 w-auto px-2 rounded-xl font-bold flex flex-col justify-center items-center text-white"><span>Cancel</span></div>
+          <div v-if="showReplyComment[comment_idx]"  class="bg-cs-blue-300 w-full p-4 pt-4 flex flex-row gap-4 justify-between">
+            <label class="w-full">
+              <input v-model="studentReplyComment" placeholder="Tambah Comment" class="w-full py-3 px-4 rounded-full" type="text">
+            </label>
+            <div class="flex flex-col justify-center">
+              <div @click="onReplyCommentSendCanceled(comment_idx)" class="bg-yellow-300 h-10 w-auto px-2 rounded-xl font-bold flex flex-col justify-center items-center text-white"><span>Cancel</span></div>
+            </div>
+            <div  @click="onReplyCommentSend(comment.id,comment_idx)" id="send-button" class="flex flex-col justify-center">
+              <svg width="35" height="35" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8.91245 9.9998H3.00045L1.02345 2.1348C1.01079 2.0891 1.00308 2.04216 1.00045 1.9948C0.978447 1.2738 1.77245 0.773804 2.46045 1.1038L21.0004 9.9998L2.46045 18.8958C1.78045 19.2228 0.996447 18.7368 1.00045 18.0288C1.00247 17.9655 1.01359 17.9029 1.03345 17.8428L2.50045 12.9998" stroke="#56739D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
           </div>
-          <div  @click="onReplyCommentSend(comment.id,comment_idx)" id="send-button" class="flex flex-col justify-center">
-            <svg width="35" height="35" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M8.91245 9.9998H3.00045L1.02345 2.1348C1.01079 2.0891 1.00308 2.04216 1.00045 1.9948C0.978447 1.2738 1.77245 0.773804 2.46045 1.1038L21.0004 9.9998L2.46045 18.8958C1.78045 19.2228 0.996447 18.7368 1.00045 18.0288C1.00247 17.9655 1.01359 17.9029 1.03345 17.8428L2.50045 12.9998" stroke="#56739D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-        </div>
         </transition>
         <transition name="fade">
           <div v-if="replyShow[comment_idx]">
             <div v-for="(reply,reply_index) in comment.reply_comments" class="ml-5 bg-gray-100 relative flex card-image drop-shadow-lg border-b-2 mb-2 rounded-xl z-10 bg-white py-3 px-2 my-3 z-20">
-              <img v-if="reply.student_id?!reply.student.image:!reply.teacher.image" src="~/assets/img/murid/profilepic/defaultUser.svg" class="w-10 h-10" alt="student image">
-              <img v-if="reply.student_id?reply.student.image:reply.teacher.image" :src="comment.student.image" class="w-10 h-10 rounded-full" alt="student image">
-              <div v-if="comment.student || comment.teacher" id="student-detail" class="ml-3">
-                <h1 class="font-bold"> {{ reply.student_id?reply.student.name:reply.teacher.name }} </h1>
+              <img v-if="reply.teacher_id?!reply.teacher.image:!reply.student.image" src="~/assets/img/murid/profilepic/defaultUser.svg" class="w-10 h-10" alt="teacher image">
+              <img v-if="reply.teacher_id?reply.teacher.image:reply.student.image" :src="(reply.teacher_id)?comment.teacher.image:comment.student.image" class="w-10 h-10 rounded-full" alt="teacher image">
+              <div v-if="comment.teacher || comment.student" id="student-detail" class="ml-3">
+                <h1 class="font-bold"> {{ reply.teacher_id?reply.teacher.name:reply.student.name }} </h1>
                 <span>{{ getCommentMoment(reply.updated_at) }}</span>
                 <textarea @change="handleReplyChange($event.target.value)" :disabled="replyShowList[comment_idx][reply_index]" class="w-64 card-image drop-shadow-lg bg-white border-b-2 z-10 mt-2 py-1 px-2 rounded-xl">{{ reply.title }}</textarea>
               </div>
-              <div v-if="reply.student_id === getStudentId && replyShowList[comment_idx][reply_index]" id="handle-change" class="absolute top-2 right-2 gap-2 flex flex-row justify-center items-center w-auto h-7 card-image drop-shadow-lg bg-gray-200 border-b-2 z-10 py-1 px-2 rounded-xl">
+              <div v-if="reply.teacher_id === getTeacherId && replyShowList[comment_idx][reply_index]" id="handle-change" class="absolute top-2 right-2 gap-2 flex flex-row justify-center items-center w-auto h-7 card-image drop-shadow-lg bg-gray-200 border-b-2 z-10 py-1 px-2 rounded-xl">
                 <div @click="onEditReplyClicked(reply.id,comment_idx,reply_index)" class="text-yellow-500">edit</div> |
                 <div @click="onDeleteReplyClicked(reply.id)" class="text-red-500">delete</div>
               </div>
-              <div v-if="reply.student_id === getStudentId && !replyShowList[comment_idx][reply_index]" id="handle-change" class="absolute top-2 right-2 gap-2 flex flex-row justify-center items-center w-auto h-7 card-image drop-shadow-lg bg-gray-200 border-b-2 z-10 py-1 px-2 rounded-xl">
+              <div v-if="reply.teacher_id === getTeacherId && !replyShowList[comment_idx][reply_index]" id="handle-change" class="absolute top-2 right-2 gap-2 flex flex-row justify-center items-center w-auto h-7 card-image drop-shadow-lg bg-gray-200 border-b-2 z-10 py-1 px-2 rounded-xl">
                 <div @click="confirmReplyEdit(reply.id,comment_idx)">Confirm</div>
               </div>
             </div>
@@ -120,7 +120,7 @@ import moment from 'moment'
 export default {
   name: 'Video',
   layout: 'default',
-  middleware:'isStudent',
+  middleware:'isTeacher',
   data () {
     return {
       showCommentSend : false,
@@ -149,16 +149,18 @@ export default {
     }
   },
   computed : {
-    getStudentId () {
-      return this.$store.getters['student/getStudent'].id
+    getTeacherId () {
+      return this.$store.getters['teachers/getTeacher'].id
     },
   },
   async created () {
-    if (!this.getStudentId) {
-      await this.$store.dispatch('student/getStudentData')
+    if (!this.getTeacherId) {
+      await this.$store.dispatch('teachers/getTeacherData').then((response)=>{
+        console.log(this.$store.getters['teachers/getTeacher'])
+      })
     }
     const video_id = this.$route.query.id
-    this.$axios.get(`/api/student/videos/${video_id}`).then((response) => {
+    this.$axios.get(`/api/teacher/videos/${video_id}`).then((response) => {
       const video = response.data.data
       this.url = video.url
       this.comments = response.data.data.comments
@@ -171,25 +173,26 @@ export default {
   },
   methods: {
     onDeleteReplyClicked (reply_id) {
-      this.$axios.delete(`/api/student/replyComments/${reply_id}`).then((response)=>{
+      this.$axios.delete(`/api/teacher/replyComments/${reply_id}`).then((response)=>{
         const video = response.data.data
         this.url = video.url
         this.comments = response.data.data.comments
         this.$forceUpdate()
-      }).catch(()=>{
+      }).catch((err)=>{
         this.$swal.fire({
           text: 'Gagal menghapus comment',
           icon: 'error',
           showConfirmButton: false,
           timer: 1000
         })
+        console.log(err)
       })
     },
     onReplyCommentSend (comment_id,comment_idx) {
       const formData = new FormData()
       formData.append('comment_id',comment_id)
       formData.append('title',this.studentReplyComment)
-      this.$axios.post(`/api/student/replyComments/`,formData).then((response)=>{
+      this.$axios.post(`/api/teacher/replyComments/`,formData).then((response)=>{
         const video = response.data.data
         this.url = video.url
         this.comments = response.data.data.comments
@@ -230,7 +233,7 @@ export default {
       const formData = new FormData()
       formData.append('title', this.replyVal)
       formData.append('_method', 'PATCH')
-      this.$axios.post(`/api/student/replyComments/${reply_id}`,formData).then((response)=>{
+      this.$axios.post(`/api/teacher/replyComments/${reply_id}`,formData).then((response)=>{
         const video = response.data.data
         this.url = video.url
         this.comments = response.data.data.comments
@@ -274,7 +277,7 @@ export default {
       const formData = new FormData()
       formData.append('video_id',video_id)
       formData.append('title',this.studentComment)
-      this.$axios.post('/api/student/comments',formData).then((response)=>{
+      this.$axios.post('/api/teacher/comments',formData).then((response)=>{
         const video = response.data.data
         this.url = video.url
         this.comments = response.data.data.comments
@@ -291,7 +294,7 @@ export default {
       const formData = new FormData()
       formData.append('title', this.commentVal)
       formData.append('_method', 'PATCH')
-      this.$axios.post(`/api/student/comments/${comment_id}`,formData).then((response)=>{
+      this.$axios.post(`/api/teacher/comments/${comment_id}`,formData).then((response)=>{
         const video = response.data.data
         this.url = video.url
         this.comments = response.data.data.comments
@@ -323,7 +326,7 @@ export default {
       this.$forceUpdate()
     },
     onDeleteClicked (comment_id) {
-      this.$axios.delete(`/api/student/comments/${comment_id}`).then((response)=>{
+      this.$axios.delete(`/api/teacher/comments/${comment_id}`).then((response)=>{
         const video = response.data.data
         this.url = video.url
         this.comments = response.data.data.comments
