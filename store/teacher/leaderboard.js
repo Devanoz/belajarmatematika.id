@@ -39,13 +39,13 @@ export const actions = {
     return new Promise((resolve, reject) => {
 
       //fetching Rest API "/api/admin/materis" with method "GET"
-      this.$axios.get(`/api/teacher/scoreboards`)
+      this.$axios.get(`/api/teacher/scoreboards?name=${search}`)
 
         //success
         .then((response) => {
 
           //commit ti mutation "SET_MATERIS_DATA"
-          commit('SET_STUDENTS_DATA', response.data.data.data)
+          commit('SET_STUDENTS_DATA', response.data.data)
 
           //resolve promise
           resolve(response.data.data)
