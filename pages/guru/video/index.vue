@@ -32,7 +32,7 @@
             <div v-for="(item,materi_index) in materis" :key="item.id">
               <h1 v-if="item.videos.length > 0" class="text-[1em] text-cyan-700">{{ item.title }}</h1>
               <!-- card materi -->
-              <div v-if="item.videos.length > 0" v-for="(video,video_index) in item.videos" :key="video.id"
+              <div @click="onVideoClicked(video.id)" v-if="item.videos.length > 0" v-for="(video,video_index) in item.videos" :key="video.id"
                    class="
                 flex
                 card-image
@@ -137,6 +137,15 @@ export default {
   },
 
   methods: {
+    onVideoClicked(video_id) {
+      let currentPath = this.$router.currentRoute.path
+      this.$router.push({
+        path: currentPath+'/detail',
+        query: {
+          id:video_id
+        }
+      })
+    },
     getVideoTimeStamp (updated_timeStamp) {
       return moment(updated_timeStamp, 'YYYY-MM-DD hh:mm:ss', 'id').fromNow()
     },

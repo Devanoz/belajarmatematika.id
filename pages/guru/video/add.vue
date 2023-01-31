@@ -93,7 +93,7 @@
           opacity-95
         "
       >
-        <div id="topik-list" class="bg-white w-3/4 h-1/2 p-7 rounded-md">
+        <div id="topik-list" class="bg-white w-3/4 h-1/2 max-h-[90vh] overflow-y-scroll p-7 rounded-md">
           <div v-for="materi in materis" :key="materi.id" class="mt-4">
             <input
               @click="onListMateriClicked($event,materi.title)"
@@ -128,8 +128,7 @@ export default {
   },
   created () {
     this.$store.dispatch("teacher/materi/getMaterisData").then(()=>{
-      // console.log(this.$store.state.teacher.materi.materis)
-      this.materis = this.$store.state.teacher.materi.materis.data
+      this.materis = this.$store.state.teacher.materi.materis
     })
   },
   methods: {

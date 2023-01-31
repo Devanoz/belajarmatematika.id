@@ -128,7 +128,7 @@ export const actions = {
           commit('SET_MATERIS_DATA', response.data.data)
 
           //resolve promise
-          resolve()
+          resolve(response)
         })
 
     })

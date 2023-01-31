@@ -12,11 +12,11 @@
         <div class="z-10">
           <div>
             <div v-for="(akun,akun_index) in akuns" :key="akun.id" class="flex card-image drop-shadow-lg border-b-2 mb-2 rounded-xl z-10 bg-white py-3 px-2 my-3 z-30">
-              <img src="@/assets/img/navbar/basic/account-active.svg" alt=""/>
+              <img :src="getProfileImage(akun.image)" alt="" class="h-14 w-14 rounded-full"/>
               <div class="mx-3">
                 <div class="font-bold">{{ akun.name }}</div>
                 <div class="italic">{{ akun.email }}</div>
-                <div>{{ getAkunTimeStamp(akun.updated_at) }}</div>
+                <div>{{ akun.updated_at }}</div>
                 <button class="absolute right-3 top-3" @click="handleToogleClick(akun_index)">
                   <img id="toogle" src="@/assets/img/guru/video/tridot.svg"/>
                 </button>
@@ -82,11 +82,11 @@ export default {
     })
   },
   methods : {
-    getAkunTimeStamp (akunTimeStamp) {
-      return moment(akunTimeStamp, 'YYYY-MM-DD', 'id').fromNow()
-    },
-    onEditClicked (akun_id) {
-
+    getProfileImage (imageUrl) {
+      if (!imageUrl) {
+        return require('@/assets/img/murid/profilepic/defaultUser.svg')
+      }
+      return imageUrl
     },
     onHapusClicked (akun_id) {
       this.$axios.delete(`/api/teacher/teachers/${akun_id}`).then(()=>{

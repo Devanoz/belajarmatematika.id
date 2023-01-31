@@ -1,5 +1,5 @@
 <template>
-  <div @click="onRootClicked($event)" class="divide-gray-500 lex flex-col h-full px-4 py-4">
+  <div @click="onRootClicked($event)" class="divide-gray-500 flex-col h-full px-4 py-4">
     <div class="header">
       <h2 class="text-center text-2xl text-green-primary font-semibold">
         Topik
@@ -130,6 +130,7 @@ export default {
   created () {
     this.$store.dispatch("teacher/topik/getTopiksData").then(() => {
       this.materis = this.$store.state.teacher.topik.topiks
+      console.log(this.materis)
       this.show = Array.from({ length: this.materis.length }, () => {
         return [false]
       })
