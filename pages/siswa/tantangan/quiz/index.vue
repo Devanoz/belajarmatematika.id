@@ -49,6 +49,7 @@
                 :class="{ selected: isAselected, disabled: item.student_answers.length>0, historySelected:item.student_answers.length > 0 ? (item.student_answers[0].answer == 'A'? true: false): false}"
               >
                 <input
+                  checked
                   :disabled="item.student_answers.length>0"
                   type="radio"
                   :id="'option' + item.options[0].A"
@@ -204,8 +205,6 @@
 </template>
 
 <script>
-
-
 export default {
   name: 'quiz',
   components: {},
@@ -225,10 +224,8 @@ export default {
       search: '',
       answer: '',
       validation: []
-
     }
   },
-
   async asyncData ({
     store,
     route
@@ -236,18 +233,13 @@ export default {
     store.commit('siswa/question/SET_PAGE', route.query.page)
     await store.dispatch('siswa/question/getQuestionsData', route.query.id)
   },
-
   //computed
   computed: {
-
     questions () {
       return this.$store.state.siswa.question.questions.questions.data
     }
-
   },
-
   watch: {
-
     $route (to, from) {
       this.page = parseInt(this.$route.query.page)
       console.log(this.page, 'ini berubah')
@@ -255,9 +247,7 @@ export default {
       this.$store.dispatch('siswa/question/getQuestionsData', this.$route.query.id)
       this.pageOfItems[0] = this.$store.state.siswa.question.questions.questions.data
     },
-
     pageOfItems (newData, oldData) {
-
       console.log(this.answer)
       console.log(newData[0], 'ini data baru')
       console.log(oldData[0], 'ini data lama')
@@ -268,34 +258,25 @@ export default {
           console.log('udah ada jawabannya')
           this.submitChallenge()
         }
-
       }
       if (this.answer != '') {
         console.log('ada jawaban')
         if (oldData[0].id <= newData[0].id) {
           console.log('bisa subimit')
           this.submitAnswer(oldData[0].id)
-
           if (oldData[0].id === newData[0].id) {
             console.log('halo')
-
           }
-
         }
-
       } else {
-
       }
     }
   },
-
   methods: {
     async submitAnswer (data) {
-
       //define formData
       let formData = new FormData()
       formData.append('challenge_id', this.$route.query.id)
-
       formData.append('question_id', data)
       if (this.isAselected == true) {
         formData.append('answer', 'A')
@@ -308,10 +289,8 @@ export default {
       } else {
         formData.append('answer', this.answer)
       }
-
       //sending data to action "storeCategory" vuex
       await this.$store.dispatch('siswa/question/submitAnswer', formData)
-
         //success
         .then(() => {
           this.$store.dispatch('siswa/question/getQuestionsData', this.$route.query.id)
@@ -320,7 +299,6 @@ export default {
           this.isCselected = false
           this.isDselected = false
           this.answer = ''
-
           this.$swal.fire({
             title: 'BERHASIL!',
             text: 'Soal Dikerjakan!',
@@ -328,24 +306,18 @@ export default {
             showConfirmButton: false,
             timer: 500
           })
-
         })
-
         //error
         .catch(error => {
-
           let currentPath = this.$router.currentRoute.path
-
           this.$router.push({
             path: currentPath,
             query: {
               id: this.$route.query.id,
               title: this.$route.query.title,
               page: this.page - 1,
-
             }
           })
-
           //assign error to state "validation"
           this.validation = error.response.data
           if (this.validation) {
@@ -360,20 +332,14 @@ export default {
         })
     },
     async submitChallenge () {
-
       await this.submitAnswer(this.questions[0].id)
-
       //define formData
       let formData = new FormData()
-
       formData.append('challenge_id', this.$route.query.id)
-
       //sending data to action "storeCategory" vuex
       await this.$store.dispatch('siswa/question/submitChallenge', formData)
-
         //success
         .then(() => {
-
           this.$swal.fire({
             title: 'Horee!',
             text: 'Tantangan Selesai!',
@@ -381,19 +347,15 @@ export default {
             showConfirmButton: false,
             timer: 500
           })
-
           this.$router.push({
             name: 'siswa-tantangan-history-detail',
             query: {
               id: this.$route.query.id
             }
           })
-
         })
-
         //error
         .catch(error => {
-
           //assign error to state "validation"
           this.$swal.fire({
             title: 'Yahh!',
@@ -402,14 +364,11 @@ export default {
             showConfirmButton: false,
             timer: 500
           })
-
         })
     },
-
     changePage (page) {
       let currentPath = this.$router.currentRoute.path
       if (page === this.maxPage + 1) {
-
       } else if (page === 0) {
         this.$router.push({
           name: 'siswa-tantangan'
@@ -424,13 +383,10 @@ export default {
             id: this.$route.query.id,
             title: this.$route.query.title,
             page: page,
-
           }
         })
       }
-
       console.log(page)
-
       //dispatch on action "getCategoriesData"
       // this.$store.dispatch('siswa/question/getQuestionsData', this.$route.query.id)
     },
@@ -469,19 +425,15 @@ export default {
 
 .option.selected.disabled {
   background-color: #8fe1a2;
-
 }
 
 .option.disabled.historySelected {
   background-color: #8fe1a2;
-
 }
 
 .option.disabled {
   background-color: #7899bd;
-
 }
-
 
 .option.wrong {
   background-color: #ff5a5f;
@@ -498,6 +450,4 @@ export default {
 .option input {
   display: none;
 }
-
-
 </style>

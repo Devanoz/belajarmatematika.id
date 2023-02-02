@@ -15,7 +15,7 @@
     "@nuxtjs/auth-next": "^5.0.0-1622918202.e815752",
     "@nuxtjs/axios": "^5.13.6",
     "core-js": "^3.19.3",
-    "daisyui": "^2.46.0",
+    "daisyui": "^2.50.0",
     "easy-circular-progress": "^1.0.4",
     "jw-vue-pagination": "^1.0.3",
     "moment": "^2.29.4",

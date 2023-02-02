@@ -111,13 +111,13 @@ export default {
   async asyncData ({
     store
   }) {
-    await store.dispatch('teacher/topik/getTopiksData')
+    await store.dispatch('teacher/topik/getListTopiks')
   },
 
   //computed
   computed: {
     topiks () {
-      return this.$store.state.teacher.topik.topiks.data
+      return this.$store.state.teacher.topik.listTopik
     },
   },
 

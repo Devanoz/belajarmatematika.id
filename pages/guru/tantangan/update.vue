@@ -97,18 +97,31 @@
                          class="w-full h-11 mb-2 rounded-2xl border-2 text-gray-500 border-gray-400 px-5"
                   >
 
+                  <div
+                    v-if="questionData.options[0].body != '' && questionData.options[1].body != '' && questionData.options[2].body != ''&& questionData.options[3].body != '' "
+                  >
+                    <label class=" font-medium text-gray-500 mb-2">Kunci Jawaban</label><br>
+                    <multiselect
+                      v-model="questionData.answerKey"
+                      :options="questionData.options"
+                      :searchable="true"
+                      placeholder="Kunci"
+                      selected-label=""
+                      select-label=""
+                      deselect-label=""
+                      track-by="body"
+                      label="body"
+                    />
+                  </div>
 
-                  <label class=" font-medium text-gray-500 mb-2">Kunci Jawaban</label><br>
-                  <multiselect
-                    v-model="questionData.answerKey"
-                    :options="questionData.options"
-                    :searchable="true"
-                    placeholder="Kunci"
-                    selected-label=""
-                    select-label=""
-                    deselect-label=""
-                    track-by="body"
-                    label="body"
+
+                </div>
+
+                <div v-else class="opsi-essay mt-2">
+
+                  <label class=" font-bold text-gray-500 mb-2">Jawaban Benar</label><br>
+                  <textarea id="" v-model="questionData.answerKey" cols="42" rows="2"
+                            class="w-full text-gray-500 mb-2 border-gray-500 rounded-2xl px-2 py-1 border-2"
                   />
                 </div>
 
@@ -137,6 +150,156 @@
         </div>
       </div>
     </transition>
+
+    <!--  edit quetion moda   -->
+    <transition name="pop" appear>
+      <div v-if="isModalAddVisible">
+        <div
+          @click="onToggleCreate"
+          class="fixed  bg-black opacity-70 w-full h-full inset-0 z-20"
+        ></div>
+        <div
+          class="w-full max-w-lg p-3 overflow-hidden absolute mx-auto mt-20 my-auto rounded-xl shadow-lg bg-white z-30"
+        >
+          <div>
+            <div class="text-center px-0.5 flex-auto justify-center leading-6">
+              <h2 class="text-xl text-gray-700 font-bold">
+                Tambah Soal
+              </h2>
+
+              <form>
+                <div class="flex flex-col mt-2">
+                  <label class=" font-medium text-gray-500 self-start">Deskripsi Soal</label>
+                  <textarea id="" v-model="question.title" cols="42" rows="2"
+                            class="w-full text-gray-500 mb-2 border-gray-500 rounded-2xl px-2 py-1 border-2"
+                  />
+                </div>
+
+                <div class="flex flex-col mt-2">
+                  <label class="mt-4 font-medium text-gray-500 self-start">Uploud Gambar Soal (Opsional)</label>
+
+                  <div v-if="question.file == ''" class="flex items-center justify-center w-full mb-2  px-2">
+                    <label for="dropzone-file"
+                           class="flex flex-col items-center justify-center w-full h-20 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 hover:bg-gray-100 "
+                    >
+                      <div class="flex flex-col items-center justify-center pt-5 pb-6">
+
+                        <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Klik untuk melampirkan file</span>
+                        </p>
+                      </div>
+                      <input id="dropzone-file" type="file" class="hidden" @change="handleFileCreateChange">
+
+                    </label>
+                  </div>
+                  <div v-if="question.file !=''" class="file-preview px-4 mt-6">
+                <span class=" font-semibold text-gray-500 mb-3">
+                  Terlampir
+                </span>
+                    <div class="grid grid-cols-4">
+                      <img src="~/assets/img/general/pdf.svg" alt="">
+                      <span class=" col-span-2">
+                    {{ question.file.name }}
+                  </span>
+                      <button class="place-self-end self-center" @click="onFileDeleted">
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M8.10385 7.01018L12.7491 2.3649C12.8266 2.29274 12.8887 2.20572 12.9318 2.10903C12.9748 2.01234 12.998 1.90797 12.9999 1.80213C13.0017 1.6963 12.9823 1.59117 12.9426 1.49302C12.903 1.39487 12.844 1.30571 12.7691 1.23087C12.6943 1.15602 12.6051 1.09701 12.507 1.05737C12.4088 1.01772 12.3037 0.998255 12.1979 1.00012C12.092 1.00199 11.9877 1.02516 11.891 1.06824C11.7943 1.11132 11.7073 1.17343 11.6351 1.25087L6.98982 5.89615L2.34454 1.25087C2.19512 1.11164 1.99749 1.03584 1.79329 1.03945C1.58908 1.04305 1.39425 1.12577 1.24983 1.27019C1.10542 1.41461 1.02269 1.60944 1.01909 1.81364C1.01549 2.01785 1.09129 2.21548 1.23052 2.3649L5.8758 7.01018L1.23052 11.6555C1.08291 11.8032 1 12.0036 1 12.2125C1 12.4213 1.08291 12.6217 1.23052 12.7695C1.37831 12.9171 1.57865 13 1.78753 13C1.99641 13 2.19675 12.9171 2.34454 12.7695L6.98982 8.1242L11.6351 12.7695C11.7829 12.9171 11.9832 13 12.1921 13C12.401 13 12.6013 12.9171 12.7491 12.7695C12.8967 12.6217 12.9796 12.4213 12.9796 12.2125C12.9796 12.0036 12.8967 11.8032 12.7491 11.6555L8.10385 7.01018Z"
+                            fill="#BDBDBD" stroke="#828282" stroke-width="0.4"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex flex-col mt-2">
+                  <label class=" font-medium text-gray-500 self-start">Bentuk Soal</label>
+                  <multiselect
+                    :allowEmpty="false"
+                    :hideSelected="true"
+                    v-model="question.is_pilihan_ganda"
+                    :options="options"
+                    :searchable="true"
+                    placeholder="Pilihan Ganda / Essay"
+                    selected-label="text"
+                    select-label=""
+                    deselect-label=""
+                    track-by="text"
+                    label="text"
+                  />
+                </div>
+
+
+                <div v-if="question.is_pilihan_ganda.value ==1" class="opsi-pilgan mt-2">
+                  <label class="mt-6 font-medium text-gray-500 mb-2">Pilihan A</label><br>
+                  <input id="judul" v-model="question.options[0].body" type="text"
+                         class="w-full h-11 mb-2 rounded-2xl border-2 text-gray-500 border-gray-400 px-5"
+                  >
+                  <label class="mt-6 font-medium text-gray-500 mb-2">Pilihan B</label><br>
+                  <input id="judul" v-model="question.options[1].body" type="text"
+                         class="w-full h-11 mb-2 rounded-2xl border-2 text-gray-500 border-gray-400 px-5"
+                  >
+                  <label class="mt-6 font-medium text-gray-500 mb-2">Pilihan C</label><br>
+                  <input id="judul" v-model="question.options[2].body" type="text"
+                         class="w-full h-11 mb-2 rounded-2xl border-2 text-gray-500 border-gray-400 px-5"
+                  >
+                  <label class="mt-6 font-medium text-gray-500 mb-2">Pilihan D</label><br>
+                  <input id="judul" v-model="question.options[3].body" type="text"
+                         class="w-full h-11 mb-2 rounded-2xl border-2 text-gray-500 border-gray-400 px-5"
+                  >
+
+                  <div
+                    v-if="question.options[0].body != '' && question.options[1].body != '' && question.options[2].body != ''&& question.options[3].body != '' "
+                  >
+                    <label class=" font-medium text-gray-500 mb-2">Kunci Jawaban</label><br>
+                    <multiselect
+                      v-model="question.answerKey"
+                      :options="question.options"
+                      :searchable="true"
+                      placeholder="Kunci"
+                      selected-label=""
+                      select-label=""
+                      deselect-label=""
+                      track-by="body"
+                      label="body"
+                    />
+                  </div>
+
+
+                </div>
+
+                <div v-else class="opsi-essay mt-2">
+
+                  <label class=" font-bold text-gray-500 mb-2">Jawaban Benar</label><br>
+                  <textarea id="" v-model="question.answerKey" cols="42" rows="2"
+                            class="w-full text-gray-500 mb-2 border-gray-500 rounded-2xl px-2 py-1 border-2"
+                  />
+                </div>
+
+
+              </form>
+
+
+            </div>
+            <div class="p-3 mt-2 text-center space-x-4 md:block">
+
+              <button
+                @click="onToggleCreate"
+                class="mb-2 md:mb-0 bg-red-500 border border-purple-500 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-md hover:shadow-lg hover:bg-purple-600"
+              >
+                Close
+              </button>
+
+              <button
+                @click="addQuestion"
+                class="mb-2 md:mb-0 bg-sky-500 text-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border rounded-md hover:shadow-lg "
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </transition>
     <div class="flex  flex-col px-4 py-4">
 
       <div class="title h-16 grid grid-cols-4 items-center">
@@ -156,7 +319,7 @@
       </div>
 
 
-      <div class="form-challenge z-0">
+      <div class="form-challenge z-20">
         <form @submit.prevent="updateChallenge">
           <div class="materi-section mt-6 px-4 h-auto">
             <label class=" font-bold text-gray-500 mb-2">Judul Tantangan</label><br>
@@ -189,6 +352,18 @@
               track-by="title"
               label="title"
             />
+
+
+            <label class="relative mt-4 inline-flex items-center cursor-pointer">
+              <input v-model="is_published" @change="publishChallenge" :disabled="is_published==true" type="checkbox"
+                     value=""
+                     class="sr-only peer"
+              >
+              <div
+                class="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"
+              ></div>
+              <span class="ml-3 text-sm font-bold text-gray-500 dark:text-gray-300">Publish Tantangan ?</span>
+            </label>
 
 
             <div v-if="validation.materi_id" class=" text-center py-4 px-2 w-full">
@@ -349,6 +524,28 @@
 
     </div>
 
+    <button v-if="is_published==false" @click="onToggleCreate">
+      <div
+        id="floating-button"
+        class="
+          bg-[#6D9DE0]
+          w-[3.375rem]
+          h-[3.375rem]
+          z-10
+          fixed
+          shadow-xl
+          bottom-[6rem]
+          right-[1.5rem]
+          rounded-full
+          flex
+          justify-center
+          items-center
+        "
+      >
+        <img src="@/assets/img/guru/video/plusSign.svg" alt=""/>
+      </div>
+    </button>
+
   </div>
 
 </template>
@@ -401,14 +598,42 @@ export default {
         ]
       },
 
+      question: {
+        title: '',
+        file: '',
+        is_pilihan_ganda: {
+          value: ''
+        },
+        answerKey: '',
+        options: [
+          {
+            id: 'A',
+            body: ''
+          },
+          {
+            id: 'B',
+            body: ''
+          }, {
+            id: 'C',
+            body: ''
+          }, {
+            id: 'D',
+            body: ''
+          }
+        ]
+      },
+
       tempQuestion: '',
       isOpen: false,
+      isCreateModalOpen: false,
       materi_id: '',
       challenge_id: '',
       challenge: {
         id: '',
         title: ''
       },
+
+      is_published: false,
 
       materi: {
         id: '',
@@ -436,6 +661,10 @@ export default {
       return this.isOpen
     },
 
+    isModalAddVisible () {
+      return this.isCreateModalOpen
+    },
+
     materis () {
       return this.$store.state.teacher.materi.materis
     },
@@ -451,6 +680,7 @@ export default {
     this.challenge.id = this.$route.query.challenge
     this.materi_id = this.$store.state.teacher.materi.materi
     this.challenge.title = this.$store.state.teacher.challenge.challenge.title
+    this.is_published = this.$store.state.teacher.challenge.challenge.is_published == 1 ? true : false
 
   },
 
@@ -499,6 +729,11 @@ export default {
         this.questionData.options[2].body = this.tempQuestion.options[0].C
         this.questionData.options[3].body = this.tempQuestion.options[0].D
       } else {
+        this.questionData.options[0].body = '',
+          this.questionData.options[1].body = '',
+          this.questionData.options[2].body = '',
+          this.questionData.options[3].body = '',
+          this.questionData.answerKey = this.tempQuestion.answer_key
         this.questionData.is_pilihan_ganda = {
           value: 0,
           text: 'Essay'
@@ -509,6 +744,44 @@ export default {
   },
 
   methods: {
+
+    async publishChallenge () {
+      const formData = new FormData()
+
+      formData.append('title', this.challenge.title)
+      formData.append('materi_id', this.materi_id.id)
+      formData.append('is_published', this.is_published === true ? 1 : 0)
+      formData.append('_method', 'PATCH')
+
+      //sending data to action "updateCategory" vuex
+      await this.$store.dispatch('teacher/challenge/updateChallenge', {
+        challengeId: this.$route.query.challenge,
+        payload: formData
+      })
+
+        //success
+        .then(() => {
+
+          //sweet alert
+          this.$swal.fire({
+            title: 'BERHASIL!',
+            text: 'Data Berhasil Diupdate!',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 2000
+          })
+
+          //redirect route "admin-categories"
+
+        })
+
+        //error
+        .catch(error => {
+
+          //assign error to state "validation"
+          this.validation = error.response.data
+        })
+    },
 
     handleFileChange (e) {
       // get image
@@ -534,8 +807,33 @@ export default {
       console.log('yee berhasil')
     },
 
+    handleFileCreateChange (e) {
+      // get image
+      const image = this.question.file = e.target.files[0]
+      // check fileType
+      if (!image.type.match('image.*')) {
+        console.log('error')
+        this.$swal.fire({
+          title: 'OOPS!',
+          text: 'Format File Tidak Didukung!',
+          icon: 'error',
+          showConfirmButton: false,
+          timer: 2000
+        })
+
+        // if fileType not allowed, then clear value and set null
+        e.target.value = ''
+
+        // set state "category.image" to null
+        this.question.file = ''
+      }
+
+      console.log('yee berhasil')
+    },
+
     onFileDeleted () {
       this.questionData.file = ''
+      this.question.file = ''
     },
 
     onEdit (data) {
@@ -547,6 +845,59 @@ export default {
     },
     onToggle () {
       this.isOpen = !this.isOpen
+    },
+
+    onToggleCreate () {
+      this.isCreateModalOpen = !this.isCreateModalOpen
+    },
+
+    async addQuestion () {
+      const formData = new FormData()
+      formData.append('title', this.question.title)
+
+      let isPilihanGanda = this.questionData.isPilihanGanda == true ? 1 : 0
+
+      if (this.question.is_pilihan_ganda.value == 1) {
+        formData.append('answer_key', this.question.answerKey ? this.question.answerKey.id : '')
+
+      } else {
+        console.log('ini bukan pilgan')
+        formData.append('answer_key', this.question.answerKey)
+      }
+
+      if (this.question.file !== '') {
+        formData.append('image', this.question.file)
+      }
+      formData.append('challenge_id', this.$route.query.challenge)
+      formData.append('is_pilihan_ganda', this.question.is_pilihan_ganda.value)
+      formData.append('A', this.question.options[0].body)
+      formData.append('B', this.question.options[1].body)
+      formData.append('C', this.question.options[2].body)
+      formData.append('D', this.question.options[3].body)
+
+      await this.$axios.post(`/api/teacher/questions`, formData)
+        .then(() => {
+          this.$swal.fire({
+            title: 'BERHASIL!',
+            text: 'Data Berhasil Ditambah!',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 2000
+          })
+
+          this.question.title = ''
+          this.question.answerKey = ''
+          this.question.file = ''
+          this.question.options[0].body = ''
+          this.question.options[1].body = ''
+          this.question.options[2].body = ''
+          this.question.options[3].body = ''
+
+          this.isCreateModalOpen = !this.isCreateModalOpen
+
+          this.$store.dispatch('teacher/question/getQuestionsData', this.$route.query.challenge)
+
+        })
     },
 
     async updateQuestion () {
@@ -583,6 +934,8 @@ export default {
             showConfirmButton: false,
             timer: 2000
           })
+
+          this.isOpen = !this.isOpen
 
           this.$store.dispatch('teacher/question/getQuestionsData', this.$route.query.challenge)
 
@@ -687,33 +1040,6 @@ export default {
   display: none;
 }
 
-.multiselect__tags {
-  min-height: 40px;
-  display: block;
-  padding: 8px 0px 0 34px !important;
-  border-radius: 23px;
-  border: 1px solid rgb(192, 192, 192);
-  background: #e0f2fd;
-  font-size: 14px;
-}
-
-.multiselect__input,
-.multiselect__single {
-  background: #e0f2fd;
-}
-
-
-.multiselect__element {
-  display: block;
-  background: rgb(189, 231, 238);
-}
-
-
-.multiselect__option--highlight {
-  background: #438cf3;
-  outline: none;
-  color: white;
-}
 
 .iframe-container {
   overflow: hidden;
