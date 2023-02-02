@@ -182,7 +182,7 @@
       <button class="btn-selesai text-white my-4 py-3 rounded-xl w-full"
               style="background: linear-gradient(180deg, #6D9DE0 0%, #5D86BF 100%);"
       >
-        Selesai
+        SELESAI
       </button>
     </NuxtLink>
 
