@@ -89,20 +89,31 @@ export default {
       return imageUrl
     },
     onHapusClicked (akun_id) {
-      this.$axios.delete(`/api/teacher/teachers/${akun_id}`).then(()=>{
+      // this.$axios.delete(`/api/teacher/teachers/${akun_id}`).then(()=>{
         this.$swal.fire({
-          text: 'Sukses menghapus data',
-          icon: 'success',
-          timer: 1000
-        })
-        this.$store.dispatch('teacher/akun/getAkunData')
-      }).catch((err)=>{
-        this.$swal.fire({
-          text: 'Gagal menghapus data',
+          text: 'Apakah anda yakin untuk menghapus akun ini',
           icon: 'warning',
-          timer: 1000
+          confirmButtonText: 'Ya,Hapus',
+          showCancelButton: true
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.$swal.fire({
+              text: 'Berhasil Menghapus Data',
+              icon: 'success',
+              timer: 1000
+            })
+            this.$axios.delete(`/api/teacher/${akun_id}`).then(()=>{
+              this.$store.dispatch('teacher/akun/getAkunData')
+            })
+              .catch(()=>{
+              this.$swal.fire({
+              text: 'Gagal menghapus data',
+              icon: 'warning',
+              timer: 1000
+            })
+          })
+          }
         })
-      })
     },
     handleToogleClick (akun_index) {
       this.show = this.show.map((val,idx)=>{
