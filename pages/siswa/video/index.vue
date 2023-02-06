@@ -46,7 +46,7 @@
       </div>
       <div class="video-section my-5">
         <div v-for="materi in materis" :key="materi.id" class="group my-5">
-          <h2 class="text-xl text-cs-blue-500 font-bold">
+          <h2 v-if="materi.videos.length > 0" class="text-xl text-cs-blue-500 font-bold">
             {{ materi.title }}
           </h2>
           <div v-if="materi.videos.length > 0" @click="onVideoClicked(video.id)" v-for="video in materi.videos" :key="video.id" class="grid grid-flow-row grid-cols-1 gap-8 mt-8 items-center justify-items-center place-items-center">
@@ -72,11 +72,6 @@
               </div>
             </div>
           </div>
-          <div v-if="materi.videos.length === 0" class="grid grid-flow-row grid-cols-1 gap-8 mt-8 items-center justify-items-center place-items-center">
-            <div class="w-full h-20 flex justify-center items-center p-4 items-center  bg-slate-200 rounded-md shadow-lg font-bold">
-              no content
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -98,7 +93,7 @@ export default {
       thereIsLastPlayed:false,
     }
   },
-  created () {
+  beforeCreate () {
     this.$store.dispatch("siswa/video/getVideosData").then((response)=>{
       if(response.currentVideos) {
         this.thereIsLastPlayed = true
@@ -107,7 +102,11 @@ export default {
   },
   computed:{
     currentVideosUrl () {
-      return this.$store.state.siswa.video.currentVideos.url
+      const currentVideosUrl = this.$store.state.siswa.video.currentVideos.url
+      if(currentVideosUrl){
+        return currentVideosUrl
+      }
+      return ''
     },
     materis () {
       return this.$store.state.siswa.video.videos
@@ -138,9 +137,8 @@ export default {
         }
       })
     },
-    async onSearching (data) {
-      console.log(this.search)
-      await this.$store.dispatch("siswa/video/getVideosData",this.search)
+    async onSearching () {
+      await this.$store.dispatch("siswa/video/getVideosDataFilteredByTitle",this.search)
     },
   }
 }

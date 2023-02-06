@@ -20,6 +20,9 @@ export const mutations = {
     state.videos = payload.videos
     state.currentVideos = payload.currentVideos
   },
+  SET_VIDES_FOR_SEARCHING(state, payload){
+    state.videos = payload.videos
+  },
 
   //mutation "SET_PAGE"
   SET_PAGE(state, payload) {
@@ -49,6 +52,31 @@ export const actions = {
 
           //commit ti mutation "SET_MATERIS_DATA"
           commit('SET_VIDEOS_DATA', response.data.data)
+
+          //resolve promise
+          resolve(response.data.data)
+        })
+
+    })
+
+  },
+
+  getVideosDataFilteredByTitle({ commit, state }, payload) {
+
+    //search
+    let search = payload ? payload : ''
+
+    //set promise
+    return new Promise((resolve, reject) => {
+
+      //fetching Rest API "/api/admin/materis" with method "GET"
+      this.$axios.get(`/api/student/videos?title=${search}`)
+
+        //success
+        .then((response) => {
+
+          //commit ti mutation "SET_MATERIS_DATA"
+          commit('SET_VIDES_FOR_SEARCHING', response.data.data)
 
           //resolve promise
           resolve(response.data.data)
