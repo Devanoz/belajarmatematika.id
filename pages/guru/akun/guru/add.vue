@@ -1,5 +1,5 @@
 <template>
-  <div id="root">
+  <div id="root" >
     <div class="header py-4">
       <h2 class="text-center text-2xl text-green-primary font-semibold">
         Kelola Akun
@@ -7,7 +7,7 @@
       <hr class="mt-3"/>
     </div>
     <div id="icon-section" class="w-full h-52 flex justify-center items-center">
-      <img src="@/assets/img/guru/akun/tambah-akun.svg" class="w-40 h-40">
+      <img src="~/assets/img/guru/akun/tambah-akun.svg" class="w-40 h-40">
     </div>
 <!--    input section-->
     <div class="profile-section mt-6 px-10 h-auto">

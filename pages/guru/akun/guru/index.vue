@@ -1,10 +1,30 @@
 <template>
-  <div id="root" @click="onRootClicked($event)" class="h-full">
+  <div @click="onRootClicked($event)" class="divide-gray-500 flex-col h-full px-4 py-4">
     <div class="header py-4">
       <h2 class="text-center text-2xl text-green-primary font-semibold">
-        Kelola Akun
+        Kelola Akun Guru
       </h2>
       <hr class="mt-3"/>
+    </div>
+
+    <div
+      class="relative z-20 flex items-center w-full h-10 mt-4 mb-4 rounded-3xl focus-within:shadow-lg bg-sky-100 overflow-hidden"
+    >
+      <div class="grid place-items-center ml-2 h-full w-12 text-cyan-800">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+          />
+        </svg>
+      </div>
+
+      <input @keyup="onSearching" v-model="search"
+             class="peer h-full w-full outline-none font-light text-gray-300 pr-2 bg-sky-100"
+             type="text"
+             id="search"
+             placeholder="Cari nama guru"
+      />
+
     </div>
 
     <div id="akun-list" class="p-2.5">
@@ -18,7 +38,7 @@
                 <div class="italic">{{ akun.email }}</div>
                 <div>{{ akun.updated_at }}</div>
                 <button class="absolute right-3 top-3" @click="handleToogleClick(akun_index)">
-                  <img id="toogle" src="@/assets/img/guru/video/tridot.svg"/>
+                  <img id="toogle" src="~/assets/img/guru/video/tridot.svg"/>
                 </button>
                 <transition name="fade">
                   <div :key="akun_index" v-if="show[akun_index]" class=" bg-white w-20 h-auto absolute right-0 -top-5 z-10 rounded-md flex flex-col shadow-lg p-2 items-center
@@ -34,7 +54,7 @@
       </div>
     </div>
 
-    <NuxtLink to="/guru/akun/add">
+    <NuxtLink to="/guru/akun/guru/add">
       <div
         id="floating-button"
         class="
@@ -52,7 +72,7 @@
           items-center
         "
       >
-        <img src="@/assets/img/guru/video/plusSign.svg" alt=""/>
+        <img src="~/assets/img/guru/video/plusSign.svg" alt=""/>
       </div>
     </NuxtLink>
   </div>
@@ -82,14 +102,16 @@ export default {
     })
   },
   methods : {
+    onSearching () {
+      this.$store.dispatch("teacher/akun/getAkunData", this.search)
+    },
     getProfileImage (imageUrl) {
       if (!imageUrl) {
-        return require('@/assets/img/murid/profilepic/defaultUser.svg')
+        return require('~/assets/img/murid/profilepic/defaultUser.svg')
       }
       return imageUrl
     },
     onHapusClicked (akun_id) {
-      // this.$axios.delete(`/api/teacher/teachers/${akun_id}`).then(()=>{
         this.$swal.fire({
           text: 'Apakah anda yakin untuk menghapus akun ini',
           icon: 'warning',
@@ -97,13 +119,14 @@ export default {
           showCancelButton: true
         }).then((result) => {
           if (result.isConfirmed) {
-            this.$swal.fire({
-              text: 'Berhasil Menghapus Data',
-              icon: 'success',
-              timer: 1000
-            })
-            this.$axios.delete(`/api/teacher/${akun_id}`).then(()=>{
-              this.$store.dispatch('teacher/akun/getAkunData')
+            this.$axios.delete(`/api/teacher/teachers/${akun_id}`).then(()=>{
+              this.$store.dispatch('teacher/akun/getAkunData').then(()=>{
+                this.$swal.fire({
+                  text: 'Berhasil Menghapus Data',
+                  icon: 'success',
+                  timer: 1000
+                })
+              })
             })
               .catch(()=>{
               this.$swal.fire({
@@ -125,7 +148,7 @@ export default {
       this.$forceUpdate()
     },
     onRootClicked (event) {
-      if(event.target.id != 'toogle' ) {
+      if(event.target.id !== 'toogle' ) {
         this.show = this.show.map((val)=>false)
         this.$forceUpdate()
       }

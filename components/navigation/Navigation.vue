@@ -46,7 +46,7 @@ export default {
         }
     },
     mounted() {
-      
+
     },
     methods: {
         onMateriClicked() {
@@ -54,7 +54,7 @@ export default {
                 name: 'siswa-materi',
             })
 
-            this.materiClicked = !this.materiClicked
+            this.materiClicked = true
             this.videoClicked = false
             this.tantanganClicked = false
             this.peringkatClicked = false
