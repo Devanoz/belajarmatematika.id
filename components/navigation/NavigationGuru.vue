@@ -46,7 +46,14 @@
               <div  class="flex flex-col items-center gap-y-1">
                 <img v-if="accountClicked" class="h-6 w-auto" src="~/assets/img/navbar/basic/account-active.svg">
                 <img v-else class="h-6 w-auto" src="~/assets/img/navbar/basic/account-inactive.svg">
-                <span class="text-slate-400">Akun</span>
+                <span class="text-slate-400">Guru</span>
+              </div>
+            </button>
+            <button v-if="isAdmin" @click="onAkunSiswaClicked">
+              <div  class="flex flex-col items-center gap-y-1">
+                <img v-if="accountSiswaClicked" class="h-6 w-auto" src="~/assets/img/navbar/basic/account-active.svg">
+                <img v-else class="h-6 w-auto" src="~/assets/img/navbar/basic/account-inactive.svg">
+                <span class="text-slate-400">Siswa</span>
               </div>
             </button>
           </div>
@@ -63,6 +70,7 @@
                 peringkatClicked: false,
                 topikClicked: false,
                 accountClicked: false,
+                accountSiswaClicked:false,
             }
         },
       computed :{
@@ -79,12 +87,13 @@
                     name: 'guru-materi',
                 })
 
-                this.materiClicked = !this.materiClicked
+                this.materiClicked = true
                 this.videoClicked = false
                 this.tantanganClicked = false
                 this.peringkatClicked = false
                 this.topikClicked = false
                 this.accountClicked = false
+                this.accountSiswaClicked = false
             },
 
             onVideoClicked() {
@@ -135,15 +144,29 @@
             },
             onAkunClicked () {
               this.$router.push({
-                name:'guru-akun'
+                name:'guru-akun-guru'
               })
               this.materiClicked = false
               this.videoClicked = false
               this.tantanganClicked = false
               this.topikClicked = false
               this.peringkatClicked = false
+              this.accountSiswaClicked = false
               this.accountClicked = true
+            },
+            onAkunSiswaClicked () {
+                this.$router.push({
+                  name: 'guru-akun-siswa'
+                })
+              this.materiClicked = false
+              this.videoClicked = false
+              this.tantanganClicked = false
+              this.topikClicked = false
+              this.peringkatClicked = false
+              this.accountClicked = false
+              this.accountSiswaClicked = true
             }
+
         }
     }
     </script>
