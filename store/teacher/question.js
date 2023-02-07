@@ -1,88 +1,119 @@
 //state
 export const state = () => ({
 
-    //questions
-    questions: [],
+  //questions
+  questions: [],
 
-    //page
-    page: 1,
+  //page
+  page: 1,
 
 })
 
 //mutations
 export const mutations = {
 
-    //mutation "SET_QUESTIONS_DATA"
-    SET_QUESTIONS_DATA(state, payload) {
+  //mutation "SET_QUESTIONS_DATA"
+  SET_QUESTIONS_DATA (state, payload) {
 
-        //set value state "questions"
-        state.questions = payload
-    },
+    //set value state "questions"
+    state.questions = payload
+  },
 
-    //mutation "SET_PAGE"
-    SET_PAGE(state, payload) {
+  //mutation "SET_PAGE"
+  SET_PAGE (state, payload) {
 
-        //set value state "page"
-        state.page = payload
-    },
+    //set value state "page"
+    state.page = payload
+  },
 
 }
 
 //actions
 export const actions = {
 
-    //get questions data
-    getQuestionsData({ commit, state }, payload) {
+  //get questions data
+  getQuestionsData ({
+    commit,
+    state
+  }, payload) {
 
-        //search
-        let search = payload ? payload : ''
+    //search
+    let search = payload ? payload : ''
 
-        //set promise
-        return new Promise((resolve, reject) => {
+    //set promise
+    return new Promise((resolve, reject) => {
 
-            //fetching Rest API "/api/admin/questions" with method "GET"
-            this.$axios.get(`/api/teacher/questions?challenge_id=${search}`)
+      //fetching Rest API "/api/admin/questions" with method "GET"
+      this.$axios.get(`/api/teacher/questions?challenge_id=${search}`)
 
-            //success
-            .then((response) => {
+        //success
+        .then((response) => {
 
-                //commit ti mutation "SET_QUESTIONS_DATA"
-                commit('SET_QUESTIONS_DATA', response.data.data)
+          //commit ti mutation "SET_QUESTIONS_DATA"
+          commit('SET_QUESTIONS_DATA', response.data.data)
 
-                //resolve promise
-                resolve()
-            })
+          //resolve promise
+          resolve()
+        })
+
+    })
+
+  },
+
+  //store questions
+  storeMateri ({
+    dispatch,
+    commit
+  }, payload) {
+
+    //set promise
+    return new Promise((resolve, reject) => {
+
+      //store to Rest API "/api/admin/questions" with method "POST"
+      this.$axios.post('/api/teacher/questions', payload)
+
+        //success
+        .then(() => {
+
+          //dispatch action "getCategoriesData"
+          dispatch('getQuestionsData')
+
+          //resolve promise
+          resolve()
 
         })
 
-    },
+        //error
+        .catch(error => {
+          reject(error)
+        })
 
-    //store questions
-    storeMateri({ dispatch, commit }, payload) {
+    })
+  },
 
-        //set promise
-        return new Promise((resolve, reject) => {
+  destroyCategory ({
+    dispatch,
+    commit
+  }, payload) {
 
-            //store to Rest API "/api/admin/questions" with method "POST"
-            this.$axios.post('/api/teacher/questions', payload)
+    //set promise
+    return new Promise((resolve, reject) => {
 
-            //success
-            .then(() => {
+      //delete to Rest API "/api/admin/categories/:id" with method "DELETE"
+      this.$axios.delete(`/api/teacher/questions/${payload}`)
 
-                //dispatch action "getCategoriesData"
-                dispatch('getQuestionsData')
+        //success
+        .then(() => {
 
-                //resolve promise
-                resolve()
+          //dispatch action "getCategoriesData"
 
-            })
-
-            //error
-            .catch(error => {
-                reject(error)
-            })
+          //resolve promise
+          resolve()
 
         })
-    },
+
+    })
+
+  }
 
 }

@@ -504,12 +504,26 @@
               Jawaban Benar: {{ question.answer_key }}
             </div>
           </div>
-          <div class="btn-edit justify-self-end self-end">
+          <div class="btn-edit justify-self-end self-end gap-x-2">
             <button @click="onEdit(question)">
               <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M2 20.525C1.45 20.525 0.979 20.329 0.587 19.937C0.195667 19.5457 0 19.075 0 18.525V4.525C0 3.975 0.195667 3.504 0.587 3.112C0.979 2.72067 1.45 2.525 2 2.525H10.925L8.925 4.525H2V18.525H16V11.575L18 9.575V18.525C18 19.075 17.8043 19.5457 17.413 19.937C17.021 20.329 16.55 20.525 16 20.525H2ZM13.175 3.1L14.6 4.5L8 11.1V12.525H9.4L16.025 5.9L17.45 7.3L10.25 14.525H6V10.275L13.175 3.1ZM17.45 7.3L13.175 3.1L15.675 0.6C16.075 0.2 16.5543 0 17.113 0C17.671 0 18.1417 0.2 18.525 0.6L19.925 2.025C20.3083 2.40833 20.5 2.875 20.5 3.425C20.5 3.975 20.3083 4.44167 19.925 4.825L17.45 7.3Z"
                   fill="#E4A951"
+                />
+              </svg>
+
+            </button>
+
+            <button class=" px-2 py-2" :disabled="is_published===true"
+                    @click="deleteQuestion(question)"
+            >
+              <svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  :class="{'fill-gray-500': is_published===true, 'fill-red-700': is_published===false}"
+
+                  d="M1 16C1 17.1 1.9 18 3 18H11C12.1 18 13 17.1 13 16V4H1V16ZM3 6H11V16H3V6ZM10.5 1L9.5 0H4.5L3.5 1H0V3H14V1H10.5Z"
+                  fill="currentColor"
                 />
               </svg>
 
@@ -744,6 +758,28 @@ export default {
   },
 
   methods: {
+
+    deleteQuestion (question) {
+      this.$swal.fire({
+        title: 'APAKAH ANDA YAKIN ?',
+        text: 'INGIN MENGHAPUS DATA INI !',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'YA, HAPUS!',
+        cancelButtonText: 'TIDAK',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.$store.dispatch('teacher/question/destroyCategory', question.id)
+            .then((result) => {
+              this.$store.dispatch('teacher/question/getQuestionsData', this.$route.query.challenge)
+
+            })
+
+        }
+      })
+    },
 
     async publishChallenge () {
       const formData = new FormData()
