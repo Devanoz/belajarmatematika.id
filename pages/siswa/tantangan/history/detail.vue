@@ -154,7 +154,7 @@
             <input v-if="item.student_answers.length >0" type="text"
                    :value="item.student_answers[0].answer"
                    :disabled="item.student_answers[0].answer"
-                   :class="{matched: item.student_answers[0].answer === item.answer_key, wrong:item.student_answers[0].answer !== item.answer_key}"
+                   :class="{matched: item.student_answers[0].answer.toLowerCase() === item.answer_key.toLowerCase(), wrong:item.student_answers[0].answer.toLowerCase() !== item.answer_key.toLowerCase()}"
                    class="w-[20.438rem] h-[2.875rem] mb-2  ml-4 rounded-xl border-solid essay flex flex-col justify-center items-center px-3"
                    placeholder="Ketik jawaban"
             >
@@ -163,8 +163,9 @@
                    placeholder="Ketik jawaban"
             >
 
-            <div v-if="item.student_answers.length >0 ? (item.student_answers[0].answer !== item.answer_key): false"
-                 class="correct-answer ml-4"
+            <div
+              v-if="item.student_answers.length >0 ? (item.student_answers[0].answer.toLowerCase() !== item.answer_key.toLowerCase()): false"
+              class="correct-answer ml-4"
             >
               <p class="text-green-600 text-lg font-semibold">Jawaban benar : {{ item.answer_key }}</p>
             </div>
