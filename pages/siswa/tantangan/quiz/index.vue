@@ -191,7 +191,7 @@
 
 
         <span>
-          lanjut
+          Lanjut
         </span>
       </button>
 
@@ -347,6 +347,8 @@ export default {
             showConfirmButton: false,
             timer: 500
           })
+
+          this.$store.dispatch('siswa/user/getDetailUser')
           this.$router.push({
             name: 'siswa-tantangan-history-detail',
             query: {

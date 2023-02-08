@@ -39,7 +39,7 @@ export const actions = {
         .then(response => {
 
           //commit to mutation "SET_USER_DATA"
-          commit('SET_USER_DATA', response.data.data)
+          commit('SET_USER_DATA', response.data)
 
           //resolve promise
           resolve()

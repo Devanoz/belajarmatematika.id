@@ -65,7 +65,8 @@
       <div
         class="leaderboard-list h-[24.875rem] mx-auto -mt-10 rounded-2xl overflow-y-scroll py-5"
       >
-        <Leaderboard v-for="(student,student_idx) in students" :key="student.id" :no="++student_idx"  :name="student.student.name"
+        <Leaderboard v-for="(student,student_idx) in students" :key="student.id" :no="++student_idx"
+                     :name="student.student.name"
                      :image="student.student.image" :point="student.score"
         />
       </div>
@@ -99,6 +100,8 @@ export default {
     store
   }) {
     await store.dispatch('siswa/leaderboard/getStudentsData')
+    await store.dispatch('siswa/user/getDetailUser')
+
   },
 
   computed: {
@@ -106,7 +109,7 @@ export default {
       return parseFloat(this.$auth.user.progress.toFixed(2))
     },
     student () {
-      return this.$auth.user
+      return this.$store.state.siswa.user.user.user
     },
     students () {
       return this.$store.state.siswa.leaderboard.students
@@ -123,9 +126,7 @@ export default {
       }
     }
   },
-  methods : {
-
-  }
+  methods: {}
 
 }
 </script>
