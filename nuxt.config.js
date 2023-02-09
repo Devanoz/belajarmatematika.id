@@ -68,7 +68,26 @@ export default {
     '@nuxt/postcss8',
     //https://github.com/avil13/vue-sweetalert2
     'vue-sweetalert2/nuxt',
+
+    '@nuxtjs/pwa'
   ],
+
+  pwa: {
+    meta: {
+      title: 'Belajarmatematika - Belajar Matematika Jadi Lebih Menyenangkan',
+      author: 'Belajarmatematika'
+    },
+    manifest: {
+      name: 'Belajarmatematika',
+      short_name: 'Belajarmatematika',
+      description: 'Belajar Matematika Jadi Lebih Menyenangkan',
+      lang: 'en'
+    },
+    icon: {
+      fileName: 'images/logo.png',
+      sizes: [64, 120, 144, 152, 192, 384, 512]
+    }
+  },
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
