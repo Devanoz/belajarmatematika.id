@@ -17,7 +17,7 @@
     </div>
 
 
-    <div class="input-video">
+    <div class="input-video h-full">
 
       <form @submit.prevent="storeMateri">
         <div class="topik-section mt-6 px-4 h-auto">
@@ -73,12 +73,20 @@
 
         </div>
 
+
         <div class="button-tambahkan flex flex-row justify-center">
           <button type="submit" class="bg-orange-400 w-3/4 text-white font-bold py-2 mt-7 px-4 rounded-xl">
             Update
           </button>
         </div>
       </form>
+
+      <div class="mt-5 h-full">
+        <iframe class="mt-4" width="100%" height="100%"
+                :src="'https://docs.google.com/viewer?url='+materi.content+'&embedded=true'"
+        ></iframe>
+      </div>
+
 
     </div>
   </div>
@@ -100,7 +108,8 @@ export default {
       materi: {
         judul: '',
         topik: '',
-        file: ''
+        file: '',
+        content: ''
       }
     }
   },
@@ -124,6 +133,7 @@ export default {
   mounted () {
     this.materi.judul = this.$store.state.teacher.materi.materi.title
     this.materi.topik = this.$store.state.teacher.topik.topik
+    this.materi.content = this.$store.state.teacher.materi.materi.content
   },
 
   methods: {
