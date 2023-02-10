@@ -53,7 +53,7 @@ export default {
     {
       src: '~/plugins/VueCircle',
       mode: 'client'
-    },
+    }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -68,7 +68,6 @@ export default {
     '@nuxt/postcss8',
     //https://github.com/avil13/vue-sweetalert2
     'vue-sweetalert2/nuxt',
-
     '@nuxtjs/pwa'
   ],
 

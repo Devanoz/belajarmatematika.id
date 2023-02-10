@@ -113,13 +113,15 @@ export const actions = {
   }, payload) {
 
     //search
-    let search = payload ? payload : ''
+    let search = payload ? payload.search : ''
+    let topik_id = payload ? (payload.topik !== '' ? payload.topik.id !== null ? payload.topik.id : '' : '') : ''
+    let kelas_id = payload ? (payload.kelas !== '' ? payload.kelas.id !== null ? payload.kelas.id : '' : '') : ''
 
     //set promise
     return new Promise((resolve, reject) => {
 
       //fetching Rest API "/api/admin/materis" with method "GET"
-      this.$axios.get(`/api/student/materis?title=${search}&page=${state.page}`)
+      this.$axios.get(`/api/student/materis?title=${search}&page=${state.page}&topik_id=${topik_id}&kelas_id=${kelas_id}`)
 
         //success
         .then((response) => {

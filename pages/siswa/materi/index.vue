@@ -35,7 +35,7 @@
         </svg>
       </div>
 
-      <input @keyup="onSearching" v-model="search"
+      <input @keyup="onSearching" v-model="filter.search"
              class="peer h-full w-full outline-none font-light text-gray-300 pr-2 bg-sky-100"
              type="text"
              id="search"
@@ -87,7 +87,9 @@
       <div class="relative inline-block text-left col-span-4 mr-2 z-20">
 
 
-        <multiselect v-model="filter.kelas" :options="provinces" :searchable="true" placeholder="Select one"
+        <multiselect @input="onRemove" @select="onFilter" v-model="filter.kelas" label="title" :options="classes"
+                     :searchable="true"
+                     placeholder="Pilih kelas"
                      selected-label="" select-label="" deselect-label=""
         >
 
@@ -99,8 +101,10 @@
       <!-- <div class="col-span-1"></div> -->
 
       <!-- dropdown materi -->
-      <div class="relative inline-block text-left shadow-2xl col-span-4 z-20 row-end-11">
-        <multiselect v-model="filter.materi" :options="provinces" :searchable="true" placeholder="Select one"
+      <div class="relative inline-block text-left  col-span-4 z-20 row-end-11">
+        <multiselect @input="onRemove" @select="onFilter" v-model="filter.topik" label="title" :options="topiks"
+                     :searchable="true"
+                     placeholder="Select one"
                      selected-label="" select-label="" deselect-label=""
         >
 
@@ -254,17 +258,19 @@ export default {
   }) {
     await store.dispatch('siswa/materi/getMaterisData')
     await store.dispatch('siswa/materi/getMaterisWithTopikData')
+    await store.dispatch('siswa/kelas/getClasesData')
+    await store.dispatch('siswa/topik/getTopiksData')
   },
   data () {
     return {
       filter: {
         kelas: '',
-        materi: ''
+        topik: '',
+        search: ''
       },
 
       search: '',
       tempMateri: {},
-      topiks: topiks,
       dataSample: dataSamples,
       nama: 'ihsan',
       dropdownClassClicked: false,
@@ -289,6 +295,14 @@ export default {
     },
     user () {
       return this.$auth.user
+    },
+
+    classes () {
+      return this.$store.state.siswa.kelas.clases
+    },
+
+    topiks () {
+      return this.$store.state.siswa.topik.topiks
     }
   },
 
@@ -303,10 +317,27 @@ export default {
   methods: {
     async onSearching (data) {
       console.log(this.search)
-      await this.$store.dispatch('siswa/materi/getMaterisData', this.search)
-      await this.$store.dispatch('siswa/materi/getMaterisWithTopikData', this.search)
+      await this.$store.dispatch('siswa/materi/getMaterisData', this.filter)
+      await this.$store.dispatch('siswa/materi/getMaterisWithTopikData', this.filter)
 
     },
+
+    async onFilter () {
+      await this.$store.dispatch('siswa/materi/getMaterisData', this.filter)
+      console.log(this.filter)
+    },
+
+    async onRemove () {
+      if (this.filter.topik == null) {
+        this.filter.topik = ''
+      }
+      if (this.filter.kelas == null) {
+        this.filter.kelas = ''
+      }
+      await this.$store.dispatch('siswa/materi/getMaterisData', this.filter)
+
+    },
+
     slideMateri (data) {
       this.tempMateri = data
       console.log(this.tempMateri)
