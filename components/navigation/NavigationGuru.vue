@@ -1,9 +1,11 @@
 <template>
-  <div class="bg-white rounded-t-xl shadow-md px-5 sm:px-20 py-6 max-h-[6rem] max-w-screen-sm fixed bottom-0 mx-auto w-full border border-slate-200">
+  <div
+    class="bg-white rounded-t-xl shadow-md px-5 sm:px-20 py-6 max-h-[6rem] max-w-screen-sm fixed bottom-0 mx-auto w-full border border-slate-200"
+  >
     <div class="h-full flex justify-between items-center w-full gap-3">
 
       <button @click="onTopikClicked">
-        <div  class="flex flex-col items-center gap-y-1">
+        <div class="flex flex-col items-center gap-y-1">
           <img v-if="topikClicked" class="h-6 w-auto" src="~/assets/img/navbar/basic/topik-active.svg">
           <img v-else class="h-6 w-auto" src="~/assets/img/navbar/basic/topik-inactive.svg">
           <span class="text-slate-400">Topik</span>
@@ -27,7 +29,7 @@
       </button>
 
       <button @click="onTantanganClicked">
-        <div  class="flex flex-col items-center gap-y-1">
+        <div class="flex flex-col items-center gap-y-1">
           <img v-if="tantanganClicked" class="h-6 w-auto" src="~/assets/img/navbar/basic/tantangan-color.svg">
           <img v-else class="h-6 w-auto" src="~/assets/img/navbar/basic/tantangan.svg">
           <span class="text-slate-400">Tantangan</span>
@@ -36,21 +38,21 @@
       </button>
 
       <button @click="onLeaderboardClicked">
-        <div  class="flex flex-col items-center gap-y-1">
+        <div class="flex flex-col items-center gap-y-1">
           <img v-if="peringkatClicked" class="h-6 w-auto" src="~/assets/img/navbar/basic/peringkat-color.svg">
-          <img v-else  class="h-6 w-auto" src="~/assets/img/navbar/basic/peringkat.svg">
-          <span class="text-slate-400">rank</span>
+          <img v-else class="h-6 w-auto" src="~/assets/img/navbar/basic/peringkat.svg">
+          <span class="text-slate-400">Peringkat</span>
         </div>
       </button>
       <button v-if="isAdmin" @click="onAkunClicked">
-        <div  class="flex flex-col items-center gap-y-1">
+        <div class="flex flex-col items-center gap-y-1">
           <img v-if="accountClicked" class="h-6 w-auto" src="~/assets/img/navbar/basic/account-active.svg">
           <img v-else class="h-6 w-auto" src="~/assets/img/navbar/basic/account-inactive.svg">
           <span class="text-slate-400">Guru</span>
         </div>
       </button>
       <button v-if="isAdmin" @click="onAkunSiswaClicked">
-        <div  class="flex flex-col items-center gap-y-1">
+        <div class="flex flex-col items-center gap-y-1">
           <img v-if="accountSiswaClicked" class="h-6 w-auto" src="~/assets/img/navbar/basic/account-active.svg">
           <img v-else class="h-6 w-auto" src="~/assets/img/navbar/basic/account-inactive.svg">
           <span class="text-slate-400">Siswa</span>
@@ -62,7 +64,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       materiClicked: true,
       videoClicked: false,
@@ -70,19 +72,19 @@ export default {
       peringkatClicked: false,
       topikClicked: false,
       accountClicked: false,
-      accountSiswaClicked:false,
+      accountSiswaClicked: false,
     }
   },
-  computed :{
+  computed: {
     isAdmin () {
-      if(this.$auth.user.role === 'admin'){
+      if (this.$auth.user.role === 'admin') {
         return true
       }
       return false
     },
   },
   methods: {
-    onMateriClicked() {
+    onMateriClicked () {
       this.$router.push({
         name: 'guru-materi',
       })
@@ -94,7 +96,7 @@ export default {
       this.accountClicked = false
       this.accountSiswaClicked = false
     },
-    onVideoClicked() {
+    onVideoClicked () {
       this.$router.push({
         name: 'guru-video',
       })
@@ -105,7 +107,7 @@ export default {
       this.topikClicked = false
       this.accountClicked = false
     },
-    onTantanganClicked() {
+    onTantanganClicked () {
       this.$router.push({
         name: 'guru-tantangan',
       })
@@ -116,7 +118,7 @@ export default {
       this.topikClicked = false
       this.accountClicked = false
     },
-    onTopikClicked() {
+    onTopikClicked () {
       this.$router.push({
         name: 'guru-topik',
       })
@@ -129,7 +131,7 @@ export default {
     },
     onLeaderboardClicked () {
       this.$router.push({
-        name:'guru-leaderboard'
+        name: 'guru-leaderboard'
       })
       this.materiClicked = false
       this.videoClicked = false
@@ -140,7 +142,7 @@ export default {
     },
     onAkunClicked () {
       this.$router.push({
-        name:'guru-akun-guru'
+        name: 'guru-akun-guru'
       })
       this.materiClicked = false
       this.videoClicked = false
