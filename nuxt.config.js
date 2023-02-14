@@ -80,7 +80,9 @@ export default {
       name: 'Belajarmatematika',
       short_name: 'Belajarmatematika',
       description: 'Belajar Matematika Jadi Lebih Menyenangkan',
-      lang: 'en'
+      lang: 'en',
+      start_url: '/',
+      scope: '.'
     },
     icon: {
       fileName: 'images/logo.png',
