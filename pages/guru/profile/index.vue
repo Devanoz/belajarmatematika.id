@@ -24,7 +24,7 @@
         </label>
         <p class="text-xl font-semibold text-white mt-3 text-center">{{ user.name }}</p>
         <p class="text-lg font-medium text-white text-center  text-gray-100">{{ user.email }}</p>
-        <p class="text-lg font-light text-white text-center  text-gray-200">Gabung Sejak {{ user.created_at }}</p>
+        <!-- <p class="text-lg font-light text-white text-center  text-gray-200">Gabung Sejak {{ user.created_at }}</p> -->
 
 
       </div>

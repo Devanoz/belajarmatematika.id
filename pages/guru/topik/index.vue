@@ -51,7 +51,7 @@
                 <img src="@/assets/img/materi/book.svg" alt=""/>
                 <div class="mx-3">
                   <div>{{ video.title }}</div>
-                  <div>{{ getTopikTimeStamp(video.updated_at) }}</div>
+                  <!-- <div>{{ getTopikTimeStamp(video.updated_at) }}</div> -->
                 </div>
                 <button class="absolute right-3 top-3" @click="handleToogleClick(materi_index,video_index)">
                   <img id="toogle" src="@/assets/img/guru/video/tridot.svg"/>

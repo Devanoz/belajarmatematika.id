@@ -26,9 +26,9 @@
                     <span class="font-normal text-md text-gray-700">
                         {{ challenge.title }}
                     </span>
-            <span class="text-gray-400 text-md">
+            <!-- <span class="text-gray-400 text-md">
                         {{ challenge.updated_at }}
-                    </span>
+                    </span> -->
           </div>
           <div class="col-span-1 py-3">
             <client-only class="bg-green-300 ">
