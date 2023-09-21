@@ -36,7 +36,7 @@
             <img v-if="(comment.student)?comment.student.image:comment.teacher.image" :src="(comment.student)?comment.student.image:comment.teacher.image" class="w-10 h-10 rounded-full" alt="student image">
             <div v-if="comment.student || comment.teacher" id="student-detail" class="ml-3">
               <h1 class="font-bold"> {{ (comment.student)?comment.student.name:comment.teacher.name }} </h1>
-              <span>{{ getCommentMoment(comment.updated_at) }}</span>
+              <!-- <span>{{ getCommentMoment(comment.updated_at) }}</span> -->
               <textarea @change="handleCommentChange($event.target.value)" :disabled="show[comment_idx]" class="w-64 card-image drop-shadow-lg bg-gray-200 border-b-2 z-10 mt-2 py-1 px-2 rounded-xl">{{ comment.title }}</textarea>
             </div>
             <div v-if="(comment.student_id)?comment.student_id === getStudentId && show[comment_idx]:false" id="handle-change" class="absolute top-2 right-2 gap-2 flex flex-row justify-center items-center w-auto h-7 card-image drop-shadow-lg bg-gray-200 border-b-2 z-10 py-1 px-2 rounded-xl">
@@ -78,7 +78,7 @@
               <img v-if="reply.student_id?reply.student.image:reply.teacher.image" :src="comment.student.image" class="w-10 h-10 rounded-full" alt="student image">
               <div v-if="comment.student || comment.teacher" id="student-detail" class="ml-3">
                 <h1 class="font-bold"> {{ reply.student_id?reply.student.name:reply.teacher.name }} </h1>
-                <span>{{ getCommentMoment(reply.updated_at) }}</span>
+                <!-- <span>{{ getCommentMoment(reply.updated_at) }}</span> -->
                 <textarea @change="handleReplyChange($event.target.value)" :disabled="replyShowList[comment_idx][reply_index]" class="w-64 card-image drop-shadow-lg bg-white border-b-2 z-10 mt-2 py-1 px-2 rounded-xl">{{ reply.title }}</textarea>
               </div>
               <div v-if="reply.student_id === getStudentId && replyShowList[comment_idx][reply_index]" id="handle-change" class="absolute top-2 right-2 gap-2 flex flex-row justify-center items-center w-auto h-7 card-image drop-shadow-lg bg-gray-200 border-b-2 z-10 py-1 px-2 rounded-xl">

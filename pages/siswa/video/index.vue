@@ -66,9 +66,9 @@
                   <span class="text-lg font-semibold mx-5">
                     {{ video.title }}
                   </span>
-                <span class="text-lg mx-5">
+                <!-- <span class="text-lg mx-5">
                   {{ getVideoTimeStamp(video.updated_at) }}
-                </span>
+                </span> -->
               </div>
             </div>
           </div>

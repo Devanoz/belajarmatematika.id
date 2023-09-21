@@ -36,7 +36,7 @@
               <div class="mx-3">
                 <div class="font-bold">{{ akun.name }}</div>
                 <div class="italic">{{ akun.email }}</div>
-                <div>{{ akun.updated_at }}</div>
+                <!-- <div>{{ akun.updated_at }}</div> -->
                 <button class="absolute right-3 top-3" @click="handleToogleClick(akun_index)">
                   <img id="toogle" src="~/assets/img/guru/video/tridot.svg"/>
                 </button>
