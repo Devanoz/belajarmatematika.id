@@ -117,7 +117,7 @@
 
     <!-- materi vertical -->
     <div class="flex flex-col " :class="{ 'hidden': isMateriVertical }">
-      <div v-for="data in topikWithMateris" class="z-10">
+      <div :key="data.id" v-for="data in topikWithMateris" class="z-10">
         <h2 class="text-xl mt-4 text-cyan-700">{{ data.title }}</h2>
 
         <!-- card materi -->

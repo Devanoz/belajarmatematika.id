@@ -8,6 +8,10 @@ export default {
     height: '5px'
   },
 
+  devServer: {
+    proxy: 'http://backend.belajarmatematika.id',
+},
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'belajar-matematika-ui',

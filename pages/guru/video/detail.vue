@@ -29,7 +29,7 @@
     </div>
     <h1 class="mt-2 ml-2 font-bold">{{ comments.length }} Comments</h1>
     <div id="comment-list" class="h-[48vh] m-3 overflow-y-scroll rounded-xl">
-      <div id="comment-container" v-for="(comment,comment_idx) in comments" :id="comment.id">
+      <div :key="comment.id" id="comment-container" v-for="(comment,comment_idx) in comments" :id="comment.id">
         <div class="relative  card-image drop-shadow-lg border-b-2 mb-2 rounded-xl z-10 bg-white py-3 px-2 my-3 z-20"
              :id="comment.id"
         >
@@ -37,13 +37,13 @@
             <img v-if="(comment.teacher)?!comment.teacher.image:!comment.student.image"
                  src="~/assets/img/murid/profilepic/defaultUser.svg" class="w-10 h-10" alt="student image"
             >
-            <img v-if="(comment.teacher)?comment.teacher.image:comment.student.image"
-                 :src="(comment.teacher)?comment.teacher.image:comment.student.image" class="w-10 h-10 rounded-full"
+            <img v-if="(comment.teacher)?!comment.teacher.image:comment.student.image"
+                 :src="(comment.teacher)?!comment.teacher.image:comment.student.image" class="w-10 h-10 rounded-full"
                  alt="student image"
             >
             <div v-if="comment.teacher || comment.student" id="student-detail" class="ml-3">
               <h1 class="font-bold"> {{ (comment.teacher) ? comment.teacher.name : comment.student.name }} </h1>
-              <span>{{ getCommentMoment(comment.updated_at) }}</span>
+              <!-- <span>{{ getCommentMoment(comment.updated_at) }}</span> -->
               <textarea @change="handleCommentChange($event.target.value)" :disabled="show[comment_idx]"
                         class="w-64 card-image drop-shadow-lg bg-gray-200 border-b-2 z-10 mt-2 py-1 px-2 rounded-xl"
               >{{ comment.title }}</textarea>
@@ -65,7 +65,8 @@
 
           </div>
           <div class="flex gap-5 mt-2">
-            <div v-if="comment.reply_comments.length>0" class="ml-2" @click="onCommentToogleClicked(comment_idx)">^
+            <div v-if="comment.reply_comments.length>0" class="ml-2" @click="onCommentToogleClicked(comment_idx)">
+              <img class="w-4 h-4" src="/images/icons/down-arrow.png" alt="arrow-down">
             </div>
             <transition name="fade">
               <div v-if="showBalas[comment_idx]" @click="onBalas(comment_idx)"
@@ -104,19 +105,19 @@
         </transition>
         <transition name="fade">
           <div v-if="replyShow[comment_idx]">
-            <div v-for="(reply,reply_index) in comment.reply_comments"
+            <div :key="reply.id" v-for="(reply,reply_index) in comment.reply_comments"
                  class="ml-5 bg-gray-100 relative flex card-image drop-shadow-lg border-b-2 mb-2 rounded-xl z-10 bg-white py-3 px-2 my-3 z-20"
             >
-              <img v-if="reply.teacher_id?!reply.teacher.image:!reply.student.image"
+              <img v-if="reply.teacher_id !== null?!reply.teacher.image:!reply.student.image"
                    src="~/assets/img/murid/profilepic/defaultUser.svg" class="w-10 h-10" alt="teacher image"
               >
-              <img v-if="reply.teacher_id?reply.teacher.image:reply.student.image"
-                   :src="(reply.teacher_id)?comment.teacher.image:comment.student.image" class="w-10 h-10 rounded-full"
+              <img v-if="reply.teacher_id !== null ?reply.teacher.image:reply.student.image"
+                   :src="reply.teacher_id !== null ? reply.teacher.image : reply.student.image" class="w-10 h-10 rounded-full"
                    alt="teacher image"
               >
               <div v-if="comment.teacher || comment.student" id="student-detail" class="ml-3">
                 <h1 class="font-bold"> {{ reply.teacher_id ? reply.teacher.name : reply.student.name }} </h1>
-                <span>{{ getCommentMoment(reply.updated_at) }}</span>
+                <!-- <span>{{ getCommentMoment(reply.updated_at) }}</span> -->
                 <textarea @change="handleReplyChange($event.target.value)"
                           :disabled="replyShowList[comment_idx][reply_index]"
                           class="w-64 card-image drop-shadow-lg bg-white border-b-2 z-10 mt-2 py-1 px-2 rounded-xl"
